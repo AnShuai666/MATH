@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/Matrix/../../include/Matrix/define.h
+
+../src/Matrix/../../include/Matrix/matrix.h
+define.h
+../src/Matrix/../../include/Matrix/define.h
+iostream
+-
+
+/home/yft/AnShuai/github/MATH/src/Matrix/matrix.cpp
+Matrix/matrix.h
+/home/yft/AnShuai/github/MATH/src/Matrix/Matrix/matrix.h
+

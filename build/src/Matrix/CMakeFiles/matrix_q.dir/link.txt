@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libmatrix_q.so -o ../../../lib/libmatrix_q.so CMakeFiles/matrix_q.dir/matrix.cpp.o 

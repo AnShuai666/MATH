@@ -1,0 +1,5 @@
+add_subdirectory(Geometry)
+add_subdirectory(Graph)
+add_subdirectory(Matrix)
+add_subdirectory(Optimization)
+add_subdirectory(Probability)
