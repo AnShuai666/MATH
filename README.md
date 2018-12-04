@@ -1,14 +1,20 @@
-This is a cuda study progress by An Shuai and Yang Fengtuo!
+This is a math library by An Shuai,Zhu Hui,Yang Fengtuo ...!
 
 Thank you for watching!
 
-Please feel free and relax to ask questions from An Shuai and Yang Fengtuo!
+Please feel free and relax to ask questions !
 
 An Shuai: 
 
 email: 1028792866@qq.com
 
-Wechat: AS18354287036
+wechat: AS18354287036
+
+Zhu Hui:
+
+email:
+
+wechat:
 
 Yang Fengtuo: 
 
