@@ -111,46 +111,46 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-src/Matrix/CMakeFiles/matrix_q.dir/rule:
-	cd /home/yft/AnShuai/github/MATH/build && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/CMakeFiles/matrix_q.dir/rule
-.PHONY : src/Matrix/CMakeFiles/matrix_q.dir/rule
+src/Matrix/CMakeFiles/matrix_base.dir/rule:
+	cd /home/yft/AnShuai/github/MATH/build && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/CMakeFiles/matrix_base.dir/rule
+.PHONY : src/Matrix/CMakeFiles/matrix_base.dir/rule
 
 # Convenience name for target.
-matrix_q: src/Matrix/CMakeFiles/matrix_q.dir/rule
+matrix_base: src/Matrix/CMakeFiles/matrix_base.dir/rule
 
-.PHONY : matrix_q
+.PHONY : matrix_base
 
 # fast build rule for target.
-matrix_q/fast:
-	cd /home/yft/AnShuai/github/MATH/build && $(MAKE) -f src/Matrix/CMakeFiles/matrix_q.dir/build.make src/Matrix/CMakeFiles/matrix_q.dir/build
-.PHONY : matrix_q/fast
+matrix_base/fast:
+	cd /home/yft/AnShuai/github/MATH/build && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/build
+.PHONY : matrix_base/fast
 
-matrix.o: matrix.cpp.o
+a.o: a.cpp.o
 
-.PHONY : matrix.o
+.PHONY : a.o
 
 # target to build an object file
-matrix.cpp.o:
-	cd /home/yft/AnShuai/github/MATH/build && $(MAKE) -f src/Matrix/CMakeFiles/matrix_q.dir/build.make src/Matrix/CMakeFiles/matrix_q.dir/matrix.cpp.o
-.PHONY : matrix.cpp.o
+a.cpp.o:
+	cd /home/yft/AnShuai/github/MATH/build && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/a.cpp.o
+.PHONY : a.cpp.o
 
-matrix.i: matrix.cpp.i
+a.i: a.cpp.i
 
-.PHONY : matrix.i
+.PHONY : a.i
 
 # target to preprocess a source file
-matrix.cpp.i:
-	cd /home/yft/AnShuai/github/MATH/build && $(MAKE) -f src/Matrix/CMakeFiles/matrix_q.dir/build.make src/Matrix/CMakeFiles/matrix_q.dir/matrix.cpp.i
-.PHONY : matrix.cpp.i
+a.cpp.i:
+	cd /home/yft/AnShuai/github/MATH/build && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/a.cpp.i
+.PHONY : a.cpp.i
 
-matrix.s: matrix.cpp.s
+a.s: a.cpp.s
 
-.PHONY : matrix.s
+.PHONY : a.s
 
 # target to generate assembly for a file
-matrix.cpp.s:
-	cd /home/yft/AnShuai/github/MATH/build && $(MAKE) -f src/Matrix/CMakeFiles/matrix_q.dir/build.make src/Matrix/CMakeFiles/matrix_q.dir/matrix.cpp.s
-.PHONY : matrix.cpp.s
+a.cpp.s:
+	cd /home/yft/AnShuai/github/MATH/build && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/a.cpp.s
+.PHONY : a.cpp.s
 
 # Help Target
 help:
@@ -160,10 +160,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... matrix_q"
-	@echo "... matrix.o"
-	@echo "... matrix.i"
-	@echo "... matrix.s"
+	@echo "... matrix_base"
+	@echo "... a.o"
+	@echo "... a.i"
+	@echo "... a.s"
 .PHONY : help
 
 

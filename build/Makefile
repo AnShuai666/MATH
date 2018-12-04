@@ -124,17 +124,17 @@ matrix_main/fast:
 .PHONY : matrix_main/fast
 
 #=============================================================================
-# Target rules for targets named matrix_q
+# Target rules for targets named matrix_base
 
 # Build rule for target.
-matrix_q: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 matrix_q
-.PHONY : matrix_q
+matrix_base: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 matrix_base
+.PHONY : matrix_base
 
 # fast build rule for target.
-matrix_q/fast:
-	$(MAKE) -f src/Matrix/CMakeFiles/matrix_q.dir/build.make src/Matrix/CMakeFiles/matrix_q.dir/build
-.PHONY : matrix_q/fast
+matrix_base/fast:
+	$(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/build
+.PHONY : matrix_base/fast
 
 # Help Target
 help:
@@ -145,7 +145,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... matrix_main"
-	@echo "... matrix_q"
+	@echo "... matrix_base"
 .PHONY : help
 
 

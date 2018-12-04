@@ -7,8 +7,11 @@
 #ifndef  __DEFINE_H__
 #define  __DEFINE_H__
 
-#define MATRIX_BEGIN namespace matrix {
-#define MATRIX_END }
+#define MATRIX_NAMESPACE_BEGIN namespace matrix {
+#define MATRIX_NAMESPACE_END }
+
+#define VECTOR_NAMESPACE_BEGIN namespace vector {
+#define VECTOR_NAMESPACE_END }
 
 #endif  //__DEFINE_H__
 

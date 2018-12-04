@@ -3,5 +3,5 @@
 
 examples/Matrix/CMakeFiles/matrix_main.dir/matrix_main.cpp.o
  ../examples/Matrix/../../include/Matrix/define.h
- ../examples/Matrix/../../include/Matrix/matrix.h
+ ../examples/Matrix/../../include/Matrix/matrix.hpp
  /home/yft/AnShuai/github/MATH/examples/Matrix/matrix_main.cpp

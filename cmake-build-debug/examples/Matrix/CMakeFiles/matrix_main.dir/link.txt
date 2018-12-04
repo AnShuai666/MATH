@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -g  -rdynamic CMakeFiles/matrix_main.dir/matrix_main.cpp.o  -o ../../../examples_bin/matrix_main -Wl,-rpath,/home/yft/AnShuai/github/MATH/lib ../../../lib/libmatrix_base.so 

@@ -90,7 +90,7 @@ matrix_main_EXTERNAL_OBJECTS =
 
 ../examples_bin/matrix_main: examples/Matrix/CMakeFiles/matrix_main.dir/matrix_main.cpp.o
 ../examples_bin/matrix_main: examples/Matrix/CMakeFiles/matrix_main.dir/build.make
-../examples_bin/matrix_main: ../lib/libmatrix_q.so
+../examples_bin/matrix_main: ../lib/libmatrix_base.so
 ../examples_bin/matrix_main: examples/Matrix/CMakeFiles/matrix_main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/yft/AnShuai/github/MATH/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../../../examples_bin/matrix_main"
 	cd /home/yft/AnShuai/github/MATH/build/examples/Matrix && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/matrix_main.dir/link.txt --verbose=$(VERBOSE)

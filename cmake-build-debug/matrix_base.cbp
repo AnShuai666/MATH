@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="matrix_base"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\examples\;CMake Files\examples\Geometry\;CMake Files\examples\Graph\;CMake Files\examples\Matrix\;CMake Files\examples\Optimization\;CMake Files\examples\Probability\;CMake Files\src\;CMake Files\src\Geometry\;CMake Files\src\Graph\;CMake Files\src\Matrix\;CMake Files\src\Optimization\;CMake Files\src\Probability\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/yft/AnShuai/github/MATH/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/yft/AnShuai/github/MATH/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/yft/AnShuai/github/MATH/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="matrix_main">
+				<Option output="/home/yft/AnShuai/github/MATH/examples_bin/matrix_main" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/yft/AnShuai/github/MATH/examples_bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/yft/AnShuai/github/MATH/examples/Matrix/../../include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/examples/Matrix/Makefile&quot;  VERBOSE=1 matrix_main"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/examples/Matrix/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/examples/Matrix/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/examples/Matrix/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="matrix_main/fast">
+				<Option output="/home/yft/AnShuai/github/MATH/examples_bin/matrix_main" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/yft/AnShuai/github/MATH/examples_bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/yft/AnShuai/github/MATH/examples/Matrix/../../include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/examples/Matrix/Makefile&quot;  VERBOSE=1 matrix_main/fast"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/examples/Matrix/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/examples/Matrix/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/examples/Matrix/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="matrix_base">
+				<Option output="/home/yft/AnShuai/github/MATH/lib/libmatrix_base.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/yft/AnShuai/github/MATH/cmake-build-debug/src/Matrix"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/yft/AnShuai/github/MATH/src/Matrix/../../include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/src/Matrix/Makefile&quot;  VERBOSE=1 matrix_base"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/src/Matrix/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/src/Matrix/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/src/Matrix/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="matrix_base/fast">
+				<Option output="/home/yft/AnShuai/github/MATH/lib/libmatrix_base.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/yft/AnShuai/github/MATH/cmake-build-debug/src/Matrix"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/yft/AnShuai/github/MATH/src/Matrix/../../include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/src/Matrix/Makefile&quot;  VERBOSE=1 matrix_base/fast"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/src/Matrix/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/src/Matrix/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/yft/AnShuai/github/MATH/cmake-build-debug/src/Matrix/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/yft/AnShuai/github/MATH/examples/Matrix/matrix_main.cpp">
+			<Option target="matrix_main"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/include/Matrix/define.h">
+			<Option target="matrix_base"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/include/Matrix/matrix.hpp">
+			<Option target="matrix_base"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/src/Matrix/a.cpp">
+			<Option target="matrix_base"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/examples/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\examples\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/examples/Geometry/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\examples\Geometry\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/examples/Graph/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\examples\Graph\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/examples/Matrix/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\examples\Matrix\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/examples/Optimization/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\examples\Optimization\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/examples/Probability/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\examples\Probability\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/src/Geometry/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\Geometry\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/src/Graph/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\Graph\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/src/Matrix/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\Matrix\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/src/Optimization/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\Optimization\"/>
+		</Unit>
+		<Unit filename="/home/yft/AnShuai/github/MATH/src/Probability/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\Probability\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
