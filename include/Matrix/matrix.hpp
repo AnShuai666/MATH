@@ -66,7 +66,7 @@ MATRIX_BEGIN
     template <typename T>
     Matrix<T>::Matrix(int m, int n):rows(m),cols(n)
     {
-        M = (int **) new T[this->rows];
+        M = (T **) new T[this->rows];
         for(int i = 0; i < this->rows; i++)
         {
             M[i] = new T[this->cols];
