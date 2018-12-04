@@ -5,15 +5,15 @@
  * 邮箱:
 */
 
-#include <Matrix/matrix.h>
+#include <Matrix/matrix.hpp>
 
-//using namespace matrix;
+using namespace matrix;
 
 int main()
 {
     cout<<"sfd"<<endl;
-    matrix::Matrix<int> matrix1;
-    //cout<<matrix1<<endl;
+    Matrix<int> matrix1;
+    cout<<matrix1<<endl;
     return 0;
 }
 
