@@ -150,6 +150,46 @@ typedef Vector<double,6> Vector6d;
         */
         ~Vector();
 
+/********************************************************************
+ *~~~~~~~~~~~~~~~~~~~~~~Vector运算符重载~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *******************************************************************/
+    public:
+        /*
+        *  @property   普通构造函数
+        *  @func       用m-1维的向量与value1对向量（m维的数组）进行初始化
+        *  @param_in   vector1
+        *  @param_in   value
+        */
+        T* operator* ();
+
+        T const* operator* () const;
+
+        T& operator[] (int index) const;
+
+        T& operator() (int index);
+
+        T const& operator() (int index) const;
+
+        Vector<T,m>& operator+= (Vector<T,m> const& vector1);
+
+        Vector<T,m>& operator+ (Vector<T,m> const& vector1) const;
+
+        Vector<T,m>& operator+= (T const& value);
+
+        Vector<T,m>& operator+ (T const& value) const;
+
+        Vector<T,m>& operator-= (Vector<T,m> const& vector1);
+
+        Vector<T,m>& operator- (Vector<T,m> const& vector1) const;
+
+        Vector<T,m>& operator-= (T const& value);
+
+        Vector<T,m>& operator- (T const& value) const;
+
+
+
+
+
     protected:
         T V[m];
 
@@ -237,6 +277,98 @@ typedef Vector<double,6> Vector6d;
         delete []V;
     }
 
+    template <typename T,int m>
+    inline T*
+    Vector<T,m>::operator* ()
+    {
+
+    }
+
+    template <typename T,int m>
+    inline     T const*
+    Vector<T,m>::operator* () const
+    {
+
+    }
+
+    template <typename T,int m>
+    inline  T&
+    Vector<T,m>::operator[] (int index) const
+    {
+
+    }
+
+    template <typename T,int m>
+    inline  T&
+    Vector<T,m>::operator() (int index)
+    {
+
+    }
+
+    template <typename T,int m>
+    inline  T const&
+    Vector<T,m>::operator() (int index) const
+    {
+
+    }
+
+    template <typename T,int m>
+    inline  Vector<T,m>&
+    Vector<T,m>::operator+= (Vector<T,m> const& vector1)
+    {
+
+    }
+
+    template <typename T,int m>
+    inline  Vector<T,m>&
+    Vector<T,m>::operator+ (Vector<T,m> const& vector1) const
+    {
+
+    }
+
+    template <typename T,int m>
+    inline  Vector<T,m>&
+    Vector<T,m>::operator+= (T const& value)
+    {
+
+    }
+
+    template <typename T,int m>
+    inline  Vector<T,m>&
+    Vector<T,m>::operator+ (T const& value) const
+    {
+
+    }
+
+    template <typename T,int m>
+    inline  Vector<T,m>&
+    Vector<T,m>::operator-= (Vector<T,m> const& vector1)
+    {
+
+    }
+
+    template <typename T,int m>
+    inline  Vector<T,m>&
+    Vector<T,m>::operator- (Vector<T,m> const& vector1) const
+    {
+
+    }
+
+    template <typename T,int m>
+    inline   Vector<T,m>&
+    Vector<T,m>::operator-= (T const& value)
+    {
+
+    }
+
+    template <typename T,int m>
+    inline  Vector<T,m>&
+    Vector<T,m>::operator- (T const& value) const
+    {
+
+    }
+
 
 VECTOR_NAMESPACE_END
+
 #endif //__VECTOR_H__
