@@ -1,4 +1,4 @@
-# Install script for directory: /home/yft/AnShuai/github/MATH/src/Graph
+# Install script for directory: /home/as/MATH/src/Graph
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

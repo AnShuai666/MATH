@@ -1,4 +1,4 @@
-# Install script for directory: /home/yft/AnShuai/github/MATH/examples/Optimization
+# Install script for directory: /home/as/MATH/examples/Optimization
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
