@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/MATH.dir/examples/Matrix/matrix_main.cpp.o CMakeFiles/MATH.dir/src/Matrix/a.cpp.o  -o MATH 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/yft/AnShuai/github/MATH/src/Probability
+# Install script for directory: /home/as/MATH/src/Probability
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

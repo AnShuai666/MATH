@@ -6,5 +6,5 @@ CXX_FLAGS = -fPIC -g   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/yft/AnShuai/github/MATH/examples/Matrix/../../include 
+CXX_INCLUDES = -I/home/as/MATH/examples/Matrix/../../include 
 

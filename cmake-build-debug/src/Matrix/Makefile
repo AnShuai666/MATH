@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/yft/clion/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/yhl/software/clion-2018.2.6/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/yft/clion/bin/cmake/linux/bin/cmake -E remove -f
+RM = /home/yhl/software/clion-2018.2.6/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/yft/AnShuai/github/MATH
+CMAKE_SOURCE_DIR = /home/as/MATH
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/yft/AnShuai/github/MATH/cmake-build-debug
+CMAKE_BINARY_DIR = /home/as/MATH/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/yft/AnShuai/github/MATH/cmake-build-debug
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/yft/clion/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/yhl/software/clion-2018.2.6/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -70,7 +70,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/yft/clion/bin/cmake/linux/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/yhl/software/clion-2018.2.6/bin/cmake/linux/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -80,14 +80,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/yft/AnShuai/github/MATH/cmake-build-debug/CMakeFiles /home/yft/AnShuai/github/MATH/cmake-build-debug/src/Matrix/CMakeFiles/progress.marks
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/yft/AnShuai/github/MATH/cmake-build-debug/CMakeFiles 0
+	cd /home/as/MATH/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/as/MATH/cmake-build-debug/CMakeFiles /home/as/MATH/cmake-build-debug/src/Matrix/CMakeFiles/progress.marks
+	cd /home/as/MATH/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/as/MATH/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/clean
+	cd /home/as/MATH/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/preinstall
+	cd /home/as/MATH/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/preinstall
+	cd /home/as/MATH/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/as/MATH/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/Matrix/CMakeFiles/matrix_base.dir/rule:
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/CMakeFiles/matrix_base.dir/rule
+	cd /home/as/MATH/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 src/Matrix/CMakeFiles/matrix_base.dir/rule
 .PHONY : src/Matrix/CMakeFiles/matrix_base.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ matrix_base: src/Matrix/CMakeFiles/matrix_base.dir/rule
 
 # fast build rule for target.
 matrix_base/fast:
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/build
+	cd /home/as/MATH/cmake-build-debug && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/build
 .PHONY : matrix_base/fast
 
 a.o: a.cpp.o
@@ -131,7 +131,7 @@ a.o: a.cpp.o
 
 # target to build an object file
 a.cpp.o:
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/a.cpp.o
+	cd /home/as/MATH/cmake-build-debug && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/a.cpp.o
 .PHONY : a.cpp.o
 
 a.i: a.cpp.i
@@ -140,7 +140,7 @@ a.i: a.cpp.i
 
 # target to preprocess a source file
 a.cpp.i:
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/a.cpp.i
+	cd /home/as/MATH/cmake-build-debug && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/a.cpp.i
 .PHONY : a.cpp.i
 
 a.s: a.cpp.s
@@ -149,7 +149,7 @@ a.s: a.cpp.s
 
 # target to generate assembly for a file
 a.cpp.s:
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/a.cpp.s
+	cd /home/as/MATH/cmake-build-debug && $(MAKE) -f src/Matrix/CMakeFiles/matrix_base.dir/build.make src/Matrix/CMakeFiles/matrix_base.dir/a.cpp.s
 .PHONY : a.cpp.s
 
 # Help Target
@@ -175,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/yft/AnShuai/github/MATH/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/as/MATH/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

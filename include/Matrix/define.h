@@ -13,6 +13,10 @@
 #define VECTOR_NAMESPACE_BEGIN namespace vector {
 #define VECTOR_NAMESPACE_END }
 
+#define ALGORITHM_NAMESPACE_BEGIN namespace algorithm {
+#define ALGORITHM_NAMESPACE_END }
+
+
 #endif  //__DEFINE_H__
 
 

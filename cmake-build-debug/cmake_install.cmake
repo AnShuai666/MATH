@@ -1,4 +1,4 @@
-# Install script for directory: /home/yft/AnShuai/github/MATH
+# Install script for directory: /home/as/MATH
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/yft/AnShuai/github/MATH/cmake-build-debug/examples/cmake_install.cmake")
-  include("/home/yft/AnShuai/github/MATH/cmake-build-debug/src/cmake_install.cmake")
+  include("/home/as/MATH/cmake-build-debug/examples/cmake_install.cmake")
+  include("/home/as/MATH/cmake-build-debug/src/cmake_install.cmake")
 
 endif()
 
@@ -52,5 +52,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/yft/AnShuai/github/MATH/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/as/MATH/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
