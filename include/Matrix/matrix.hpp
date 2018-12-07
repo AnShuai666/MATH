@@ -13,15 +13,29 @@
 using namespace std;
 
 MATRIX_NAMESPACE_BEGIN
-template <typename T>
+template <typename T, int m, int n>
 class Matrix
 {
 public:
-    typedef shared_ptr<Matrix<T>> Ptr;
+    //静态变量开始进行初始化，constexpr rows 与cols不变
+    static int constexpr rows = m;
+    static int constexpr cols = n;
 
-	Matrix();
+    //默认构造函数
+	Matrix(void);
 
-	Matrix(int m,int n);
+	/* 一般构造函数
+	 * 行主序，用一个已有的数组（m*n的矩阵）来初始化矩阵
+	 * @param_in   arr  输入数组
+	 */
+	Matrix(T const *arr);
+
+	/* 一般构造函数
+	 * 对矩阵进行初始化，值全为value
+	 * @param_in    value   输入值
+	*/
+	Matrix(T const &value);
+
 
 	//TODO(1): 加const关键字防止更改参数
 	Matrix( Matrix& );
@@ -44,9 +58,8 @@ public:
     }
 
 private:
-	int rows = 0;
-	int cols = 0;
-	T **M;
+
+
 	enum NORM_TYPE
     {
 	    L1,
@@ -54,7 +67,8 @@ private:
 	    L0 //L0表示无穷范数
     };
 	
-protected:	
+protected:
+    T M[m * n];
 public:
 
     inline int getRows()
@@ -187,51 +201,31 @@ public:
 
 
 
-MATRIX_END
+MATRIX_NAMESPACE_END
 
 #endif //__MATRIX_H__
 
 
 
-MATRIX_BEGIN
+MATRIX_NAMESPACE_BEGIN
 
-    template <typename T>
-    Matrix<T>::Matrix()
+    template <typename T, int m, int n>
+    Matrix<T,m,n>::Matrix()
     {
-        this->rows = 1;
-        this->cols = 1;
 
-        M = (int **) new int[this->rows];
-        for(int i = 0; i < this->rows; i++)
-        {
-            M[i] = new int[this->cols];
-        }
-
-        for(int i = 0; i < this->rows; i++)
-        {
-            for(int j = 0; j < this->cols; j++)
-            {
-                M[i][j] = 0;
-            }
-        }
     }
 
 
-    template <typename T>
-    Matrix<T>::Matrix(int m, int n):rows(m),cols(n)
+    template <typename T,int m, int n>
+    Matrix<T,m,n>::Matrix(T const *arr)
     {
-        M = (T **) new T[this->rows];
-        for(int i = 0; i < this->rows; i++)
-        {
-            M[i] = new T[this->cols];
-        }
-        for(int i = 0; i < this->rows; i++)
-        {
-            for(int j = 0; j < this->cols; j++)
-            {
-                M[i][j] = 0;
-            }
-        }
+        std::copy(arr,arr + m * n,M);
+    }
+
+    template <typename T, int m, int n>
+    Matrix<T,m,n>::Matrix(const T &value)
+    {
+        
     }
 
     template <typename T>
