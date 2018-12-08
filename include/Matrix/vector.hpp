@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include "define.h"
+#include <algorithm>
 using namespace std;
 VECTOR_NAMESPACE_BEGIN
 
@@ -155,39 +156,171 @@ typedef Vector<double,6> Vector6d;
  *******************************************************************/
     public:
         /*
-        *  @property   普通构造函数
-        *  @func       用m-1维的向量与value1对向量（m维的数组）进行初始化
-        *  @param_in   vector1
-        *  @param_in   value
+        *  @property   重载运算符*
+        *  @func       对向量进行解引用,以便访问成员变量V
+        *  @return     T*
         */
         T* operator* ();
 
+        /*
+        *  @property   重载运算符*
+        *  @func       对向量进行解引用,以便访问成员变量V
+        *  @return     T const*
+        */
         T const* operator* () const;
 
+        /*
+        *  @property   重载运算符[]
+        *  @func       访问向量V元素 V[index]
+        *  @param_in   index
+        *  @return     T&
+        */
         T& operator[] (int index) const;
 
+        /*
+        *  @property   重载运算符()
+        *  @func       访问向量V元素 V(index)
+        *  @param_in   index
+        *  @return     T&
+        */
         T& operator() (int index);
 
+        /*
+        *  @property   重载运算符()
+        *  @func       访问向量V元素 V(index)
+        *  @param_in   index
+        *  @return     T const&
+        */
         T const& operator() (int index) const;
 
+        /*
+        *  @property   重载运算符+=
+        *  @func       将向量与vector1对应元素相加
+        *  @param_in   vector1
+        *  @return     Vector<T,m>&
+        */
         Vector<T,m>& operator+= (Vector<T,m> const& vector1);
 
+        /*
+        *  @property   重载运算符+
+        *  @func       将向量与vector1对应元素相加
+        *  @param_in   vector1
+        *  @return     Vector<T,m>&
+        */
         Vector<T,m>& operator+ (Vector<T,m> const& vector1) const;
 
+        /*
+        *  @property   重载运算符+=
+        *  @func       将向量每个元素对加上value
+        *  @param_in   value
+        *  @return     Vector<T,m>&
+        */
         Vector<T,m>& operator+= (T const& value);
 
+        /*
+        *  @property   重载运算符+
+        *  @func       将向量每个元素对加上value
+        *  @param_in   value
+        *  @return     Vector<T,m>&
+        */
         Vector<T,m>& operator+ (T const& value) const;
 
+        /*
+        *  @property   重载运算符-=
+        *  @func       将向量与vector1对应元素相加
+        *  @param_in   vector1
+        *  @return     Vector<T,m>&
+        */
         Vector<T,m>& operator-= (Vector<T,m> const& vector1);
 
+        /*
+        *  @property   重载运算符-
+        *  @func       将向量与vector1对应元素相加
+        *  @param_in   vector1
+        *  @return     Vector<T,m>&
+        */
         Vector<T,m>& operator- (Vector<T,m> const& vector1) const;
 
+        /*
+        *  @property   重载运算符-=
+        *  @func       将向量每个元素对加上value
+        *  @param_in   value
+        *  @return     Vector<T,m>&
+        */
         Vector<T,m>& operator-= (T const& value);
 
+        /*
+        *  @property   重载运算符-
+        *  @func       将向量每个元素对加上value
+        *  @param_in   value
+        *  @return     Vector<T,m>&
+        */
         Vector<T,m>& operator- (T const& value) const;
 
+        /*
+        *  @property   重载运算符*=
+        *  @func       将向量每个元素对乘上value 数乘
+        *  @param_in   value
+        *  @return     Vector<T,m>&
+        */
+        Vector<T,m>& operator*= (T const value);
 
+        /*
+        *  @property   重载运算符*
+        *  @func       将向量每个元素对乘上value 数乘
+        *  @param_in   value
+        *  @return     Vector<T,m>&
+        */
+        Vector<T,m>& operator* (T const value) const;
 
+        /*
+        *  @property   重载运算符/
+        *  @func       将向量每个元素对乘上value 数乘
+        *  @param_in   value
+        *  @return     Vector<T,m>&
+        */
+        Vector<T,m>& operator/= (T const value);
+
+        /*
+        *  @property   重载运算符/
+        *  @func       将向量每个元素对乘上value 数乘
+        *  @param_in   value
+        *  @return     Vector<T,m>&
+        */
+        Vector<T,m>& operator/ (T const value) const;
+
+        /*
+        *  @property   重载运算符==
+        *  @func       比较两向量是否相等
+        *  @param_in   vector1
+        *  @return     bool
+        */
+        bool operator== (Vector<T,m> const& vector1) const;
+
+/*
+        *  @property   重载运算符!=
+        *  @func       比较两向量是否不相等
+        *  @param_in   vector1
+        *  @return     bool
+        */
+        bool operator!= (Vector<T,m> const& vector1) const;
+
+        /*
+        *  @property   重载运算符=
+        *  @func       赋值运算符 同类型赋值
+        *  @param_in   vector1
+        *  @return     bool
+        */
+        Vector<T,m>& operator= (Vector<T,m> const& vector1);
+
+        /*
+        *  @property   重载运算符=
+        *  @func       赋值运算符 任意类型赋值
+        *  @param_in   vector1
+        *  @return     bool
+        */
+        template <typename T1>
+        Vector<T,m>& operator= (Vector<T1,m> const& vector1);
 
 
     protected:
@@ -281,92 +414,172 @@ typedef Vector<double,6> Vector6d;
     inline T*
     Vector<T,m>::operator* ()
     {
-
+        return V;
     }
 
     template <typename T,int m>
     inline     T const*
     Vector<T,m>::operator* () const
     {
-
+        return V;
     }
 
     template <typename T,int m>
     inline  T&
     Vector<T,m>::operator[] (int index) const
     {
-
+        return V[index];
     }
 
     template <typename T,int m>
     inline  T&
     Vector<T,m>::operator() (int index)
     {
-
+        return V[index];
     }
 
     template <typename T,int m>
     inline  T const&
     Vector<T,m>::operator() (int index) const
     {
-
+        return V[index];
     }
 
     template <typename T,int m>
     inline  Vector<T,m>&
     Vector<T,m>::operator+= (Vector<T,m> const& vector1)
     {
-
+        std::transform(V,V + m, vector1.V,V,std::plus<T>());
+        return *this;
     }
 
     template <typename T,int m>
     inline  Vector<T,m>&
     Vector<T,m>::operator+ (Vector<T,m> const& vector1) const
     {
-
+        return Vector<T,m>(*this) += vector1;
     }
 
     template <typename T,int m>
     inline  Vector<T,m>&
     Vector<T,m>::operator+= (T const& value)
     {
-
+        for (auto& v : V)
+            v += value;
+        return *this;
     }
 
     template <typename T,int m>
     inline  Vector<T,m>&
     Vector<T,m>::operator+ (T const& value) const
     {
-
+        for(auto& v : V)
+        {
+            v += value;
+        }
+        return *this;
     }
 
     template <typename T,int m>
     inline  Vector<T,m>&
     Vector<T,m>::operator-= (Vector<T,m> const& vector1)
     {
-
+        std::transform(V,V + m, vector1.V,V,std::plus<T>());
+        return *this;
     }
 
     template <typename T,int m>
     inline  Vector<T,m>&
     Vector<T,m>::operator- (Vector<T,m> const& vector1) const
     {
-
+        Vector<T,m>(*this) += vector1;
     }
 
     template <typename T,int m>
     inline   Vector<T,m>&
     Vector<T,m>::operator-= (T const& value)
     {
-
+        for (auto& v : V)
+            v += value;
+        return *this;
     }
 
     template <typename T,int m>
     inline  Vector<T,m>&
     Vector<T,m>::operator- (T const& value) const
     {
-
+        for(auto& v : V)
+        {
+            v +=value;
+        }
+        return *this;
     }
+
+    template <typename T, int m>
+    inline Vector<T,m>&
+    Vector<T,m>::operator*= (T const value)
+    {
+        for(auto& v : V)
+        {
+            v *= value;
+        }
+        return *this;
+    }
+
+    template <typename T, int m>
+    inline Vector<T,m>&
+    Vector<T,m>::operator* (T const value) const
+    {
+        return Vector<T,m>(*this) += value;
+    }
+
+    template <typename T, int m>
+    inline Vector<T,m>&
+    Vector<T,m>::operator/= (T const value)
+    {
+        for (auto& v : V)
+        {
+            v /= value;
+        }
+        return *this;
+    }
+
+    template <typename T,int m>
+    inline Vector<T,m>&
+    Vector<T,m>::operator/ (T const value) const
+    {
+        return Vector<T,m>(*this) += value;
+    }
+
+    template <typename T,int m>
+    inline bool
+    Vector<T,m>::operator== (Vector<T,m> const& vector1) const
+    {
+        return std::equal(V,V+m,*vector1);
+    }
+
+    template <typename T,int m >
+    inline bool
+    Vector<T,m>::operator!= (Vector<T,m> const& vector1) const
+    {
+        return  !std::equal(V,V+m,*vector1);
+    }
+
+    template <typename T,int m>
+    inline Vector<T,m>&
+    Vector<T,m>::operator= (Vector<T,m> const& vector1)
+    {
+        return Vector<T,m>(vector1);
+    }
+
+    template <typename T,int m>
+    template <typename T1>
+    inline Vector<T,m>&
+    Vector<T,m>::operator= (Vector<T1,m> const& vector1)
+    {
+        return Vector<T,m>(vector1);
+    }
+
 
 
 VECTOR_NAMESPACE_END

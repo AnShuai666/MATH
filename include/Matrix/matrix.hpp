@@ -430,17 +430,17 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator+= (T const& value)
     {
-        for(auto a : M)
-        {
-            a+=value;
-        }
+            for(auto& a : M)
+            {
+                a+=value;
+            }
     }
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator+ (T const& value) const
     {
-        for(auto a : M)
+        for(auto& a : M)
             a += value;
     }
 
