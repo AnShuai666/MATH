@@ -329,7 +329,8 @@ public:
     *  @param_in   vector1
     *  @return     bool
     */
-    ostream& operator<< (ostream& out,Vector<T,m>& vector1);
+
+    friend ostream& operator<< (ostream& out,Vector<T,m>& vector1);
 
 
 
