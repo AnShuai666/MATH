@@ -66,13 +66,14 @@ typedef Vector<double,6> Vector6d;
 template <typename T,int m>
 class Vector
 {
+public:
     //声明向量维度，static保证必须初始化时给定行列值
     static int constexpr dim = m;
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~构造函数与析构函数~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 *******************************************************************/
 
-
+    public:
     /*
      *  @property   默认构造函数
      *  @func       对向量的dim进行初始化
@@ -391,12 +392,22 @@ public:
 ********************************************************************/
 public:
     /*
-    *  @property   求积
-    *  @func       求向量所有元素的积
+    *  @property   求模长
+    *  @func       求向量的模长或者长度
     *  @const      防止修改类变量
     *  @return     T
     */
     T norm() const;
+
+    /*
+    *  @property   求模长平方
+    *  @func       求向量的模长或者长度的平方
+    *  @const      防止修改类变量
+    *  @return     T
+    */
+    T norm_square() const;
+
+
 
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~~Vector二元运算~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -675,7 +686,6 @@ Vector<T,m>::operator<< (ostream& out)
         out<<v<<endl;
     return out;
 }
-
 
 
 template <typename T, int m>
