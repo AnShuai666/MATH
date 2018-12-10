@@ -11,6 +11,7 @@
 #include <iostream>
 #include "define.h"
 #include <algorithm>
+#include <iterator>
 using namespace std;
 VECTOR_NAMESPACE_BEGIN
 
@@ -151,6 +152,46 @@ public:
      *  @func       释放V内存
     */
     //~Vector();//没有new 不需要析构
+
+/********************************************************************
+*~~~~~~~~~~~~~~~~~~~~~~~~Vector迭代器~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************************************/
+public:
+    /*
+    *  @property   迭代器
+    *  @func       代表向量第一个元素的指针
+    *  @const1     防止修改返回指针
+    *  @const2     防止修改类变量
+    *  @return     T*
+    */
+    T* begin();
+
+    /*
+    *  @property   迭代器
+    *  @func       代表向量第一个元素的指针
+    *  @const1     防止修改返回指针
+    *  @const2     防止修改类变量
+    *  @return     T const*
+    */
+    T const* begin() const;
+
+    /*
+    *  @property   迭代器
+    *  @func       代表向量最后一个元素的指针
+    *  @const1     防止修改返回指针
+    *  @const2     防止修改类变量
+    *  @return     T*
+    */
+    T* end();
+
+    /*
+    *  @property   迭代器
+    *  @func       代表向量最后一个元素的指针
+    *  @const1     防止修改返回指针
+    *  @const2     防止修改类变量
+    *  @return     T const*
+    */
+    T const* end() const;
 
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~~Vector运算符重载~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -422,45 +463,7 @@ public:
     */
     T dot(Vector<T,m>&) const;
 
-/********************************************************************
-*~~~~~~~~~~~~~~~~~~~~~~~~Vector迭代器~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-********************************************************************/
-public:
-    /*
-    *  @property   迭代器
-    *  @func       代表向量第一个元素的指针
-    *  @const1     防止修改返回指针
-    *  @const2     防止修改类变量
-    *  @return     T*
-    */
-    T* begin();
 
-    /*
-    *  @property   迭代器
-    *  @func       代表向量第一个元素的指针
-    *  @const1     防止修改返回指针
-    *  @const2     防止修改类变量
-    *  @return     T const*
-    */
-    T const* begin() const;
-
-    /*
-    *  @property   迭代器
-    *  @func       代表向量最后一个元素的指针
-    *  @const1     防止修改返回指针
-    *  @const2     防止修改类变量
-    *  @return     T*
-    */
-    T* end();
-
-    /*
-    *  @property   迭代器
-    *  @func       代表向量最后一个元素的指针
-    *  @const1     防止修改返回指针
-    *  @const2     防止修改类变量
-    *  @return     T const*
-    */
-    T const* end() const;
 
 protected:
     T V[m];
@@ -552,6 +555,34 @@ Vector<T,m>::~Vector()
     delete []V;
 }
  */
+
+template <typename T, int m>
+inline T*
+Vector<T,m>::begin()
+{
+    return V;
+}
+
+template <typename T, int m>
+inline T const *
+Vector<T,m>::begin() const
+{
+    return V;
+}
+
+template <typename T, int m>
+inline T*
+Vector<T,m>::end()
+{
+    return V+m;
+}
+
+template <typename T, int m>
+inline T const *
+Vector<T,m>::end() const
+{
+    return  V+m;
+}
 
 template <typename T,int m>
 inline T*
@@ -726,8 +757,9 @@ Vector<T,m>::operator= (Vector<T1,m> const& vector1)
 template <typename T1,int m1>
 ostream& operator<< (ostream& out,const Vector<T1,m1>& vector1)
 {
-    for (int i = 0; i < vector1.dim; ++i) {
-        out<<vector1.V[i]<<endl;
+    for (auto& v :vector1)
+    {
+        out<<v<<endl;
     }
     return out;
 }
@@ -802,32 +834,7 @@ Vector<T,m>::dot(Vector<T,m>&) const
 
 }
 
-template <typename T, int m>
-inline T*
-Vector<T,m>::begin()
-{
-    return V;
-}
 
-template <typename T, int m>
-inline T const *
-Vector<T,m>::begin() const
-{
-    return V;
-}
-template <typename T, int m>
-inline T*
-Vector<T,m>::end()
-{
-    return V+m;
-}
-
-template <typename T, int m>
-inline T const *
-Vector<T,m>::end() const
-{
-    return  V+m;
-}
 
 
 VECTOR_NAMESPACE_END
