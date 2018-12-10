@@ -769,14 +769,15 @@ template <typename T, int m>
 inline Vector<T,m>&
 Vector<T,m>::copy(T const* arr, int num)
 {
-
+    std::copy(arr,arr+num,this->V);
+    return *this;
 }
 
 template <typename T,int m>
 inline T
 Vector<T,m>::minimum() const
 {
-
+    return *std::min_element(V,V+m);
 }
 
 
@@ -784,7 +785,7 @@ template <typename T,int m>
 inline T
 Vector<T,m>::maximum() const
 {
-
+    return *std::max_element(V,V+m);
 }
 
 
@@ -792,7 +793,10 @@ template <typename T,int m>
 inline T
 Vector<T,m>::sum() const
 {
-
+    T sum = 0;
+    for (auto& v : V)
+        sum += v;
+    return sum;
 }
 
 
@@ -800,7 +804,14 @@ template <typename T,int m>
 inline T
 Vector<T,m>::abs_sum() const
 {
-
+    T sum = 0;
+    for (auto &v : V)
+    {
+        if(v<0)
+            v = 0 - v;
+        sum += v;
+    }
+    return sum;
 }
 
 
@@ -808,6 +819,8 @@ template <typename T,int m>
 inline T
 Vector<T,m>::product() const
 {
+    T product =
+    for(auto& v:V)
 
 }
 
