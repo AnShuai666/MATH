@@ -819,23 +819,29 @@ template <typename T,int m>
 inline T
 Vector<T,m>::product() const
 {
-    T product =
+    T product = (T)1;
     for(auto& v:V)
-
+        product *= v;
+    return product;
 }
 
 template <typename T, int m>
 inline T
 Vector<T,m>::norm() const
 {
-
+    return std::sqrt(norm_square());
 }
 
 template <typename T, int m>
 inline T
 Vector<T,m>::norm_square() const
 {
-
+    T sum_square = 0;
+    for (auto &v : V)
+    {
+        sum_square += v * v;
+    }
+    return sum_square;
 }
 
 
