@@ -329,7 +329,7 @@ public:
     *  @param_in   vector1
     *  @return     bool
     */
-    ostream& operator<< (ostream& out);
+    ostream& operator<< (ostream& out,Vector<T,m>& vector1);
 
 
 
@@ -422,9 +422,11 @@ public:
     T dot(Vector<T,m>&) const;
 
 protected:
-    T V[m];
+    T *V;
 
 };
+
+
 
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~Vector成员函数实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -680,9 +682,9 @@ Vector<T,m>::operator= (Vector<T1,m> const& vector1)
 
 template <typename T,int m>
 inline ostream&
-Vector<T,m>::operator<< (ostream& out)
+Vector<T,m>::operator<< (ostream& out,Vector<T,m>& vector1)
 {
-    for (auto v : V)
+    for (auto v : *vector1)
         out<<v<<endl;
     return out;
 }
