@@ -9,6 +9,7 @@
 #define __VECTOR_H__
 
 #include <iostream>
+#include <iomanip>
 #include "define.h"
 #include <algorithm>
 #include <iterator>
@@ -217,7 +218,7 @@ public:
     *  @param_in   index
     *  @return     T&
     */
-    T& operator[] (int index) const;
+    T& operator[] (int index);
 
     /*
     *  @property   重载运算符()
@@ -449,20 +450,95 @@ public:
     */
     T norm_square() const;
 
+    /*
+    *  @property   向量归一化
+    *  @func       将向量归一化,即模长为1的向量,原向量被改变
+    *  @return     Vector<T,m>&
+    */
+    Vector<T,m>& normalize();
 
+    /*
+    *  @property   向量归一化
+    *  @func       求向量的归一化,即模长为1的向量,原向量不改变
+    *  @return     Vector<T,m>&
+    */
+    Vector<T,m> normalized() const;
+
+    /*
+    *  @property   求向量绝对值
+    *  @func       将向量每个元素求绝对值,原向量被改变
+    *  @return     Vector<T,m>&
+    */
+    Vector<T,m>& abs_value();
+
+    /*
+    *  @property   求向量绝对值
+    *  @func       将向量每个元素求绝对值,原向量不改变
+    *  @return     Vector<T,m>
+    */
+    Vector<T,m> abs_valued() const;
+
+    /*
+    *  @property   求向量相反值
+    *  @func       将向量每个元素求相反数,原向量被改变
+    *  @return     Vector<T,m>&
+    */
+    Vector<T,m>& negate();
+
+    /*
+    *  @property   求向量相反值
+    *  @func       将向量每个元素求相反数,原向量不改变
+    *  @return     Vector<T,m>
+    */
+    Vector<T,m> negated() const;
+
+    /*
+    *  @property   升序排序
+    *  @func       将向量进行升序排序,原向量被改变
+    *  @return     Vector<T,m>&
+    */
+    Vector<T,m>& sort_ascending();
+
+    /*
+    *  @property   升序排序
+    *  @func       将向量进行升序排序,原向量不改变
+    *  @return     Vector<T,m>
+    */
+    Vector<T,m> sorted_ascending() const;
+
+    /*
+    *  @property   降序排序
+    *  @func       将向量进行降序排序,原向量被改变
+    *  @return     Vector<T,m>&
+    */
+    Vector<T,m>& sort_desascending();
+
+    /*
+    *  @property   降序排序
+    *  @func       将向量进行降序排序,原向量不改变
+    *  @return     Vector<T,m>
+    */
+    Vector<T,m> sorted_desascending() const;
 
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~~Vector二元运算~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ********************************************************************/
 public:
     /*
-    *  @property   求积
-    *  @func       求向量所有元素的积
-    *  @const      防止修改类变量
-    *  @return     T
+    *  @property    內积\标量积\点乘
+    *  @func       求两个向量内积
+    *  @const      防止修改类成员变量
+    *  @return     T T(0) T类型存储空间 并初始化为0
     */
-    T dot(Vector<T,m>&) const;
+    T dot(Vector<T,m> const& vector1) const;
 
+    /*
+    *  @property    外积\向量积\叉乘
+    *  @func       求两个向量内积 只定义三维外积
+    *  @const      防止修改类成员变量
+    *  @return     T T(0) T类型存储空间 并初始化为0
+    */
+    Vector<T,m> cross(Vector<T,m> const& vector1) const;
 
 
 protected:
@@ -600,7 +676,7 @@ Vector<T,m>::operator* () const
 
 template <typename T,int m>
 inline  T&
-Vector<T,m>::operator[] (int index) const
+Vector<T,m>::operator[] (int index)
 {
     return V[index];
 }
@@ -759,7 +835,7 @@ ostream& operator<< (ostream& out,const Vector<T1,m1>& vector1)
 {
     for (auto& v :vector1)
     {
-        out<<v<<endl;
+        out<<setiosflags(ios::right)<<setw(10)<<v<<endl;
     }
     return out;
 }
@@ -787,6 +863,7 @@ Vector<T,m>::maximum() const
 {
     return *std::max_element(V,V+m);
 }
+
 
 
 template <typename T,int m>
@@ -844,16 +921,120 @@ Vector<T,m>::norm_square() const
     return sum_square;
 }
 
+template <typename T,int m>
+inline Vector<T,m>&
+Vector<T,m>::normalize()
+{
+    for (auto& v:V)
+    {
+        v /= norm();
+    }
+    return *this;
+}
+template <typename T,int m>
+inline Vector<T,m>
+Vector<T,m>::normalized() const
+{
+    return Vector<T,m>(*this).normalize();
+}
 
+template <typename T,int m>
+inline Vector<T,m>&
+Vector<T,m>::abs_value()
+{
+    for (auto& v : V)
+    {
+        if (v < 0)
+        {
+            v = -v;
+        }
+    }
+    return *this;
+}
+
+template <typename T, int m>
+inline Vector<T,m>
+Vector<T,m>::abs_valued() const
+{
+    return Vector<T,m>(*this).abs_value();
+}
+
+template <typename T,int m>
+inline Vector<T,m>&
+Vector<T,m>::negate()
+{
+    for (auto & v : V)
+    {
+        v = -v;
+    }
+    return *this;
+}
+
+template <typename T,int m>
+inline Vector<T,m>
+Vector<T,m>::negated() const
+{
+    return Vector<T,m>(*this).negate();
+}
+
+template <typename T, int m>
+inline Vector<T,m>&
+Vector<T,m>::sort_ascending()
+{
+    std::sort(V,V+m,std::less<T>());
+    return *this;
+}
+
+template <typename T, int m>
+inline Vector<T,m>
+Vector<T,m>::sorted_ascending() const
+{
+    return Vector<T,m>(*this).sort_ascending();
+}
+
+template <typename T, int m>
+inline Vector<T,m>&
+Vector<T,m>::sort_desascending()
+{
+    std::sort(V,V+m,std::greater<T>());
+    return *this;
+}
+
+template <typename T, int m>
+inline Vector<T,m>
+Vector<T,m>::sorted_desascending() const
+{
+    return Vector<T,m>(*this).sort_desascending();
+}
 
 template <typename T, int m>
 inline T
-Vector<T,m>::dot(Vector<T,m>&) const
+Vector<T,m>::dot(Vector<T,m>const& vector1) const
 {
+    return std::inner_product(V,V+m,*vector1,T(0));
+}
 
+template <typename T, int m>
+inline Vector<T,m>
+Vector<T,m>::cross(Vector<T,m> const& vector1) const
+{
+    if (m!=3)
+    {
+        cout<<"只定义了三维向量积!"<<endl;
+    }
+    return cross_product(*this,vector1);
 }
 
 
+
+template <typename T>
+inline Vector<T,3>
+cross_product (Vector<T,3> const& v1, Vector<T,3> const& v2)
+{
+    return Vector<T,3>(v1[1] * v2[2] - v1[2] * v2[1],
+                       v1[2] * v2[0] - v1[0] * v2[2],
+                       v1[0] * v2[1] - v1[1] * v2[0]);
+}
 
 
 VECTOR_NAMESPACE_END
