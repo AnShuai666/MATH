@@ -93,56 +93,44 @@ MATRIX_NAMESPACE_BEGIN
         */
        // ~Matrix();
 
+
+
 /********************************************************************
- *~~~~~~~~~~~~~~~~~~~~~构造函数与析构函数~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *******************************************************************/
+*~~~~~~~~~~~~~~~~~~~~~~~~Matrix迭代器~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************************************/
     public:
         /*
-         *  @property   判断函数
-         *  @func       判断矩阵是否为方阵
-         *  @const      声明为const函数，防止更改成员变量以及非常成员函数
+        *  @property   迭代器
+        *  @func       代表矩阵第一个元素的指针
+        *  @return     T*
         */
-        bool is_square_matrix() const;
+        T* begin();
 
+        /*
+        *  @property   迭代器
+        *  @func       代表矩阵第一个元素的指针
+        *  @const      防止修改返回指针
+        *  @const2     防止修改类变量
+        *  @return     T const*
+        */
+        T const* begin() const;
 
+        /*
+        *  @property   迭代器
+        *  @func       代表矩阵最后一个元素的指针的下一个
+        *  @return     T*
+        */
+        T* end();
 
-        //TODO(3):直接在主函数输入的函数实现
-        void input()
-        {
-            for(int i = 0; i < this->rows; i++)
-            {
-                for(int j = 0; j < this->cols; j++)
-                {
-                    cin >> this->M[i][j];
-                }
-                //TODO(4):实时检测键盘输入数字的个数,有一行的数之后执行下面语句
-                //cout<<endl;
-            }
+        /*
+        *  @property   迭代器
+        *  @func       代表矩阵最后一个元素的指针的下一个
+        *  @const1     防止修改返回指针
+        *  @const2     防止修改类变量
+        *  @return     T const*
+        */
+        T const* end() const;
 
-        }
-
-    private:
-
-        enum NORM_TYPE
-        {
-            L1,
-            L2,
-            L0 //L0表示无穷范数
-        };
-
-    protected:
-        T M[m * n];
-    public:
-
-        inline int getRows()
-        {
-            return this->rows;
-        };
-
-        inline int getCols()
-        {
-            return  this->cols;
-        };
 
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~~~~矩阵运算符重载~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -321,6 +309,56 @@ MATRIX_NAMESPACE_BEGIN
         template <typename T1,int m1,int n1>
         friend ostream & operator<< (ostream& out,const Matrix<T1,m1,n1>& matrix1);
 
+/********************************************************************
+*~~~~~~~~~~~~~~~~~~~~~Matrix管理函数~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************************************/
+    public:
+        /*
+        *  @property   方阵判断
+        *  @func       判断是否为方阵， 是 返回True
+        *  @return     bool
+        */
+        bool is_square() const;
+
+        /*
+        *  @property   求最小值
+        *  @func       求矩阵最小值
+        *  @return     T
+        */
+        T minimum() const;
+
+        /*
+        *  @property   求最大值
+        *  @func       求矩阵最大值
+        *  @return     T
+        */
+        T maximum() const;
+
+        /*
+        *  @property   求矩阵行
+        *  @func       获取矩阵第index行
+        *  @return     Vector<T,n>
+        */
+        Vector<T,n> row(int index) const;
+
+        /*
+        *  @property   求矩阵列
+        *  @func       获取矩阵第index列
+        *  @return     Vector<T,m>
+        */
+        Vector<T,m> col(int index) const;
+
+
+
+
+
+
+    protected:
+        T M[m * n];
+
+
+
+
 
         //TODO(7): 转置矩阵
         Matrix<T,m,n> &transpose()
@@ -345,6 +383,7 @@ MATRIX_NAMESPACE_BEGIN
 
 
         //TODO(11): 矩阵范数 用枚举类型
+        enum NORM_TYPE{l1,l2};
         int norm(enum NORM_TYPE norm_type);
 
 
@@ -413,11 +452,33 @@ MATRIX_NAMESPACE_BEGIN
     }
     */
 
-    template <typename T, int m, int n>
-    inline bool
-    Matrix<T,m,n>::is_square_matrix() const
-    {
 
+    template <typename T,int m,int n>
+    inline T*
+    Matrix<T,m,n>::begin (void)
+    {
+        return M;
+    }
+
+    template <typename T,int m,int n>
+    inline T const*
+    Matrix<T,m,n>::begin (void) const
+    {
+        return M;
+    }
+
+    template <typename T,int m,int n>
+    inline T*
+    Matrix<T,m,n>::end (void)
+    {
+        return M + m * n;
+    }
+
+    template <typename T,int m,int n>
+    inline T const*
+    Matrix<T,m,n>::end (void) const
+    {
+        return M + m * n;
     }
 
     template <typename T, int m, int n>
@@ -610,5 +671,44 @@ MATRIX_NAMESPACE_BEGIN
         return out;
     }
 
+    template <typename T, int m,int n>
+    inline bool
+    Matrix<T,m,n>::is_square() const
+    {
+        return m == n;
+    }
+
+    template <typename T, int m,int n>
+    inline T
+    Matrix<T,m,n>::minimum() const
+    {
+        return *std::min_element(M,M + m * n);
+    }
+
+    template <typename T, int m,int n>
+    inline T
+    Matrix<T,m,n>::maximum() const
+    {
+        return *std::max_element(M,M + m * n);
+    }
+
+    template <typename T, int m,int n>
+    inline Vector<T,n>
+    Matrix<T,m,n>::row(int index) const
+    {
+        return Vector<T,n>(M + n * index);
+    }
+
+    template <typename T, int m,int n>
+    inline Vector<T,m>
+    Matrix<T,m,n>::col(int index) const
+    {
+        Vector<T,m> tmp(0);
+        for (int i = 0; i < m ; i ++)
+        {
+            tmp(i) = M(i,index);
+        }
+        return tmp;
+    }
 
 MATRIX_NAMESPACE_END
