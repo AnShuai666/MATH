@@ -221,6 +221,14 @@ public:
     T& operator[] (int index);
 
     /*
+    *  @property   重载运算符[]
+    *  @func       访问向量V元素 V[index]
+    *  @param_in   index
+    *  @return     T const&
+    */
+    T const& operator[] (int index) const;
+
+    /*
     *  @property   重载运算符()
     *  @func       访问向量V元素 V(index)
     *  @param_in   index
@@ -541,6 +549,11 @@ public:
     Vector<T,m> cross(Vector<T,m> const& vector1) const;
 
 
+/********************************************************************
+*~~~~~~~~~~~~~~~~~~~~~~Vector相似度计算~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************************************/
+
+
 protected:
     T V[m];
 
@@ -677,6 +690,13 @@ Vector<T,m>::operator* () const
 template <typename T,int m>
 inline  T&
 Vector<T,m>::operator[] (int index)
+{
+    return V[index];
+}
+
+template <typename T,int m>
+inline  T const &
+Vector<T,m>::operator[] (int index) const
 {
     return V[index];
 }
@@ -1018,24 +1038,15 @@ template <typename T, int m>
 inline Vector<T,m>
 Vector<T,m>::cross(Vector<T,m> const& vector1) const
 {
-    if (m!=3)
+    if (m != 3)
     {
-        cout<<"只定义了三维向量积!"<<endl;
+        cout << "只定义了三维向量积!" << endl;
+        std::exit(0);
     }
-    return cross_product(*this,vector1);
+    return Vector<T, 3>((*this)[1] * vector1[2] - (*this)[2] * vector1[1],
+                        (*this)[2] * vector1[0] - (*this)[0] * vector1[2],
+                        (*this)[0] * vector1[1] - (*this)[1] * vector1[0]);
 }
-
-
-
-template <typename T>
-inline Vector<T,3>
-cross_product (Vector<T,3> const& v1, Vector<T,3> const& v2)
-{
-    return Vector<T,3>(v1[1] * v2[2] - v1[2] * v2[1],
-                       v1[2] * v2[0] - v1[0] * v2[2],
-                       v1[0] * v2[1] - v1[1] * v2[0]);
-}
-
 
 VECTOR_NAMESPACE_END
 
