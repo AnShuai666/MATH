@@ -5,8 +5,8 @@
  * @func    向量类 向量常规运算
 */
 
-#ifndef __VECTOR_H__
-#define __VECTOR_H__
+#ifndef __MATRIX_VECTOR_H__
+#define __MATRIX_VECTOR_H__
 
 #include <iostream>
 #include <iomanip>
@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <iterator>
 using namespace std;
-VECTOR_NAMESPACE_BEGIN
+MATRIX_NAMESPACE_BEGIN
 
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~常用向量类型别名声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -663,14 +663,14 @@ template <typename T, int m>
 inline T*
 Vector<T,m>::end()
 {
-    return V+m;
+    return V+m-1;
 }
 
 template <typename T, int m>
 inline T const *
 Vector<T,m>::end() const
 {
-    return  V+m;
+    return  V+m-1;
 }
 
 template <typename T,int m>
@@ -1048,6 +1048,6 @@ Vector<T,m>::cross(Vector<T,m> const& vector1) const
                         (*this)[0] * vector1[1] - (*this)[1] * vector1[0]);
 }
 
-VECTOR_NAMESPACE_END
+MATRIX_NAMESPACE_END
 
-#endif //__VECTOR_H__
+#endif //__MATRIX_VECTOR_H__

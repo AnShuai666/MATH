@@ -10,7 +10,7 @@
 #define MATRIX_NAMESPACE_BEGIN namespace matrix {
 #define MATRIX_NAMESPACE_END }
 
-#define VECTOR_NAMESPACE_BEGIN namespace Vector {
+#define VECTOR_NAMESPACE_BEGIN namespace matrix {
 #define VECTOR_NAMESPACE_END }
 
 #define ALGORITHM_NAMESPACE_BEGIN namespace algorithm {

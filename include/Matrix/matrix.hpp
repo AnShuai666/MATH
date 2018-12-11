@@ -12,8 +12,9 @@
 #include <iostream>
 #include <memory>
 #include <algorithm>
+#include "Matrix/vector.hpp"
 using namespace std;
-
+using namespace matrix;
 MATRIX_NAMESPACE_BEGIN
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~常用矩阵类型别名声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,7 +91,7 @@ MATRIX_NAMESPACE_BEGIN
          *  @property   析构函数
          *  @func       释放M内存
         */
-        ~Matrix();
+       // ~Matrix();
 
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~构造函数与析构函数~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -264,12 +265,61 @@ MATRIX_NAMESPACE_BEGIN
         *  @property   矩阵乘法
         *  @func       M(m*n)xM(n*l)= M(m*l)
         *  @param_in   matrix1          被乘矩阵
-        *  @return     Matrix<T,m,l>&   避免产生临时变量，返回引用与返回值共用一个地址
+        *  @return     Matrix<T,m,l>    避免产生临时变量，返回引用与返回值共用一个地址
         */
         template <int l>
-        Matrix<T,m,l>& operator* (Matrix<T,n,l> matrix1) const;
+        Matrix<T,m,l> operator* (Matrix<T,n,l> matrix1) const;
+
+        /*
+        *  @property   矩阵乘法
+        *  @func       M(m*n)xV(n*1)= V(m*1)
+        *  @param_in   vector1          被乘向量
+        *  @return     Matrix<T,m,l>&
+        */
+        Vector<T,m> operator* (Vector<T,n> const & vector1) const;
+
+        /*
+        *  @property   矩阵乘法
+        *  @func       M(m*n)*a             原矩阵被改变
+        *  @param_in   T                    被乘数
+        *  @return     Matrix<T,m,n>&
+        */
+        Matrix<T,m,n>& operator*= (T const& num);
+
+        /*
+        *  @property   矩阵乘法               原矩阵不被改变
+        *  @func       M(m*n)*a
+        *  @param_in   T                    被乘数
+        *  @return     Matrix<T,m,n>
+        */
+        Matrix<T,m,n> operator* (T const& num) const;
+
+        /*
+        *  @property   矩阵除法
+        *  @func       M(m*n)/a             原矩阵被改变
+        *  @param_in   T                    被乘数
+        *  @return     Matrix<T,m,n>&
+        */
+        Matrix<T,m,n>& operator/= (T const& num);
+
+        /*
+        *  @property   矩阵乘法               原矩阵不被改变
+        *  @func       M(m*n)xa
+        *  @param_in   T                    被除数
+        *  @return     Matrix<T,m,n>
+        */
+        Matrix<T,m,n> operator/ (T const& num) const;
 
 
+        /*
+        *  @property   重载运算符<<  必须重新定义模板
+        *  @func       输出运算符
+        *  @param_in   Matrix<T1,m1,n1>&
+        *  @param_out  out
+        *  @return     ostream &
+        */
+        template <typename T1,int m1,int n1>
+        friend ostream & operator<< (ostream& out,const Matrix<T1,m1,n1>& matrix1);
 
 
         //TODO(7): 转置矩阵
@@ -355,12 +405,13 @@ MATRIX_NAMESPACE_BEGIN
         std::copy(matrix1.M, matrix1.M + m * n, M);
     }
 
-
+    /*
     template <typename T, int m, int n>
     Matrix<T,m,n>::~Matrix()
     {
         delete []M;
     }
+    */
 
     template <typename T, int m, int n>
     inline bool
@@ -393,7 +444,7 @@ MATRIX_NAMESPACE_BEGIN
     inline T const&
     Matrix<T,m,n>::operator()(int row, int col) const
     {
-        return M[row * m + n];
+        return M[row * m + col];
     }
 
     template <typename T,int m,int n>
@@ -480,27 +531,84 @@ MATRIX_NAMESPACE_BEGIN
 
     template <typename T,int m, int n>
     template <int l>
-    inline Matrix<T,m,l>&
+    inline Matrix<T,m,l>
     Matrix<T,m,n>::operator* (Matrix<T,n,l> matrix1) const
     {
-        static Matrix<T,m,l> matrix2 ;
+        Matrix<T,m,l> matrix2 ;
 
         for (int i = 0; i < m; ++i)
         {
             for (int j = 0; j <l ; ++j)
             {
-                T sum=0;
+                T sum = 0;
                 for (int k = 0; k < n; ++k)
                 {
                     sum+=M[i*cols+k]*matrix1.M[k*matrix1.cols+j];
                 }
-                matrix2.M[i*matrix2.cols+j]=sum;
+                matrix2.M[i*matrix2.cols+j] = sum;
             }
-
         }
-        return matrix2 ;
+        return matrix2;
     }
 
+    template <typename T,int m, int n>
+    inline Vector<T,m>
+    Matrix<T,m,n>::operator* (Vector<T,n> const& vector1) const
+    {
+        Vector<T,m> tmp(0);
+        for (int i = 0; i < m; ++i)
+        {
+            tmp[i] = std::inner_product(M*i,M*i+n,*vector1,T(0));
+        }
+        return tmp;
+    }
+
+    template <typename T,int m, int n>
+    inline Matrix<T,m,n>&
+    Matrix<T,m,n>::operator*= (T const& num)
+    {
+        for(auto& a : this->M)
+            a *= num;
+        return *this;
+    }
+
+    template <typename T,int m, int n>
+    inline Matrix<T,m,n>
+    Matrix<T,m,n>::operator* (T const& num) const
+    {
+        return Matrix<T,m,n>(*this)*=num;
+    }
+
+    template <typename T,int m, int n>
+    inline Matrix<T,m,n>&
+    Matrix<T,m,n>::operator/= (T const& num)
+    {
+        for(auto& a : this->M)
+            a /= num;
+        return *this;
+    }
+
+    template <typename T,int m, int n>
+    inline Matrix<T,m,n>
+    Matrix<T,m,n>::operator/ (T const& num) const
+    {
+        return Matrix<T,m,n>(*this)/=num;
+    }
+
+    template <typename T,int m,int n>
+    ostream& operator<< (ostream& out,const Matrix<T,m,n>& matrix1)
+    {
+        out<<endl;
+        for (int i = 0; i < m; ++i)
+        {
+            for (int j = 0; j < n; ++j)
+            {
+                out<<matrix1(i,j)<<" ";
+            }
+            out<<endl;
+        }
+        return out;
+    }
 
 
 MATRIX_NAMESPACE_END
