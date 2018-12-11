@@ -349,8 +349,40 @@ MATRIX_NAMESPACE_BEGIN
         Vector<T,m> col(int index) const;
 
 
+        template <int l>
+        Matrix<T,m,n + l> hstack(Matrix<T,m,l> const& matrix1) const;
+
+        template <int l>
+        Matrix<T,m + l,n> vstack(Matrix<T,l,n> const& matrix1) const;
+
+        Matrix<T,m,n + 1> hstack(Vector<T,m> const& vector1) const;
+
+        Matrix<T,m + 1,n> vstack(Vector<T,n> const& vector1) const;
+
+        Matrix<T,m - 1,n> delete_row(int index) const;
+
+        Matrix<T,m,n - 1> delete_col(int index) const;
 
 
+/********************************************************************
+*~~~~~~~~~~~~~~~~~~~~~~Vector一元运算~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************************************/
+    public:
+    Matrix<T,m,n>& negate();
+
+    Matrix<T,m,n> negated() const;
+
+    Matrix<T,m,n>& transpose();
+
+    Matrix<T,m,n> transposed() const;
+
+
+/********************************************************************
+*~~~~~~~~~~~~~~~~~~~~~~Vector二元运算~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************************************/
+    public:
+
+        bool is_similar(Matrix<T,m,n> const& matrix1, T const& eps) const;
 
 
     protected:
@@ -360,12 +392,7 @@ MATRIX_NAMESPACE_BEGIN
 
 
 
-        //TODO(7): 转置矩阵
-        Matrix<T,m,n> &transpose()
-        {
-            Matrix<T,m,n> *tmp;
-            return ;
-        }
+
 
 
 
@@ -710,5 +737,86 @@ MATRIX_NAMESPACE_BEGIN
         }
         return tmp;
     }
+
+    template <typename T,int m,int n>
+    template <int l>
+    inline Matrix<T,m,n + l>
+    Matrix<T,m,n>::hstack(Matrix<T,m,l> const& matrix1) const
+    {
+
+    }
+
+    template <typename T,int m,int n>
+    template <int l>
+    inline Matrix<T,m + l,n>
+    Matrix<T,m,n>::vstack(Matrix<T,l,n> const& matrix1) const
+    {
+
+    }
+
+    template <typename T,int m,int n>
+    inline Matrix<T,m,n + 1>
+    Matrix<T,m,n>::hstack(Vector<T,m> const& vector1) const
+    {
+
+    }
+
+    template <typename T,int m,int n>
+    inline Matrix<T,m + 1,n>
+    Matrix<T,m,n>::vstack(Vector<T,n> const& vector1) const
+    {
+
+    }
+
+    template <typename T,int m,int n>
+    inline Matrix<T,m - 1,n>
+    Matrix<T,m,n>::delete_row(int index) const
+    {
+
+    }
+
+    template <typename T,int m,int n>
+    inline Matrix<T,m,n - 1>
+    Matrix<T,m,n>::delete_col(int index) const
+    {
+
+    }
+
+
+    template <typename T,int m,int n>
+    inline Matrix<T,m,n>&
+    Matrix<T,m,n>::negate()
+    {
+
+    }
+
+    template <typename T,int m,int n>
+    inline Matrix<T,m,n>
+    Matrix<T,m,n>::negated() const
+    {
+
+    }
+
+    template <typename T,int m,int n>
+    inline Matrix<T,m,n>&
+    Matrix<T,m,n>::transpose()
+    {
+
+    }
+
+    template <typename T,int m,int n>
+    inline Matrix<T,m,n>
+    Matrix<T,m,n>::transposed() const
+    {
+
+    }
+
+    template <typename T,int m,int n>
+    inline bool
+    Matrix<T,m,n>::is_similar(Matrix<T,m,n> const& matrix1, T const& eps) const
+    {
+        
+    }
+
 
 MATRIX_NAMESPACE_END
