@@ -178,7 +178,7 @@ public:
 
     /*
     *  @property   迭代器
-    *  @func       代表向量最后一个元素的指针
+    *  @func       代表向量最后一个元素的指针的下一个
     *  @const1     防止修改返回指针
     *  @const2     防止修改类变量
     *  @return     T*
@@ -187,7 +187,7 @@ public:
 
     /*
     *  @property   迭代器
-    *  @func       代表向量最后一个元素的指针
+    *  @func       代表向量最后一个元素的指针的下一个
     *  @const1     防止修改返回指针
     *  @const2     防止修改类变量
     *  @return     T const*
@@ -633,7 +633,7 @@ template <typename T1>
 inline
 Vector<T,m>::Vector(Vector<T1,m> const &vector1)
 {
-    std::copy(vector1.V,vector1.V + m, V);
+    std::copy(*vector1,*vector1 + m, V);
 }
 
 /*
@@ -663,14 +663,14 @@ template <typename T, int m>
 inline T*
 Vector<T,m>::end()
 {
-    return V+m-1;
+    return V+m;
 }
 
 template <typename T, int m>
 inline T const *
 Vector<T,m>::end() const
 {
-    return  V+m-1;
+    return  V+m;
 }
 
 template <typename T,int m>
