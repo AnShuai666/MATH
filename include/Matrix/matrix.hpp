@@ -815,7 +815,7 @@ MATRIX_NAMESPACE_BEGIN
     inline bool
     Matrix<T,m,n>::is_similar(Matrix<T,m,n> const& matrix1, T const& eps) const
     {
-        
+
     }
 
 
