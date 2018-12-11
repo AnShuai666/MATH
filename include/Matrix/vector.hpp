@@ -274,7 +274,7 @@ public:
     *  @param_in   value
     *  @return     Vector<T,m>&
     */
-    Vector<T,m>& operator+ (T const& value) const;
+    Vector<T,m> operator+ (T const& value) const;
 
     /*
     *  @property   重载运算符-=
@@ -290,7 +290,7 @@ public:
     *  @param_in   vector1
     *  @return     Vector<T,m>&
     */
-    Vector<T,m>& operator- (Vector<T,m> const& vector1) const;
+    Vector<T,m> operator- (Vector<T,m> const& vector1) const;
 
     /*
     *  @property   重载运算符-=
@@ -322,7 +322,7 @@ public:
     *  @param_in   value
     *  @return     Vector<T,m>&
     */
-    Vector<T,m>& operator* (T const value) const;
+    Vector<T,m> operator* (T const value) const;
 
     /*
     *  @property   重载运算符/
@@ -338,7 +338,7 @@ public:
     *  @param_in   value
     *  @return     Vector<T,m>&
     */
-    Vector<T,m>& operator/ (T const value) const;
+    Vector<T,m> operator/ (T const value) const;
 
     /*
     *  @property   重载运算符==
@@ -371,7 +371,7 @@ public:
     *  @return     bool
     */
     template <typename T1>
-    Vector<T,m>& operator= (Vector<T1,m> const& vector1);
+    Vector<T,m> operator= (Vector<T1,m> const& vector1);
 
     /*
     *  @property   重载运算符<<
@@ -617,7 +617,7 @@ inline
 Vector<T,m>::Vector(Vector<T,m-1> const &vector1, T const &value)
 {
     std::copy(vector1.V,vector1.V + m-1,V);
-    V[m] = value;
+    V[m-1] = value;
 }
 
 template <typename T,int m>
@@ -740,14 +740,10 @@ Vector<T,m>::operator+= (T const& value)
 }
 
 template <typename T,int m>
-inline  Vector<T,m>&
+inline  Vector<T,m>
 Vector<T,m>::operator+ (T const& value) const
 {
-    for(auto& v : V)
-    {
-        v += value;
-    }
-    return *this;
+    return Vector<T,m>(*this) += value;
 }
 
 template <typename T,int m>
@@ -759,7 +755,7 @@ Vector<T,m>::operator-= (Vector<T,m> const& vector1)
 }
 
 template <typename T,int m>
-inline  Vector<T,m>&
+inline  Vector<T,m>
 Vector<T,m>::operator- (Vector<T,m> const& vector1) const
 {
     Vector<T,m>(*this) += vector1;
@@ -797,10 +793,10 @@ Vector<T,m>::operator*= (T const value)
 }
 
 template <typename T, int m>
-inline Vector<T,m>&
+inline Vector<T,m>
 Vector<T,m>::operator* (T const value) const
 {
-    return Vector<T,m>(*this) += value;
+    return Vector<T,m>(*this) *= value;
 }
 
 template <typename T, int m>
@@ -815,10 +811,10 @@ Vector<T,m>::operator/= (T const value)
 }
 
 template <typename T,int m>
-inline Vector<T,m>&
+inline Vector<T,m>
 Vector<T,m>::operator/ (T const value) const
 {
-    return Vector<T,m>(*this) += value;
+    return Vector<T,m>(*this) /= value;
 }
 
 template <typename T,int m>
@@ -844,7 +840,7 @@ Vector<T,m>::operator= (Vector<T,m> const& vector1)
 
 template <typename T,int m>
 template <typename T1>
-inline Vector<T,m>&
+inline Vector<T,m>
 Vector<T,m>::operator= (Vector<T1,m> const& vector1)
 {
     return Vector<T,m>(vector1);
