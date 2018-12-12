@@ -348,19 +348,54 @@ MATRIX_NAMESPACE_BEGIN
         */
         Vector<T,m> col(int index) const;
 
-
+        /*
+        *  @property   水平矩阵拼接
+        *  @func       将原矩阵（左）与新矩阵（右）进行拼接
+        *  @param_in   matrix1
+        *  @return     Matrix<T,m,n + l>
+        */
         template <int l>
         Matrix<T,m,n + l> hstack(Matrix<T,m,l> const& matrix1) const;
 
+        /*
+        *  @property   纵向矩阵拼接
+        *  @func       将原矩阵（上）与新矩阵（下）进行拼接
+        *  @param_in   matrix1
+        *  @return     Matrix<T,m,n + l>
+        */
         template <int l>
         Matrix<T,m + l,n> vstack(Matrix<T,l,n> const& matrix1) const;
 
+        /*
+        *  @property   水平矩阵拼接
+        *  @func       将原矩阵（左）与新向量（右）进行拼接
+        *  @param_in   vector1
+        *  @return     Matrix<T,m,n + 1>
+        */
         Matrix<T,m,n + 1> hstack(Vector<T,m> const& vector1) const;
 
+        /*
+        *  @property   水平矩阵拼接
+        *  @func       将原矩阵（上）与新向量（下）进行拼接
+        *  @param_in   vector1
+        *  @return     Matrix<T,m + 1,n>
+        */
         Matrix<T,m + 1,n> vstack(Vector<T,n> const& vector1) const;
 
+        /*
+        *  @property   矩阵行删除
+        *  @func       将矩阵第index行删除
+        *  @param_in   index
+        *  @return     Matrix<T,m - 1,n>
+        */
         Matrix<T,m - 1,n> delete_row(int index) const;
 
+        /*
+        *  @property   矩阵列删除
+        *  @func       将矩阵第index列删除
+        *  @param_in   index1
+        *  @return     Matrix<T,m,n - 1>
+        */
         Matrix<T,m,n - 1> delete_col(int index) const;
 
 
