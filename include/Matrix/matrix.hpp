@@ -368,12 +368,32 @@ MATRIX_NAMESPACE_BEGIN
 *~~~~~~~~~~~~~~~~~~~~~~Vector一元运算~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ********************************************************************/
     public:
+    /*
+    *  @property   求矩阵相反值
+    *  @func       将矩阵每个元素求相反数,原向量被改变
+    *  @return     Matrix<T,m,n>&
+    */
     Matrix<T,m,n>& negate();
 
+    /*
+    *  @property   求矩阵相反值
+    *  @func       将矩阵每个元素求相反数,原向量不改变
+    *  @return     Matrix<T,m,n>
+    */
     Matrix<T,m,n> negated() const;
 
+    /*
+    *  @property   求矩阵转置
+    *  @func       将矩阵每个元素进行转置,原向量改变
+    *  @return     Matrix<T,m,n>&
+    */
     Matrix<T,m,n>& transpose();
 
+    /*
+    *  @property   求矩阵转置
+    *  @func       将矩阵每个元素进行转置,原向量不改变
+    *  @return     Matrix<T,m,n>
+    */
     Matrix<T,m,n> transposed() const;
 
 
@@ -743,7 +763,13 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n + l>
     Matrix<T,m,n>::hstack(Matrix<T,m,l> const& matrix1) const
     {
-
+        Matrix<T,m,n + l> matrix2;
+        for (int i = 0; i < m; ++i)
+        {
+            std::copy(M + i * n ,M + (i + 1) * n, matrix2[i * (n + l)]);
+            std::copy(matrix1[i * l],matrix1[(i + 1)* l], matrix2[i * (n + l) + n]);
+        }
+        return matrix2;
     }
 
     template <typename T,int m,int n>
@@ -751,28 +777,39 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m + l,n>
     Matrix<T,m,n>::vstack(Matrix<T,l,n> const& matrix1) const
     {
-
+        Matrix<T,m + l,n> matrix2;
+        std::copy(M,M + m *n,*matrix2);
+        std::copy(*matrix1,*matrix1 + l * n,*matrix2 + m * n);
     }
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n + 1>
     Matrix<T,m,n>::hstack(Vector<T,m> const& vector1) const
     {
-
+        Matrix<T,m,n + 1> matrix2;
+        for (int i = 0; i < m; ++i)
+        {
+            std::copy(M + i * n,M + (i + 1) * n,matrix2[(i+1)*n]);
+            matrix2(i,n) = vector1[i];
+        }
+        return matrix2;
     }
 
     template <typename T,int m,int n>
     inline Matrix<T,m + 1,n>
     Matrix<T,m,n>::vstack(Vector<T,n> const& vector1) const
     {
-
+        Matrix<T,m + 1,n> matrix2;
+        std::copy(M,M + m *n,*matrix2);
+        std::copy(*vector1,*vector1 + n,*matrix2 + m* n);
+        return matrix2;
     }
 
     template <typename T,int m,int n>
     inline Matrix<T,m - 1,n>
     Matrix<T,m,n>::delete_row(int index) const
     {
-
+        
     }
 
     template <typename T,int m,int n>
@@ -787,28 +824,39 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::negate()
     {
-
+        for(auto a : M)
+        {
+            a = 0 - a;
+        }
+        return *this;
     }
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n>
     Matrix<T,m,n>::negated() const
     {
-
+        return Matrix<T,m,n>(*this).negate();
     }
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::transpose()
     {
-
+        for (int i = 0; i < m; ++i)
+        {
+            for (int j = i + 1 ; j < n; ++j)
+            {
+                swap((*this)(i,j),(*this)(j,i));
+            }
+        }
+        return *this;
     }
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n>
     Matrix<T,m,n>::transposed() const
     {
-
+        return Matrix<T,m,n>(*this).transpose();
     }
 
     template <typename T,int m,int n>
