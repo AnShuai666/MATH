@@ -766,8 +766,8 @@ MATRIX_NAMESPACE_BEGIN
         Matrix<T,m,n + l> matrix2;
         for (int i = 0; i < m; ++i)
         {
-            std::copy(M + i * n ,M + (i + 1) * n, matrix2[i * (n + l)]);
-            std::copy(matrix1[i * l],matrix1[(i + 1)* l], matrix2[i * (n + l) + n]);
+            std::copy(M + i * n ,M + (i + 1) * n, &matrix2[i * (n + l)]);
+            std::copy(matrix1[i * l],matrix1[(i + 1)* l], &matrix2[i * (n + l) + n]);
         }
         return matrix2;
     }
@@ -789,7 +789,7 @@ MATRIX_NAMESPACE_BEGIN
         Matrix<T,m,n + 1> matrix2;
         for (int i = 0; i < m; ++i)
         {
-            std::copy(M + i * n,M + (i + 1) * n,matrix2[(i+1)*n]);
+            std::copy(M + i * n,M + (i + 1) * n,&matrix2[(i+1)*n]);
             matrix2(i,n) = vector1[i];
         }
         return matrix2;
@@ -809,14 +809,37 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m - 1,n>
     Matrix<T,m,n>::delete_row(int index) const
     {
-        
+        Matrix<T,m-1,n> matrix1;
+        for (int i = 0; i < m; ++i)
+        {
+            if (i < index)
+            {
+                std::copy(M + i * n,M + (i + 1) * n,&matrix1[i * n]);
+            }
+            if(i > index)
+            {
+                std::copy(M + i * n,M + (i + 1) * n,&matrix1[(i - 1) * n]);
+            }
+        }
+        return matrix1;
     }
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n - 1>
     Matrix<T,m,n>::delete_col(int index) const
     {
+        Matrix<T,m,n-1> matrix1;
+        T* iter = matrix1.begin();
+        for (int i = 0; i < m * n; ++i)
+        {
+            if(i % n != index)
+            {
+                *iter = M(i);
+                iter ++;
+            }
 
+        }
+        return matrix1;
     }
 
 
