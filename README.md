@@ -18,7 +18,7 @@ wechat:
 
 Yang Fengtuo: 
 
-email: 1054413920@qq.com
+email: 
 
-wechat: yft0818
+wechat:
 
