@@ -516,14 +516,14 @@ MATRIX_NAMESPACE_BEGIN
     inline
     Matrix<T,m,n>::Matrix(Matrix<T,m,n> const& matrix1)
     {
-        std::copy(matrix1.M, matrix1.M + m * n, M);
+        std::copy(*matrix1, *matrix1 + m * n, M);
     }
 
     template <typename T,int m,int n>
     template <typename T1>
     Matrix<T,m,n>::Matrix(Matrix<T1,m,n> const &matrix1)
     {
-        std::copy(matrix1.M, matrix1.M + m * n, M);
+        std::copy(*matrix1, *matrix1 + m * n, M);
     }
 
     /*
@@ -581,13 +581,13 @@ MATRIX_NAMESPACE_BEGIN
     inline T&
     Matrix<T,m,n>::operator()(int row,int col)
     {
-        return M[row * m + col];
+        return M[row * n + col];
     }
     template <typename T,int m,int n>
     inline T const&
     Matrix<T,m,n>::operator()(int row, int col) const
     {
-        return M[row * m + col];
+        return M[row * n + col];
     }
 
     template <typename T,int m,int n>
@@ -616,8 +616,7 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator+ (Matrix<T,m,n> const& matrix1) const
     {
-        std::transform(M,M + m * n, *matrix1,M,std::plus<T>());
-        return *this;
+        return Matrix<T,m,n>(*this) += matrix1;
     }
 
     template <typename T,int m, int n>
@@ -650,15 +649,14 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator- (Matrix<T,m,n> const& matrix1) const
     {
-        std::transform(M,M + m * n, *matrix1,M,std::minus<T>());
-        return *this;
+        return Matrix<T,m,n>(*this) -= matrix1;
     }
 
     template <typename T,int m, int n>
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator-= (T const& value)
     {
-        for(auto a : M)
+        for(auto& a : M)
         {
             a-=value;
         }
@@ -698,10 +696,10 @@ MATRIX_NAMESPACE_BEGIN
     inline Vector<T,m>
     Matrix<T,m,n>::operator* (Vector<T,n> const& vector1) const
     {
-        Vector<T,m> tmp(0);
+        Vector<T,n> tmp(1);
         for (int i = 0; i < m; ++i)
         {
-            tmp[i] = std::inner_product(M*i,M*i+n,*vector1,T(0));
+            tmp[i] = std::inner_product(M + i * n,M + i * n + n,*vector1,T(0));
         }
         return tmp;
     }
@@ -801,8 +799,8 @@ MATRIX_NAMESPACE_BEGIN
         Matrix<T,m,n + l> matrix2;
         for (int i = 0; i < m; ++i)
         {
-            std::copy(M + i * n ,M + (i + 1) * n, &matrix2[i * (n + l)]);
-            std::copy(matrix1[i * l],matrix1[(i + 1)* l], &matrix2[i * (n + l) + n]);
+            std::copy(M + i * n ,M + (i + 1) * n, *matrix2 + i * (n + l));
+            std::copy(*matrix1 + i * l,*matrix1 + (i + 1)* l, *matrix2 + i * (n + l) + n);
         }
         return matrix2;
     }
@@ -815,6 +813,7 @@ MATRIX_NAMESPACE_BEGIN
         Matrix<T,m + l,n> matrix2;
         std::copy(M,M + m *n,*matrix2);
         std::copy(*matrix1,*matrix1 + l * n,*matrix2 + m * n);
+        return matrix2;
     }
 
     template <typename T,int m,int n>
@@ -824,7 +823,7 @@ MATRIX_NAMESPACE_BEGIN
         Matrix<T,m,n + 1> matrix2;
         for (int i = 0; i < m; ++i)
         {
-            std::copy(M + i * n,M + (i + 1) * n,&matrix2[(i+1)*n]);
+            std::copy(M + i * n,M + (i + 1) * n,*matrix2 + i*(n + 1));
             matrix2(i,n) = vector1[i];
         }
         return matrix2;
@@ -849,11 +848,11 @@ MATRIX_NAMESPACE_BEGIN
         {
             if (i < index)
             {
-                std::copy(M + i * n,M + (i + 1) * n,&matrix1[i * n]);
+                std::copy(M + i * n,M + (i + 1) * n,*matrix1 + i * n);
             }
             if(i > index)
             {
-                std::copy(M + i * n,M + (i + 1) * n,&matrix1[(i - 1) * n]);
+                std::copy(M + i * n,M + (i + 1) * n,*matrix1 + (i - 1) * n);
             }
         }
         return matrix1;
@@ -869,7 +868,7 @@ MATRIX_NAMESPACE_BEGIN
         {
             if(i % n != index)
             {
-                *iter = M(i);
+                *iter = M[i];
                 iter ++;
             }
 
@@ -882,7 +881,7 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::negate()
     {
-        for(auto a : M)
+        for(auto& a : M)
         {
             a = 0 - a;
         }

@@ -371,7 +371,7 @@ public:
     *  @return     bool
     */
     template <typename T1>
-    Vector<T,m> operator= (Vector<T1,m> const& vector1);
+    Vector<T,m>& operator= (Vector<T1,m> const& vector1);
 
     /*
     *  @property   重载运算符<<
@@ -624,7 +624,7 @@ template <typename T,int m>
 inline
 Vector<T,m>::Vector(Vector<T,m> const& vector1)
 {
-    std::copy(vector1.V,vector1.V + m,V);
+    std::copy(*vector1,*vector1 + m,V);
 }
 
 
@@ -835,15 +835,17 @@ template <typename T,int m>
 inline Vector<T,m>&
 Vector<T,m>::operator= (Vector<T,m> const& vector1)
 {
-    return Vector<T,m>(vector1);
+    std::copy(*vector1,*vector1 + m,V);
+    return *this;
 }
 
 template <typename T,int m>
 template <typename T1>
-inline Vector<T,m>
+inline Vector<T,m>&
 Vector<T,m>::operator= (Vector<T1,m> const& vector1)
 {
-    return Vector<T,m>(vector1);
+    std::copy(*vector1,*vector1 + m,V);
+    return *this;
 }
 
 template <typename T1,int m1>
