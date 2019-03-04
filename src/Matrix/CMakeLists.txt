@@ -5,9 +5,9 @@ set(HEADERS
         ${PROJECT_SOURCE_DIR}/include/Matrix/define.h
         ${PROJECT_SOURCE_DIR}/include/Matrix/matrix.hpp
         ${PROJECT_SOURCE_DIR}/include/Matrix/vector.hpp
-        ../../include/Matrix/algorithm_base.h)
+        ../../include/Matrix/algorithm_base.h )
 set(SOURCE_FILES
 
-        a.cpp)
+        a.cpp ../../include/function/function.hpp )
 
 add_library(matrix_base SHARED ${HEADERS} ${SOURCE_FILES})
