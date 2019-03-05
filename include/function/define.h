@@ -12,5 +12,5 @@
 #define FUNCTION_NAMESPACE_END }
 
 #define MATH_EPSILON_EQ(x,v,eps) (((v - eps <= x)) && (x <= (v + eps)))
-
+#define MATH_POW2(x) ((x) * (x))
 #endif //MATRIX_BASE_DEFINE_H
