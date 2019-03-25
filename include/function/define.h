@@ -11,6 +11,9 @@
 #define FUNCTION_NAMESPACE_BEGIN namespace function {
 #define FUNCTION_NAMESPACE_END }
 
+#define MATH_PI         3.14159265358979323846264338327950288   // pi
+
+
 #define MATH_EPSILON_EQ(x,v,eps) (((v - eps <= x)) && (x <= (v + eps)))
 #define MATH_POW2(x) ((x) * (x))
 #endif //MATRIX_BASE_DEFINE_H

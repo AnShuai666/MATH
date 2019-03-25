@@ -8,6 +8,6 @@ set(HEADERS
         ../../include/Matrix/algorithm_base.h )
 set(SOURCE_FILES
 
-        a.cpp ../../include/function/function.hpp )
+        a.cpp ../../include/function/function.hpp)
 
 add_library(matrix_base SHARED ${HEADERS} ${SOURCE_FILES})
