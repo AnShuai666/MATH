@@ -8,7 +8,7 @@
 #ifndef MATRIX_BASE_DEFINE_H
 #define MATRIX_BASE_DEFINE_H
 
-#define FUNCTION_NAMESPACE_BEGIN namespace function {
+#define FUNCTION_NAMESPACE_BEGIN namespace func {
 #define FUNCTION_NAMESPACE_END }
 
 #define MATH_PI         3.14159265358979323846264338327950288   // pi
