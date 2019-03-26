@@ -71,6 +71,17 @@ gaussian2_xx(T const& xx, T const& sigma2);
 template <typename T>
 T const&
 clamp(T const& v, T const& min, T const& max);
+
+/*
+*  @property   限定范围
+*  @func       四舍五入
+*  @param_in   x                 输入值
+*  @return     T                 四舍五入后的值
+*/
+template <typename T>
+inline T
+round(T const& x);
+
 FUNCTION_NAMESPACE_END
 
 /********************************************************************
@@ -106,9 +117,16 @@ function::gaussian2_xx(const T &xx, const T &sigma2)
 
 template <typename T>
 T const&
-clamp(T const& v, T const& min, T const& max)
+function::clamp(T const& v, T const& min, T const& max)
 {
     return (v < min ? min : (v > max ? max : v));
+}
+
+template <typename T>
+inline T
+function::round(T const& x)
+{
+    return x > T(0) ? std::floor(x + T(0.5)): std::ceil(x - T(0.5));
 }
 FUNCTION_NAMESPACE_END
 
