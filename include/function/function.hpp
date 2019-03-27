@@ -46,7 +46,7 @@ gaussian2(T const& x, T const& sigma2);
 */
 template <typename T>
 T
-gaussian_xx(T const& xx, T const& sigma2);
+gaussian_xx(T const& xx, T const& sigma);
 
 /*
 *  @property   高斯函数
@@ -82,49 +82,49 @@ template <typename T>
 inline T
 round(T const& x);
 
-FUNCTION_NAMESPACE_END
 
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~函数实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ********************************************************************/
-FUNCTION_NAMESPACE_BEGIN
+
 template <typename T>
 inline T
-func::gaussian(T const& x, T const& sigma)
+gaussian(T const& x, T const& sigma)
 {
     return std::exp(-(x * x) / (T(2) * sigma * sigma));
 }
 
 template <typename T>
 inline T
-func::gaussian2(T const& x, T const& sigma2)
+gaussian2(T const& x, T const& sigma2)
 {
     return std::exp(-(x * x) / (T(2) * sigma2));
 }
 
 template <typename T>
 inline T
-func::gaussian_xx(const T &xx, const T &sigma)
+gaussian_xx(const T &xx, const T &sigma)
 {
     return std::exp(-(xx) / (T(2) * sigma * sigma));
 }
+
 template <typename T>
 inline T
-func::gaussian2_xx(const T &xx, const T &sigma2)
+gaussian2_xx(const T &xx, const T &sigma2)
 {
     return std::exp(-(xx) / (T(2) * sigma2));
 }
 
 template <typename T>
 T const&
-func::clamp(T const& v, T const& min, T const& max)
+clamp(T const& v, T const& min, T const& max)
 {
     return (v < min ? min : (v > max ? max : v));
 }
 
 template <typename T>
 inline T
-func::round(T const& x)
+round(T const& x)
 {
     return x > T(0) ? std::floor(x + T(0.5)): std::ceil(x - T(0.5));
 }
