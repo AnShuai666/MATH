@@ -256,7 +256,7 @@ MATRIX_NAMESPACE_BEGIN
         *  @return     Matrix<T,m,l>    避免产生临时变量，返回引用与返回值共用一个地址
         */
         template <int l>
-        Matrix<T,m,l> operator* (Matrix<T,n,l> matrix1) const;
+        Matrix<T,m,l> operator* (const Matrix<T,n,l>& matrix1) const;
 
         /*
         *  @property   矩阵乘法
@@ -515,12 +515,19 @@ MATRIX_NAMESPACE_BEGIN
         std::fill(M,M + m*n, value);
     }
 
+
     template <typename T, int m,int n>
     inline
     Matrix<T,m,n>::Matrix(Matrix<T,m,n> const& matrix1)
     {
-        std::copy(*matrix1, *matrix1 + m * n, M);
+        //std::copy(*matrix1, *matrix1 + m * n, M);
+        std::copy(matrix1.M, matrix1.M + m * n, M);
     }
+
+
+    //TODO::函数风险太大，建议删除@AnShuai
+    // 函数传参为Matrix<T,m,n>时，若传入Matrix<T1,m,n>，会调用该构造函数
+    // 浮点转整形时精度损失,double/int..转char.. 时数据截断
 
     template <typename T,int m,int n>
     template <typename T1>
@@ -566,6 +573,8 @@ MATRIX_NAMESPACE_BEGIN
         return M + m * n;
     }
 
+    //TODO::*Matrix_obj可读性差，构造指针时(*(*Matrix_ptr))才能返回 M
+    // 建议用Matrix_obj.data()代替。@anshuai
     template <typename T, int m, int n>
     inline T*
     Matrix<T,m,n>::operator*()
@@ -573,6 +582,8 @@ MATRIX_NAMESPACE_BEGIN
         return M;
     }
 
+    //TODO::*Matrix_obj可读性差，构造指针时(*(*Matrix_ptr))才能返回 M
+    // 建议用Matrix_obj.data()代替。@anshuai
     template <typename T,int m,int n>
     inline T const*
     Matrix<T,m,n>::operator*() const
@@ -584,12 +595,16 @@ MATRIX_NAMESPACE_BEGIN
     inline T&
     Matrix<T,m,n>::operator()(int row,int col)
     {
+        if(row>=this->rows||col>=this->cols)
+            throw std::invalid_argument("Invalid index");
         return M[row * n + col];
     }
     template <typename T,int m,int n>
     inline T const&
     Matrix<T,m,n>::operator()(int row, int col) const
     {
+        if(row>=this->rows||col>=this->cols)
+            throw std::invalid_argument("Invalid index");
         return M[row * n + col];
     }
 
@@ -597,6 +612,8 @@ MATRIX_NAMESPACE_BEGIN
     inline T&
     Matrix<T,m,n>::operator[](unsigned int i)
     {
+        if(i>=this->rows*this->cols)
+            throw std::invalid_argument("Invalid index");
         return M[i];
     }
 
@@ -604,14 +621,18 @@ MATRIX_NAMESPACE_BEGIN
     inline T const&
     Matrix<T,m,n>::operator[](unsigned int i) const
     {
+        if(i>=this->rows*this->cols)
+            throw std::invalid_argument("Invalid index");
         return M[i];
     }
 
+
+    //TODO::+=,-=,*等矩阵操作都可能导致数据溢出@anshuai
     template <typename T,int m, int n>
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator+= (Matrix<T,m,n> const& matrix1)
     {
-        std::transform(M,M + m *n, *matrix1, M, std::plus<T>());
+        std::transform(M,M + m *n, matrix1.M, M, std::plus<T>());
         return *this;
     }
 
@@ -673,10 +694,11 @@ MATRIX_NAMESPACE_BEGIN
             a -= value;
     }
 
+    //TODO::to be CUDA @YANG
     template <typename T,int m, int n>
     template <int l>
     inline Matrix<T,m,l>
-    Matrix<T,m,n>::operator* (Matrix<T,n,l> matrix1) const
+    Matrix<T,m,n>::operator* (const Matrix<T,n,l>& matrix1) const
     {
         Matrix<T,m,l> matrix2 ;
 
@@ -684,7 +706,9 @@ MATRIX_NAMESPACE_BEGIN
         {
             for (int j = 0; j <l ; ++j)
             {
-                T sum = 0;
+                //若需要进行大矩阵相乘，double依然有溢出可能。
+                //T sum = 0;
+                double sum=0;
                 for (int k = 0; k < n; ++k)
                 {
                     sum+=M[i*cols+k]*matrix1.M[k*matrix1.cols+j];
@@ -694,7 +718,7 @@ MATRIX_NAMESPACE_BEGIN
         }
         return matrix2;
     }
-
+    //TODO::to be CUDA @YANG
     template <typename T,int m, int n>
     inline Vector<T,m>
     Matrix<T,m,n>::operator* (Vector<T,n> const& vector1) const
