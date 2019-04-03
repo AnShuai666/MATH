@@ -571,6 +571,8 @@ Vector<T,m>::Vector()
 
 }
 
+
+
 template <typename T,int m>
 inline
 Vector<T,m>::Vector(T const *arr)
@@ -834,9 +836,6 @@ Vector<T,m>::operator!= (Vector<T,m> const& vector1) const
     return  !std::equal(V,V+m,*vector1);
 }
 
-//TODO::函数风险太大，建议删除@AnShuai
-// vector=fuc(),fuc返回数据类型与vector不同时默认调用此函数
-// 浮点转整形时精度损失,double/int..转char.. 时数据截断
 
 template <typename T,int m>
 inline Vector<T,m>&
@@ -845,7 +844,9 @@ Vector<T,m>::operator= (Vector<T,m> const& vector1)
     std::copy(*vector1,*vector1 + m,V);
     return *this;
 }
-
+//TODO::函数风险太大，建议删除@AnShuai
+// vector=fuc(),fuc返回数据类型与vector不同时默认调用此函数
+// 浮点转整形时精度损失,double/int..转char.. 时数据截断
 template <typename T,int m>
 template <typename T1>
 inline Vector<T,m>&

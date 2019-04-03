@@ -184,7 +184,13 @@ MATRIX_NAMESPACE_BEGIN
         *  @return     T const&     避免产生临时变量，返回引用与返回值共用一个地址
         */
         T const& operator[](unsigned int i) const;
-
+/*
+        *  @property   矩阵赋值
+        *  @func       矩阵赋值
+        *  @param_in   matrix1          原始矩阵
+        *  @return     Matrix<T,m,n>&   新矩阵
+        */
+        Matrix<T,m,n>& operator= (Matrix<T,m,n> const& matrix1);
         /*
         *  @property   矩阵加法
         *  @func       对两个矩阵对应元素进行相加
@@ -198,8 +204,11 @@ MATRIX_NAMESPACE_BEGIN
         *  @func       对两个矩阵对应元素进行相加
         *  @param_in   matrix1          被加矩阵
         *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
+        *
+        *  const函数返回引用对导致函数外部对数值进行修改，const失效。
+        *  二元运算函数内部够造临时变量，对临时变量的引用可能导致数据丢失。
         */
-        Matrix<T,m,n>& operator+ (Matrix<T,m,n> const& matrix1) const;
+        Matrix<T,m,n> operator+ (Matrix<T,m,n> const& matrix1) const;
 
         /*
         *  @property   矩阵加法
@@ -215,7 +224,7 @@ MATRIX_NAMESPACE_BEGIN
         *  @param_in   value            被加矩阵
         *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
         */
-        Matrix<T,m,n>& operator+ (T const& value) const;
+        Matrix<T,m,n> operator+ (T const& value) const;
 
         /*
         *  @property   矩阵减法
@@ -231,7 +240,7 @@ MATRIX_NAMESPACE_BEGIN
         *  @param_in   matrix1          被减矩阵
         *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
         */
-        Matrix<T,m,n>& operator- (Matrix<T,m,n> const& matrix1) const;
+        Matrix<T,m,n> operator- (Matrix<T,m,n> const& matrix1) const;
 
         /*
         *  @property   矩阵减法
@@ -247,7 +256,7 @@ MATRIX_NAMESPACE_BEGIN
         *  @param_in   value            被减矩阵
         *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
         */
-        Matrix<T,m,n>& operator- (T const& value) const;
+        Matrix<T,m,n> operator- (T const& value) const;
 
         /*
         *  @property   矩阵乘法
@@ -626,7 +635,14 @@ MATRIX_NAMESPACE_BEGIN
         return M[i];
     }
 
-
+    template <typename T,int m, int n>
+    inline Matrix<T,m,n>&
+    Matrix<T,m,n>::operator= (Matrix<T,m,n> const& matrix1)
+    {
+        if(this!=&matrix1)
+            std::copy(matrix1.M, matrix1.M + m * n, M);
+        return *this;
+    }
     //TODO::+=,-=,*等矩阵操作都可能导致数据溢出@anshuai
     template <typename T,int m, int n>
     inline Matrix<T,m,n>&
@@ -637,10 +653,12 @@ MATRIX_NAMESPACE_BEGIN
     }
 
     template <typename T,int m,int n>
-    inline Matrix<T,m,n>&
+    inline Matrix<T,m,n>
     Matrix<T,m,n>::operator+ (Matrix<T,m,n> const& matrix1) const
     {
-        return Matrix<T,m,n>(*this) += matrix1;
+        Matrix<T,m,n> tmp(*this);
+        tmp += matrix1;
+        return tmp;
     }
 
     template <typename T,int m, int n>
@@ -651,14 +669,17 @@ MATRIX_NAMESPACE_BEGIN
             {
                 a+=value;
             }
+            return *this;
     }
 
     template <typename T,int m,int n>
-    inline Matrix<T,m,n>&
+    inline Matrix<T,m,n>
     Matrix<T,m,n>::operator+ (T const& value) const
     {
-        for(auto& a : M)
-            a += value;
+        Matrix<T,m,n>tmp(*this);
+        //return tmp+=value多调用一次拷贝函数
+        tmp+=value;
+        return tmp;
     }
 
     template <typename T,int m, int n>
@@ -670,10 +691,12 @@ MATRIX_NAMESPACE_BEGIN
     }
 
     template <typename T,int m,int n>
-    inline Matrix<T,m,n>&
+    inline Matrix<T,m,n>
     Matrix<T,m,n>::operator- (Matrix<T,m,n> const& matrix1) const
     {
-        return Matrix<T,m,n>(*this) -= matrix1;
+        Matrix<T,m,n> tmp(*this) ;
+        tmp -= matrix1;
+        return tmp;
     }
 
     template <typename T,int m, int n>
@@ -684,14 +707,16 @@ MATRIX_NAMESPACE_BEGIN
         {
             a-=value;
         }
+        return *this;
     }
 
     template <typename T,int m,int n>
-    inline Matrix<T,m,n>&
+    inline Matrix<T,m,n>
     Matrix<T,m,n>::operator- (T const& value) const
     {
-        for(auto a : M)
-            a -= value;
+        Matrix<T,m,n> tmp(*this) ;
+        tmp-=value;
+        return tmp;
     }
 
     //TODO::to be CUDA @YANG
@@ -723,7 +748,7 @@ MATRIX_NAMESPACE_BEGIN
     inline Vector<T,m>
     Matrix<T,m,n>::operator* (Vector<T,n> const& vector1) const
     {
-        Vector<T,n> tmp(1);
+        Vector<T,m> tmp(1);
         for (int i = 0; i < m; ++i)
         {
             tmp[i] = std::inner_product(M + i * n,M + i * n + n,*vector1,T(0));
@@ -744,7 +769,9 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>
     Matrix<T,m,n>::operator* (T const& num) const
     {
-        return Matrix<T,m,n>(*this)*=num;
+        Matrix<T,m,n> tmp(*this);
+        tmp*=num;
+        return tmp;
     }
 
     template <typename T,int m, int n>
@@ -760,7 +787,9 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>
     Matrix<T,m,n>::operator/ (T const& num) const
     {
-        return Matrix<T,m,n>(*this)/=num;
+        Matrix<T,m,n> tmp(*this);
+        tmp/=num;
+        return tmp;
     }
 
     template <typename T,int m,int n>
@@ -803,6 +832,8 @@ MATRIX_NAMESPACE_BEGIN
     inline Vector<T,n>
     Matrix<T,m,n>::row(int index) const
     {
+        if(index>=m)
+            throw("row_index out of range\n");
         return Vector<T,n>(M + n * index);
     }
 
@@ -810,10 +841,13 @@ MATRIX_NAMESPACE_BEGIN
     inline Vector<T,m>
     Matrix<T,m,n>::col(int index) const
     {
-        Vector<T,m> tmp(0);
+        if(index>=n)
+            throw("col_index out of range\n");
+        int val=0;
+        Vector<T,m> tmp(val);//tmp(0)对Vector(T const *arr),Vector(T const &value)存在歧义
         for (int i = 0; i < m ; i ++)
         {
-            tmp(i) = M(i,index);
+            tmp(i) = M[i*n+index];
         }
         return tmp;
     }
@@ -870,6 +904,10 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m - 1,n>
     Matrix<T,m,n>::delete_row(int index) const
     {
+        if(index>=m)
+            throw("row_index out of range\n");
+        if(m<=1)
+            throw("matrix too small\n");
         Matrix<T,m-1,n> matrix1;
         for (int i = 0; i < m; ++i)
         {
@@ -889,6 +927,10 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n - 1>
     Matrix<T,m,n>::delete_col(int index) const
     {
+        if(index>=n)
+            throw("col_index out of range\n");
+        if(n<=1)
+            throw("matrix too small\n");
         Matrix<T,m,n-1> matrix1;
         T* iter = matrix1.begin();
         for (int i = 0; i < m * n; ++i)
