@@ -258,7 +258,7 @@ public:
     *  @param_in   vector1
     *  @return     Vector<T,m>&
     */
-    Vector<T,m>& operator+ (Vector<T,m> const& vector1) const;
+    Vector<T,m> operator+ (Vector<T,m> const& vector1) const;
 
     /*
     *  @property   重载运算符+=
@@ -306,7 +306,7 @@ public:
     *  @param_in   value
     *  @return     Vector<T,m>&
     */
-    Vector<T,m>& operator- (T const& value) const;
+    Vector<T,m> operator- (T const& value) const;
 
     /*
     *  @property   重载运算符*=
@@ -470,7 +470,7 @@ public:
     *  @func       求向量的归一化,即模长为1的向量,原向量不改变
     *  @return     Vector<T,m>&
     */
-    Vector<T,m> normalized() const;
+    Vector<T,m> normalize_const() const;
 
     /*
     *  @property   求向量绝对值
@@ -484,7 +484,7 @@ public:
     *  @func       将向量每个元素求绝对值,原向量不改变
     *  @return     Vector<T,m>
     */
-    Vector<T,m> abs_valued() const;
+    Vector<T,m> abs_value_const() const;
 
     /*
     *  @property   求向量相反值
@@ -498,7 +498,7 @@ public:
     *  @func       将向量每个元素求相反数,原向量不改变
     *  @return     Vector<T,m>
     */
-    Vector<T,m> negated() const;
+    Vector<T,m> negate_const() const;
 
     /*
     *  @property   升序排序
@@ -512,7 +512,7 @@ public:
     *  @func       将向量进行升序排序,原向量不改变
     *  @return     Vector<T,m>
     */
-    Vector<T,m> sorted_ascending() const;
+    Vector<T,m> sort_ascending_const() const;
 
     /*
     *  @property   降序排序
@@ -526,7 +526,7 @@ public:
     *  @func       将向量进行降序排序,原向量不改变
     *  @return     Vector<T,m>
     */
-    Vector<T,m> sorted_desascending() const;
+    Vector<T,m> sort_desascending_const() const;
 
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~~Vector二元运算~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -552,7 +552,8 @@ public:
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~~Vector相似度计算~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ********************************************************************/
-
+public:
+    int length;
 
 protected:
     T V[m];
@@ -568,7 +569,7 @@ template <typename T,int m>
 inline
 Vector<T,m>::Vector()
 {
-
+    length=m;
 }
 
 
@@ -578,6 +579,7 @@ inline
 Vector<T,m>::Vector(T const *arr)
 {
     std::copy(arr,arr + m,V);
+    length=m;
 }
 
 template <typename T,int m>
@@ -585,33 +587,43 @@ inline
 Vector<T,m>::Vector(T const &value)
 {
     std::fill(V,V + m, value);
+    length=m;
 }
 
 template <typename T,int m>
 inline
 Vector<T,m>::Vector(T const &value1,T const &value2)
 {
+    if(m<2)
+        throw("vector too small\n");
     V[0] = value1;
     V[1] = value2;
+    length=m;
 }
 
 template <typename T,int m>
 inline
 Vector<T,m>::Vector(T const &value1,T const &value2,T const &value3)
 {
+    if(m<3)
+        throw("vector too small\n");
     V[0] = value1;
     V[1] = value2;
     V[2] = value3;
+    length=m;
 }
 
 template <typename T,int m>
 inline
 Vector<T,m>::Vector(T const &value1,T const &value2,T const &value3,T const &value4)
 {
+    if(m<4)
+        throw("vector too small\n");
     V[0] = value1;
     V[1] = value2;
     V[2] = value3;
     V[3] = value4;
+    length=m;
 }
 
 template <typename T,int m>
@@ -696,6 +708,8 @@ template <typename T,int m>
 inline  T&
 Vector<T,m>::operator[] (int index)
 {
+    if(index>=m)
+        throw std::invalid_argument("Invalid index");
     return V[index];
 }
 
@@ -703,6 +717,8 @@ template <typename T,int m>
 inline  T const &
 Vector<T,m>::operator[] (int index) const
 {
+    if(index>=m)
+        throw std::invalid_argument("Invalid index");
     return V[index];
 }
 
@@ -710,6 +726,8 @@ template <typename T,int m>
 inline  T&
 Vector<T,m>::operator() (int index)
 {
+    if(index>=m)
+        throw std::invalid_argument("Invalid index");
     return V[index];
 }
 
@@ -717,6 +735,8 @@ template <typename T,int m>
 inline  T const&
 Vector<T,m>::operator() (int index) const
 {
+    if(index>=m)
+        throw std::invalid_argument("Invalid index");
     return V[index];
 }
 
@@ -729,10 +749,12 @@ Vector<T,m>::operator+= (Vector<T,m> const& vector1)
 }
 
 template <typename T,int m>
-inline  Vector<T,m>&
+inline  Vector<T,m>
 Vector<T,m>::operator+ (Vector<T,m> const& vector1) const
 {
-    return Vector<T,m>(*this) += vector1;
+    Vector<T,m> tmp(*this);
+    tmp+=vector1;
+    return tmp;
 }
 
 template <typename T,int m>
@@ -748,7 +770,9 @@ template <typename T,int m>
 inline  Vector<T,m>
 Vector<T,m>::operator+ (T const& value) const
 {
-    return Vector<T,m>(*this) += value;
+    Vector<T,m> tmp(*this);
+    tmp+=value;
+    return tmp;
 }
 
 template <typename T,int m>
@@ -763,7 +787,9 @@ template <typename T,int m>
 inline  Vector<T,m>
 Vector<T,m>::operator- (Vector<T,m> const& vector1) const
 {
-    Vector<T,m>(*this) += vector1;
+    Vector<T,m> tmp(*this);
+    tmp-=vector1;
+    return tmp;
 }
 
 template <typename T,int m>
@@ -771,19 +797,17 @@ inline   Vector<T,m>&
 Vector<T,m>::operator-= (T const& value)
 {
     for (auto& v : V)
-        v += value;
+        v -= value;
     return *this;
 }
 
 template <typename T,int m>
-inline  Vector<T,m>&
+inline  Vector<T,m>
 Vector<T,m>::operator- (T const& value) const
 {
-    for(auto& v : V)
-    {
-        v +=value;
-    }
-    return *this;
+    Vector<T,m> tmp(*this);
+    tmp-=value;
+    return tmp;
 }
 
 template <typename T, int m>
@@ -801,7 +825,9 @@ template <typename T, int m>
 inline Vector<T,m>
 Vector<T,m>::operator* (T const value) const
 {
-    return Vector<T,m>(*this) *= value;
+    Vector<T,m> tmp(*this);
+    tmp*=value;
+    return tmp;
 }
 
 template <typename T, int m>
@@ -819,7 +845,9 @@ template <typename T,int m>
 inline Vector<T,m>
 Vector<T,m>::operator/ (T const value) const
 {
-    return Vector<T,m>(*this) /= value;
+    Vector<T,m> tmp(*this);
+    tmp/=value;
+    return tmp;
 }
 
 template <typename T,int m>
@@ -871,6 +899,7 @@ template <typename T, int m>
 inline Vector<T,m>&
 Vector<T,m>::copy(T const* arr, int num)
 {
+    num=num<m?num:m;
     std::copy(arr,arr+num,this->V);
     return *this;
 }
@@ -959,9 +988,11 @@ Vector<T,m>::normalize()
 }
 template <typename T,int m>
 inline Vector<T,m>
-Vector<T,m>::normalized() const
+Vector<T,m>::normalize_const() const
 {
-    return Vector<T,m>(*this).normalize();
+    Vector<T,m> tmp(*this);
+    tmp.normalize();
+    return tmp;
 }
 
 template <typename T,int m>
@@ -980,9 +1011,11 @@ Vector<T,m>::abs_value()
 
 template <typename T, int m>
 inline Vector<T,m>
-Vector<T,m>::abs_valued() const
+Vector<T,m>::abs_value_const() const
 {
-    return Vector<T,m>(*this).abs_value();
+    Vector<T,m> tmp(*this);
+    tmp.abs_value();
+    return tmp;
 }
 
 template <typename T,int m>
@@ -998,9 +1031,11 @@ Vector<T,m>::negate()
 
 template <typename T,int m>
 inline Vector<T,m>
-Vector<T,m>::negated() const
+Vector<T,m>::negate_const() const
 {
-    return Vector<T,m>(*this).negate();
+    Vector<T,m> tmp(*this);
+    tmp.negate();
+    return tmp;
 }
 
 template <typename T, int m>
@@ -1013,9 +1048,11 @@ Vector<T,m>::sort_ascending()
 
 template <typename T, int m>
 inline Vector<T,m>
-Vector<T,m>::sorted_ascending() const
+Vector<T,m>::sort_ascending_const() const
 {
-    return Vector<T,m>(*this).sort_ascending();
+    Vector<T,m> tmp(*this);
+    tmp.sort_ascending();
+    return tmp;
 }
 
 template <typename T, int m>
@@ -1028,9 +1065,11 @@ Vector<T,m>::sort_desascending()
 
 template <typename T, int m>
 inline Vector<T,m>
-Vector<T,m>::sorted_desascending() const
+Vector<T,m>::sort_desascending_const() const
 {
-    return Vector<T,m>(*this).sort_desascending();
+    Vector<T,m> tmp(*this);
+    tmp.sort_desascending();
+    return tmp;
 }
 
 template <typename T, int m>
@@ -1053,6 +1092,8 @@ Vector<T,m>::cross(Vector<T,m> const& vector1) const
                         (*this)[2] * vector1[0] - (*this)[0] * vector1[2],
                         (*this)[0] * vector1[1] - (*this)[1] * vector1[0]);
 }
+
+
 
 MATRIX_NAMESPACE_END
 

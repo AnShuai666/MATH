@@ -14,7 +14,7 @@
 #include <algorithm>
 #include "Matrix/vector.hpp"
 using namespace std;
-using namespace matrix;
+//using namespace matrix;
 MATRIX_NAMESPACE_BEGIN
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~常用矩阵类型别名声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -190,7 +190,7 @@ MATRIX_NAMESPACE_BEGIN
         *  @param_in   matrix1          原始矩阵
         *  @return     Matrix<T,m,n>&   新矩阵
         */
-        Matrix<T,m,n>& operator= (Matrix<T,m,n> const& matrix1);
+        virtual Matrix<T,m,n>& operator= (Matrix<T,m,n> const& matrix1);
         /*
         *  @property   矩阵加法
         *  @func       对两个矩阵对应元素进行相加
@@ -424,7 +424,7 @@ MATRIX_NAMESPACE_BEGIN
     *  @func       将矩阵每个元素求相反数,原向量不改变
     *  @return     Matrix<T,m,n>
     */
-    Matrix<T,m,n> negated() const;
+    Matrix<T,m,n> negate_const() const;
 
     /*
     *  @property   求矩阵转置
@@ -438,7 +438,7 @@ MATRIX_NAMESPACE_BEGIN
     *  @func       将矩阵每个元素进行转置,原向量不改变
     *  @return     Matrix<T,m,n>
     */
-    Matrix<T,m,n> transposed() const;
+    Matrix<T,m,n> transpose_const() const;
 
 
 /********************************************************************
@@ -959,9 +959,11 @@ MATRIX_NAMESPACE_BEGIN
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n>
-    Matrix<T,m,n>::negated() const
+    Matrix<T,m,n>::negate_const() const
     {
-        return Matrix<T,m,n>(*this).negate();
+        Matrix<T,m,n> tmp(*this);
+        tmp.negate();
+        return tmp;
     }
 
     template <typename T,int m,int n>
@@ -980,9 +982,11 @@ MATRIX_NAMESPACE_BEGIN
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n>
-    Matrix<T,m,n>::transposed() const
+    Matrix<T,m,n>::transpose_const() const
     {
-        return Matrix<T,m,n>(*this).transpose();
+        Matrix<T,m,n> tmp(*this);
+        tmp.transpose();
+        return tmp;
     }
 
     template <typename T,int m,int n>
@@ -993,4 +997,58 @@ MATRIX_NAMESPACE_BEGIN
     }
 
 
+//建议构造matrix子类做vector类
+template <typename T,int m>
+class VecMat : public Matrix<T,m,1>
+{
+public:
+    VecMat();
+    explicit VecMat(T value);
+    explicit VecMat(T const* arr);
+    explicit VecMat(Matrix<T,m,1>& mat);
+    explicit VecMat(VecMat<T,m>& vec);
+    VecMat<T,m>& operator=(const VecMat<T,m>& vec);
+    VecMat<T,m>& operator=(const Matrix<T,m ,1>& mat);
+public:
+    int length;
+
+};
+template <typename T,int m>
+VecMat<T,m>::VecMat():Matrix<T,m,1>()
+{
+    length=m;
+}
+template <typename T,int m>
+VecMat<T,m>::VecMat(T const*arr):Matrix<T,m,1>(arr) {
+    length=m;
+}
+template <typename T,int m>
+VecMat<T,m>::VecMat(T value):Matrix<T,m,1>(value)
+{
+    length=m;
+}
+
+template <typename T,int m>
+VecMat<T,m>::VecMat(Matrix<T,m,1>& mat):Matrix<T,m,1>(mat)
+{
+    length = m;
+}
+template <typename T,int m>
+VecMat<T,m>::VecMat(VecMat<T,m>& vec):Matrix<T,m,1>(vec)
+{
+    length = m;
+}
+template <typename T,int m>
+VecMat<T,m>& VecMat<T,m>::operator=(const VecMat<T,m>& vec)
+{
+    if(this!=&vec)
+        std::copy(*vec, *vec + m * 1, Matrix<T,m,1>::M);
+    return *this;
+}
+template <typename T,int m>
+VecMat<T,m>& VecMat<T,m>::operator=(const Matrix<T,m ,1>& mat)
+{
+    std::copy(*mat, *mat + m * 1, Matrix<T,m,1>::M);
+    return *this;
+}
 MATRIX_NAMESPACE_END
