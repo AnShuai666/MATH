@@ -1,0 +1,6 @@
+cmake-build-debug
+build/
+lib/
+examples_bin/
+.idea/
+cmakemodule/

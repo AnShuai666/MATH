@@ -10,3 +10,11 @@ set(SOURCE_FILES
         )
 
 add_library(function SHARED ${HEADERS} ${SOURCE_FILES})
+
+install(TARGETS function
+        LIBRARY DESTINATION lib/MATH/function
+        ARCHIVE DESTINATION lib/MATH/function
+        RUNTIME DESTINATION bin/MATH/function
+        )
+install(FILES ${HEADERS}
+        DESTINATION include/MATH/function)
