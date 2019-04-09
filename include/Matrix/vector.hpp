@@ -13,7 +13,9 @@
 #include "define.h"
 #include <algorithm>
 #include <iterator>
+#include <math_define.h>
 using namespace std;
+MATH_NAMESPACE_BEGIN
 MATRIX_NAMESPACE_BEGIN
 
 /********************************************************************
@@ -1096,5 +1098,6 @@ Vector<T,m>::cross(Vector<T,m> const& vector1) const
 
 
 MATRIX_NAMESPACE_END
+MATH_NAMESPACE_END
 
 #endif //__MATRIX_VECTOR_H__

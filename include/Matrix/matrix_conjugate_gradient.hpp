@@ -1,0 +1,22 @@
+/*
+ * 日期:	2018-04-09
+ * 时间:	11:03
+ * 姓名:	安帅
+ * @func    矩阵共轭梯度法求解运算
+*/
+
+#ifndef MATH_MATRIX_CONJUGATE_GRADIENT_HPP
+#define MATH_MATRIX_CONJUGATE_GRADIENT_HPP
+
+#include <math_define.h>
+#include "define.h"
+MATH_NAMESPACE_BEGIN
+MATRIX_NAMESPACE_BEGIN
+
+
+
+
+MATRIX_NAMESPACE_END
+MATH_NAMESPACE_END
+
+#endif //MATH_MATRIX_CONJUGATE_GRADIENT_HPP

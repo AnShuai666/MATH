@@ -6,15 +6,21 @@
 */
 
 
-#ifndef __MATRIX_H__
-#define __MATRIX_H__
+#ifndef __MATH_MATRIX_H__
+#define __MATH_MATRIX_H__
 #include "define.h"
 #include <iostream>
 #include <memory>
 #include <algorithm>
 #include "Matrix/vector.hpp"
+#include <math_define.h>
 using namespace std;
+<<<<<<< HEAD
 //using namespace matrix;
+=======
+using namespace math::matrix;
+MATH_NAMESPACE_BEGIN
+>>>>>>> 69837e9681090d1dd569033d55eb2b1f5d2af21d
 MATRIX_NAMESPACE_BEGIN
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~常用矩阵类型别名声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -453,7 +459,7 @@ MATRIX_NAMESPACE_BEGIN
         T M[m * n];
 
 
-
+    public:
 
 
 
@@ -495,7 +501,7 @@ MATRIX_NAMESPACE_BEGIN
 
 MATRIX_NAMESPACE_END
 
-#endif //__MATRIX_H__
+#endif //__MATH_MATRIX_H__
 
 
 
@@ -997,6 +1003,7 @@ MATRIX_NAMESPACE_BEGIN
     }
 
 
+<<<<<<< HEAD
 //建议构造matrix子类做vector类
 template <typename T,int m>
 class VecMat : public Matrix<T,m,1>
@@ -1052,3 +1059,7 @@ VecMat<T,m>& VecMat<T,m>::operator=(const Matrix<T,m ,1>& mat)
     return *this;
 }
 MATRIX_NAMESPACE_END
+=======
+MATRIX_NAMESPACE_END
+MATH_NAMESPACE_END
+>>>>>>> 69837e9681090d1dd569033d55eb2b1f5d2af21d
