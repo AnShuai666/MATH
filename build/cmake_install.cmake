@@ -46,7 +46,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/MATH" TYPE FILE FILES "/home/as/MATH/MATHConfig.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/MATH" TYPE FILE FILES
+    "/home/as/MATH/MATHConfig.h"
+    "/home/as/MATH/include/math_define.h"
+    )
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)

@@ -144,7 +144,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=matrix_base
+CMAKE_PROJECT_NAME:STATIC=MATH
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -287,6 +287,12 @@ CUDA_cufft_LIBRARY:FILEPATH=CUDA_cufft_LIBRARY-NOTFOUND
 //"cufftemu" library
 CUDA_cufftemu_LIBRARY:FILEPATH=CUDA_cufftemu_LIBRARY-NOTFOUND
 
+//Value Computed by CMake
+MATH_BINARY_DIR:STATIC=/home/as/MATH/build
+
+//Value Computed by CMake
+MATH_SOURCE_DIR:STATIC=/home/as/MATH
+
 //Path to a program.
 ProcessorCount_cmd_getconf:FILEPATH=/usr/bin/getconf
 
@@ -295,6 +301,9 @@ ProcessorCount_cmd_sysctl:FILEPATH=/sbin/sysctl
 
 //Value Computed by CMake
 matrix_base_BINARY_DIR:STATIC=/home/as/MATH/build
+
+//Dependencies for the target
+matrix_base_LIB_DEPENDS:STATIC=general;function;
 
 //Value Computed by CMake
 matrix_base_SOURCE_DIR:STATIC=/home/as/MATH

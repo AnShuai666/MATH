@@ -62,6 +62,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/as/MATH/include/Matrix/matrix.hpp"
     "/home/as/MATH/include/Matrix/vector.hpp"
     "/home/as/MATH/include/Matrix/algorithm_base.h"
+    "/home/as/MATH/include/Matrix/matrix_cholesky.hpp"
+    "/home/as/MATH/include/Matrix/matrix_qr.hpp"
+    "/home/as/MATH/include/Matrix/matrix_svd.hpp"
+    "/home/as/MATH/include/Matrix/matrix_conjugate_gradient.hpp"
     )
 endif()
 
