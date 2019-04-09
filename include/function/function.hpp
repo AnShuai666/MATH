@@ -10,7 +10,9 @@
 
 #include <cmath>
 #include "define.h"
+#include <math_define.h>
 
+MATH_NAMESPACE_BEGIN
 FUNCTION_NAMESPACE_BEGIN
 /*
 *  @property   高斯函数
@@ -129,5 +131,5 @@ round(T const& x)
     return x > T(0) ? std::floor(x + T(0.5)): std::ceil(x - T(0.5));
 }
 FUNCTION_NAMESPACE_END
-
+MATH_NAMESPACE_END
 #endif //MATRIX_BASE_FUNCTION_HPP

@@ -6,15 +6,17 @@
 */
 
 
-#ifndef __MATRIX_H__
-#define __MATRIX_H__
+#ifndef __MATH_MATRIX_H__
+#define __MATH_MATRIX_H__
 #include "define.h"
 #include <iostream>
 #include <memory>
 #include <algorithm>
 #include "Matrix/vector.hpp"
+#include <math_define.h>
 using namespace std;
-using namespace matrix;
+using namespace math::matrix;
+MATH_NAMESPACE_BEGIN
 MATRIX_NAMESPACE_BEGIN
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~常用矩阵类型别名声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -444,7 +446,7 @@ MATRIX_NAMESPACE_BEGIN
         T M[m * n];
 
 
-
+    public:
 
 
 
@@ -486,7 +488,7 @@ MATRIX_NAMESPACE_BEGIN
 
 MATRIX_NAMESPACE_END
 
-#endif //__MATRIX_H__
+#endif //__MATH_MATRIX_H__
 
 
 
@@ -928,3 +930,4 @@ MATRIX_NAMESPACE_BEGIN
 
 
 MATRIX_NAMESPACE_END
+MATH_NAMESPACE_END
