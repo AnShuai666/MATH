@@ -1,4 +1,4 @@
-include_directories(../../include)
+include_directories(${PROJECT_SOURCE_DIR}/include)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 set(HEADERS
@@ -16,5 +16,6 @@ install(TARGETS function
         ARCHIVE DESTINATION lib/MATH/function
         RUNTIME DESTINATION bin/MATH/function
         )
+
 install(FILES ${HEADERS}
         DESTINATION include/MATH/function)
