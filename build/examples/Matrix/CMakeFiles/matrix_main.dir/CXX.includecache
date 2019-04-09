@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,15 +6,5 @@
 
 #IncludeRegexTransform: 
 
-../examples/Matrix/../../include/Matrix/define.h
-
-../examples/Matrix/../../include/Matrix/matrix.hpp
-define.h
-../examples/Matrix/../../include/Matrix/define.h
-iostream
--
-
-/home/yft/AnShuai/github/MATH/examples/Matrix/matrix_main.cpp
-Matrix/matrix.hpp
--
+/home/as/MATH/examples/Matrix/matrix_main.cpp
 

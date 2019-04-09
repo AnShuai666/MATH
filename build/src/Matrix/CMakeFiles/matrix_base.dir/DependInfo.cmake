@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/yft/AnShuai/github/MATH/src/Matrix/a.cpp" "/home/yft/AnShuai/github/MATH/build/src/Matrix/CMakeFiles/matrix_base.dir/a.cpp.o"
+  "/home/as/MATH/src/Matrix/a.cpp" "/home/as/MATH/build/src/Matrix/CMakeFiles/matrix_base.dir/a.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

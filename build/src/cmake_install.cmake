@@ -1,4 +1,4 @@
-# Install script for directory: /home/yft/AnShuai/github/MATH/src
+# Install script for directory: /home/as/MATH/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -32,13 +32,18 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
+# Is this installation the result of a crosscompile?
+if(NOT DEFINED CMAKE_CROSSCOMPILING)
+  set(CMAKE_CROSSCOMPILING "FALSE")
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/yft/AnShuai/github/MATH/build/src/Geometry/cmake_install.cmake")
-  include("/home/yft/AnShuai/github/MATH/build/src/Graph/cmake_install.cmake")
-  include("/home/yft/AnShuai/github/MATH/build/src/Matrix/cmake_install.cmake")
-  include("/home/yft/AnShuai/github/MATH/build/src/Optimization/cmake_install.cmake")
-  include("/home/yft/AnShuai/github/MATH/build/src/Probability/cmake_install.cmake")
+  include("/home/as/MATH/build/src/Geometry/cmake_install.cmake")
+  include("/home/as/MATH/build/src/Graph/cmake_install.cmake")
+  include("/home/as/MATH/build/src/Matrix/cmake_install.cmake")
+  include("/home/as/MATH/build/src/Optimization/cmake_install.cmake")
+  include("/home/as/MATH/build/src/Probability/cmake_install.cmake")
 
 endif()
 

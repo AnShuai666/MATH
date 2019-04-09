@@ -1,1 +1,1 @@
-/usr/bin/c++  -fPIC -fPIC -g  -shared -Wl,-soname,libmatrix_base.so -o ../../../lib/libmatrix_base.so CMakeFiles/matrix_base.dir/a.cpp.o 
+/usr/bin/c++ -fPIC -fPIC -g  -shared -Wl,-soname,libmatrix_base.so -o ../../../lib/libmatrix_base.so CMakeFiles/matrix_base.dir/a.cpp.o 

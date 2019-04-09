@@ -1,4 +1,4 @@
-# Install script for directory: /home/yft/AnShuai/github/MATH
+# Install script for directory: /home/as/MATH
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -32,10 +32,27 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
+# Is this installation the result of a crosscompile?
+if(NOT DEFINED CMAKE_CROSSCOMPILING)
+  set(CMAKE_CROSSCOMPILING "FALSE")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/MATH" TYPE FILE FILES "/home/as/MATH/MATHConfig.cmake")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/MATH" TYPE FILE FILES "/home/as/MATH/MATHConfigVersion.cmake")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/MATH" TYPE FILE FILES "/home/as/MATH/MATHConfig.h")
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/yft/AnShuai/github/MATH/build/examples/cmake_install.cmake")
-  include("/home/yft/AnShuai/github/MATH/build/src/cmake_install.cmake")
+  include("/home/as/MATH/build/examples/cmake_install.cmake")
+  include("/home/as/MATH/build/src/cmake_install.cmake")
 
 endif()
 
@@ -47,5 +64,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/yft/AnShuai/github/MATH/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/as/MATH/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
