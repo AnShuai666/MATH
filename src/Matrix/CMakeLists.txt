@@ -9,7 +9,9 @@ set(HEADERS
         ${PROJECT_SOURCE_DIR}/include/Matrix/matrix_cholesky.hpp
         ${PROJECT_SOURCE_DIR}/include/Matrix/matrix_qr.hpp
         ${PROJECT_SOURCE_DIR}/include/Matrix/matrix_svd.hpp
-        ${PROJECT_SOURCE_DIR}/include/Matrix/matrix_conjugate_gradient.hpp)
+        ${PROJECT_SOURCE_DIR}/include/Matrix/matrix_conjugate_gradient.hpp
+
+        )
 set(SOURCE_FILES
         a.cpp
         )
