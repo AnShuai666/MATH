@@ -9,6 +9,7 @@
 #define MATH_CHOLESKY_HPP
 
 #include <math_define.h>
+#include <cmath>
 #include "define.h"
 MATH_NAMESPACE_BEGIN
 MATRIX_NAMESPACE_BEGIN
@@ -35,40 +36,33 @@ MATH_NAMESPACE_END
 MATH_NAMESPACE_BEGIN
 MATRIX_NAMESPACE_BEGIN
 //TODO: FOR 邹云龙实现并写一个该文件的一个api文档，去查一下api如何写
-/*
- * template <typename T>
+template <typename T>
 void
 cholesky_decomposition (T const* A, int const cols, T* L)
 {
-    T* out_ptr = L;
-    for (int r = 0; r < cols; ++r)
+    for(int k = 0; k < cols; k++)
     {
-
-        for (int c = 0; c < r; ++c)
-    {
-        T result = T(0);
-        for (int ci = 0; ci < c; ++ci)
-        result += L[r * cols + ci] * L[c * cols + ci];
-        result = A[r * cols + c] - result;
-        (*out_ptr++) = result / L[c * cols + c];
+        T sum = 0;
+        //计算对角元素
+        for(int i = 0; i < k; i++)
+            sum += L[k*cols+i] * L[k*cols+i];
+        sum = A[k*cols+k] - sum;
+        L[k*cols+k] = sqrt(sum > 0 ? sum : 0);
+        //对角元素以下的同一列元素
+        for(int i = k + 1; i < cols; i++)
+        {
+            sum = 0;
+            for(int j = 0; j < k; j++)
+                sum += L[i*cols+j] * L[k*cols+j];
+            L[i*cols+k] = (A[i*cols+k] - sum) / L[k*cols+k];
+        }
+        //对角元素以上的同一列元素
+        for(int j = 0; j < k; j++)
+            L[j*cols+k] = 0;
     }
-
-
-{
-    T* L_row_ptr = L + r * cols;
-    T result = T(0);
-    for (int c = 0; c < r; ++c)
-    result += MATH_POW2(L_row_ptr[c]);
-    result = std::max(T(0), A[r * cols + r] - result);
-    (*out_ptr++) = std::sqrt(result);
 }
 
-for (int c = r + 1; c < cols; ++c)
-(*out_ptr++) = T(0);
-}
-}
- *
- * */
+/*
 template<typename T>    
 void 
 math::matrix::cholesky_decomposition(T const *A, int const cols, T *L) 
@@ -91,7 +85,7 @@ math::matrix::cholesky_decomposition(T const *A, int const cols, T *L)
 
     }
 
-}
+}*/
     
 MATRIX_NAMESPACE_END
 MATH_NAMESPACE_END
