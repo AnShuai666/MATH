@@ -34,7 +34,41 @@ MATH_NAMESPACE_END
 
 MATH_NAMESPACE_BEGIN
 MATRIX_NAMESPACE_BEGIN
+//TODO: FOR 邹云龙实现并写一个该文件的一个api文档，去查一下api如何写
+/*
+ * template <typename T>
+void
+cholesky_decomposition (T const* A, int const cols, T* L)
+{
+    T* out_ptr = L;
+    for (int r = 0; r < cols; ++r)
+    {
 
+        for (int c = 0; c < r; ++c)
+    {
+        T result = T(0);
+        for (int ci = 0; ci < c; ++ci)
+        result += L[r * cols + ci] * L[c * cols + ci];
+        result = A[r * cols + c] - result;
+        (*out_ptr++) = result / L[c * cols + c];
+    }
+
+
+{
+    T* L_row_ptr = L + r * cols;
+    T result = T(0);
+    for (int c = 0; c < r; ++c)
+    result += MATH_POW2(L_row_ptr[c]);
+    result = std::max(T(0), A[r * cols + r] - result);
+    (*out_ptr++) = std::sqrt(result);
+}
+
+for (int c = r + 1; c < cols; ++c)
+(*out_ptr++) = T(0);
+}
+}
+ *
+ * */
 template<typename T>    
 void 
 math::matrix::cholesky_decomposition(T const *A, int const cols, T *L) 
@@ -51,8 +85,8 @@ math::matrix::cholesky_decomposition(T const *A, int const cols, T *L)
     for (int j = 0; j < ; ++j) {
 
     }
-    //填充下三角右侧数据项为0
 
+    //填充下三角右侧数据项为0
     for (int k = 0; k < ; ++k) {
 
     }
