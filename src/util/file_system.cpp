@@ -94,5 +94,22 @@ file_system::get_home_dir(void)
     return home_path;
 }
 
+char*
+file_system::get_cwd(char *buf, std::size_t size)
+{
+    return ::getcwd(buf,size);
+}
 
+bool
+file_system::set_cwd(char const *pathname)
+{
+    return ::chdir(pathname) >= 0;
+}
+
+bool
+file_system::mkdir(char const *pathname)
+{
+    //111 | 040 | 010 = 750权限
+    return ::mkdir(pathname,S_IRWXU | S_IRGRP | S_IXGRP) >= 0;
+}
 UTIL_NAMESPACE_END

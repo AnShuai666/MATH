@@ -34,14 +34,32 @@ bool is_file_exists(char const* pathname);
 
 /*
  *  @property   用户目录获取
- *  @func       获取用户目录/home/user
+ *  @func       获取当前进程用户目录/home/user
  *  @return     char const*     用户目录
 */
 char const* get_home_dir(void);
 
+/*
+ *  @property   当前进程目录获取
+ *  @func       获取当前进程(可执行程序)运行目录的绝对路径pwd
+ *  param_in    buf  getcwd()会将当前工作目录的绝对路径复制到参数buffer所指的内存空间中
+ *  param_in    size    buffer的空间大小
+ *  @return     char const*     当前进程绝对路径
+ *  @example    char buf[MAXPATH];
+                get_cwd(buf,MAXPATH);
+*/
 char* get_cwd(char* buf,std::size_t size);
 
+/*
+ *  @property   改变当前进程目录
+ *  @func       改变当前进程目录 绝对路径
+ *  @param_in   pathname     新路径
+ *  @return     bool
+ *              成功          true
+ *              失败          false
+*/
 bool set_cwd(char const* pathname);
+
 
 bool mkdir(char const* pathname);
 
