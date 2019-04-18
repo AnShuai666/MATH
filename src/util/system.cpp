@@ -5,6 +5,9 @@
  * @func   系统相关函数
 */
 #include "util/system.h"
+#include <thread>
+#include <csignal>
+#include <execinfo.h>
 UTIL_NAMESPACE_BEGIN
 SYSTEM_NAMESPACE_BEGIN
 
@@ -13,50 +16,70 @@ SYSTEM_NAMESPACE_BEGIN
  *******************************************************************/
 
 void
-system::sleep(std::size_t milli_secs)
+sleep(std::size_t milli_secs)
 {
-
+    std::this_thread::sleep_for(std::chrono::milliseconds(milli_secs));
 }
 
 void
-system::sleep_sec(float secs)
+sleep_sec(float secs)
 {
-
+    util_system::sleep((std::size_t)(secs*1000));
 }
 
 int
-system::random_int()
+random_int()
 {
-
+    std::srand(std::time(nullptr));
 }
 
 void
-system::print_build_timestamp(char const *application_name)
+print_build_timestamp(char const *application_name)
 {
-
+    print_build_timestamp(application_name,__DATE__,__TIME__);
 }
 
 void
-system::print_build_timestamp(char const *application_name, char const *date, char const *time)
+print_build_timestamp(char const *application_name,
+        char const *date, char const *time)
 {
-
+    std::cout << application_name << "(编译于 " << date <<", "
+              << time << ".)" <<std::endl;
 }
 
-void system::register_segfault_handler()
+void register_segfault_handler()
 {
-
-}
-
-void
-system::signal_segfault_handler(int code)
-{
-
+    std::signal(SIGSEGV,util_system::signal_segfault_handler);
 }
 
 void
-system::print_stack_trace()
+signal_segfault_handler(int code)
 {
+    if (code != SIGSEGV)
+    {
+        return;
+    }
+    std::cerr << "接收到信号SIGSEGV(段错误)" << std::endl;
+    print_stack_trace();
+}
 
+void
+print_stack_trace()
+{
+    void *array[32];
+    //::是域运算符
+    //域运算符一般用来选用全局的函数
+    int const size = ::backtrace(array,32);
+
+    std::cerr << "获取了 " <<size << "　个栈帧：　";
+    for (int i = 0; i < size; ++i)
+    {
+        std::cerr << " " << array[i];
+    }
+    std::cerr << std::endl;
+
+    std::cerr << "段错误！" << std::endl;
+    ::exit(1);
 }
 
 SYSTEM_NAMESPACE_END
