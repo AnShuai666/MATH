@@ -8,7 +8,7 @@
 #define UTIL_NAMESPACE_BEGIN namespace util {
 #define UTIL_NAMESPACE_END }
 
-#define SYSTEM_NAMESPACE_BEGIN namespace system {
+#define SYSTEM_NAMESPACE_BEGIN namespace util_system {
 #define SYSTEM_NAMESPACE_END }
 
 
