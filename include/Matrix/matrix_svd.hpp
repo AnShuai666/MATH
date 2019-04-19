@@ -30,7 +30,7 @@ MATH_NAMESPACE_BEGIN
 MATRIX_NAMESPACE_BEGIN
 
 
-double eps=1e-12;      //允许的最大误差
+static double eps=1e-12;      //允许的最大误差
 
 double get_norm(double *x, int n)   //求sqrt(x[1]*x[1] + x[2]*x[2] +......+ x[n]*x[n])，                                     //求向量x的模长|x|；
 {

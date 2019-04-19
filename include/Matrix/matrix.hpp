@@ -13,6 +13,8 @@
 #include <memory>
 #include <algorithm>
 #include "Matrix/vector.hpp"
+#include "Matrix/matrix_inverse.hpp"
+#include "Matrix/matrix_LU.hpp"
 #include <math_define.h>
 using namespace std;
 using namespace math::matrix;
@@ -463,11 +465,11 @@ MATRIX_NAMESPACE_BEGIN
 
 
         //TODO(8): 伴随矩阵
-        Matrix<T,m,n> &adjoint();
+        Matrix<T,m,n> adjoint();
 
 
         //TODO(9): 逆矩阵
-        Matrix<T,m,n> &inverse();
+        Matrix<float,m,n> inverse();
 
 
         //TODO(10): 矩阵的迹要判断是否为方阵
@@ -482,15 +484,13 @@ MATRIX_NAMESPACE_BEGIN
 
 
         //TODO(13): 行列式
-        int determiniant();
+        double determiniant();
 
         //  TODO(14): 矩阵特征值
 
         // TODO(15): 特征向量
 
     };
-
-
 
 
 
@@ -679,7 +679,7 @@ MATRIX_NAMESPACE_BEGIN
     Matrix<T,m,n>::operator+ (T const& value) const
     {
         Matrix<T,m,n>tmp(*this);
-        //return tmp+=value多调用一次拷贝函数
+        //return tmp+=value; //多调用一次拷贝函数,tmp+=value为右值
         tmp+=value;
         return tmp;
     }
@@ -998,6 +998,76 @@ MATRIX_NAMESPACE_BEGIN
 
     }
 
+    template <typename T,int m,int n>
+    Matrix<float,m,n> Matrix<T,m,n>::inverse() {
+        Matrix<float,m,n> _mat_inv((T)0);
+        if(m!=n)
+            return _mat_inv;
+
+       T* mat= this->M;
+       float* _arr_inv=*_mat_inv;
+       bool _sucess = pbgLupSolveInverse(mat,n,_arr_inv);
+       return _mat_inv;
+    }
+
+    template <typename T,int m,int n>
+    double Matrix<T,m,n>::determiniant(){
+        if(m!=n)
+            return 0;
+        double _result = 1;
+        float *_A=new float[n*n];
+        for(int i=0;i<n*n;i++)
+            _A[i]=this->M[i];
+
+        if( n == 2 ) {
+            _result = _A[0]*_A[3]-_A[1]*_A[2];
+        }
+        else if( n == 3 )
+            _result = _A[0*3+0]*(_A[1*3+1]*_A[2*3+2] - _A[1*3+2]*_A[2*3+1]) -
+                    _A[0*3+1]*(_A[1*3+0]*_A[2*3+2] - _A[1*3+2]*_A[2*3+0]) +
+                    _A[0*3+2]*(_A[1*3+0]*_A[2*3+1] - _A[1*3+1]*_A[2*3+0]);
+        else if( n == 1 )
+            _result = _A[0];
+        else {
+            int i, j, k;
+            size_t _astep = m;
+            for (i = 0; i < m; i++) {
+                k = i;
+
+                for (j = i + 1; j < m; j++)
+                    if (std::abs(_A[j * _astep + i]) > std::abs(_A[k * _astep + i]))
+                        k = j;
+
+                if (std::abs(_A[k * _astep + i]) < eps)
+                    return 0;
+
+                if (k != i) {
+                    for (j = i; j < m; j++)
+                        std::swap(_A[i * _astep + j], _A[k * _astep + j]);
+                    _result = -_result;
+                }
+
+                float d = -1 / _A[i * _astep + i];
+
+                for (j = i + 1; j < m; j++) {
+                    float alpha = _A[j * _astep + i] * d;
+
+                    for (k = i + 1; k < m; k++)
+                        _A[j * _astep + k] += alpha * _A[i * _astep + k];
+
+                }
+            }
+            for(int i=0;i<n;i++)
+                _result*=_A[i*n+i];
+        }
+
+        delete[] _A;
+        return _result;
+    }
+    template <typename T,int m,int n>
+    Matrix<T,m,n> Matrix<T,m,n>::adjoint(){
+
+    }
 //建议构造matrix子类做vector类
 template <typename T,int m>
 class VecMat : public Matrix<T,m,1>
@@ -1052,7 +1122,19 @@ VecMat<T,m>& VecMat<T,m>::operator=(const Matrix<T,m ,1>& mat)
     std::copy(*mat, *mat + m * 1, Matrix<T,m,1>::M);
     return *this;
 }
-
+template <typename T,int m,int n>
+void PrintMatrix(Matrix<T,m,n>& mat)
+{
+    int rows=m>10?10:m;
+    int cols=n>10?10:n;
+    for (int y = 0; y < rows; ++y) {
+        for (int x = 0; x < cols; ++x) {
+            printf( "%.5f  ", mat(y,x));
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
 MATRIX_NAMESPACE_END
 MATH_NAMESPACE_END
 
