@@ -23,6 +23,15 @@ FILE_SYSTEM_NAMESPACE_BEGIN
 */
 bool is_directory_exist(char const* pathname);
 /*
+ *  @property   文件夹检测函数
+ *  @func       检测文件夹是否为空
+ *  @param_in   pathname        路径名
+ *  @return     bool
+ *              存在             true
+ *              不存在           false   errno被设置
+*/
+bool is_directory_empty(char const* pathname);
+/*
  *  @property   文件检测函数
  *  @func       检测文件是否存在
  *  @param_in   pathname        路径名
@@ -60,16 +69,52 @@ char* get_cwd(char* buf,std::size_t size);
 */
 bool set_cwd(char const* pathname);
 
-
+/*
+ *  @property   文件夹处理函数
+ *  @func       创建新的文件夹
+ *  @param_in   pathname     文件夹名字
+ *  @return     bool
+ *              成功          true
+ *              失败          false
+*/
 bool mkdir(char const* pathname);
-
+/*
+ *  @property   文件夹处理函数
+ *  @func       删除文件夹
+ *  @param_in   pathname     文件夹名字
+ *  @return     bool
+ *              成功          true
+ *              失败          false
+*/
 bool rmdir(char const* pathname);
-
+/*
+ *  @property   文件处理函数
+ *  @func       断开相关链接的文件
+ *  @param_in   pathname     文件名字
+ *  @return     bool
+ *              成功          true
+ *              失败          false
+*/
 bool unlink(char const* pathname);
-
+/*
+ *  @property   文件处理函数
+ *  @func       重命名文件
+ *  @param_in   pathname     文件名字
+ *  @return     bool
+ *              成功          true
+ *              失败          false
+*/
 bool rename(char const* from, char const* to);
-
-void copy_file(char const* src, char const* dst);
+/*
+ *  @property   文件处理函数
+ *  @func       复制文件
+ *  @param_in   src     源文件名
+ *              dst     目标文件名
+ *              type 1  文本复制
+ *                   else  二进制
+ * 默认二进制读写。
+*/
+void copy_file(char const* src, char const* dst,int type = 0);
 
 
 
