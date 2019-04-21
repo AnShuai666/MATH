@@ -13,7 +13,6 @@
 #include <memory>
 #include <algorithm>
 #include "Matrix/vector.hpp"
-#include "Matrix/matrix_inverse.hpp"
 #include "Matrix/matrix_LU.hpp"
 #include <math_define.h>
 using namespace std;
@@ -1006,7 +1005,7 @@ MATRIX_NAMESPACE_BEGIN
 
        T* mat= this->M;
        float* _arr_inv=*_mat_inv;
-       bool _sucess = pbgLupSolveInverse(mat,n,_arr_inv);
+       LuSolveInverse<T>(mat,n,_arr_inv);
        return _mat_inv;
     }
 
@@ -1015,6 +1014,7 @@ MATRIX_NAMESPACE_BEGIN
         if(m!=n)
             return 0;
         double _result = 1;
+        double eps=1e-5;
         float *_A=new float[n*n];
         for(int i=0;i<n*n;i++)
             _A[i]=this->M[i];
@@ -1038,8 +1038,10 @@ MATRIX_NAMESPACE_BEGIN
                     if (std::abs(_A[j * _astep + i]) > std::abs(_A[k * _astep + i]))
                         k = j;
 
-                if (std::abs(_A[k * _astep + i]) < eps)
-                    return 0;
+                if (std::abs(_A[k * _astep + i]) < eps) {
+                    _result = 0;
+                    break;
+                }
 
                 if (k != i) {
                     for (j = i; j < m; j++)
@@ -1066,7 +1068,17 @@ MATRIX_NAMESPACE_BEGIN
     }
     template <typename T,int m,int n>
     Matrix<T,m,n> Matrix<T,m,n>::adjoint(){
+        Matrix<T,m,n> adj;
+        if(m!=n)
+            return adj;
+        Matrix<float,m,n> inv=this->inverse();
+        double det=this->determiniant();
 
+        for(int i=0;i<m;i++)
+            for(int j=0;j<m;j++){
+                adj(i,j)=det*inv(i,j);
+            }
+        return adj;
     }
 //建议构造matrix子类做vector类
 template <typename T,int m>
