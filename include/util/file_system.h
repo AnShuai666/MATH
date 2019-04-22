@@ -131,22 +131,26 @@ void copy_file(char const* src, char const* dst,int type = 0);
  *~~~~~~~~~~~~~~~~~~~~~文件系统IO相关操作~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *******************************************************************/
 
-
-/********************************************************************
- *~~~~~~~~~~~~~~~~~~~~文件系统字符串相关操作~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *******************************************************************/
-
 /*
- *  @property   文件字符串处理函数
+ *  @property   文件IO处理函数
  *  @func       读取文件内容到字符串中
  *  @param_in   filename     文件名
  *  @param_in   data         字符串引用
 */
 void read_file_to_string(std::string const& filename,std::string& data);
 
+/*
+ *  @property   文件IO处理函数
+ *  @func       读取字符串内容到文件中 原文家内容将被覆盖，写成c语言，可以提高效率
+ *  @param_in   data         字符串引用
+ *  @param_in   filename     文件名
+*/
 void write_string_to_file(std::string const& data,std::string const& filename);
 
-void write_string_to_file(char const* data,std::size_t length,std::string const& filename);
+
+/********************************************************************
+ *~~~~~~~~~~~~~~~~~~~~文件系统字符串相关操作~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *******************************************************************/
 
 
 

@@ -231,8 +231,8 @@ file_system::copy_file(char const* src, char const* dst,int type)
 void
 file_system::read_file_to_string(std::string const &filename, std::string &data)
 {
-    std::ifstream in;//(filename.c_str(),std::ios::binary);
-    in.open(filename);//,std::ios::binary);
+    std::ifstream in(filename.c_str(),std::ios::binary);
+    //in.open(filename);//,std::ios::binary);
     if (!in.good())
     {
         //TODO:抛出异常
@@ -248,5 +248,17 @@ file_system::read_file_to_string(std::string const &filename, std::string &data)
     //read()从文件中读取 length 个字符到 data指向的缓存中
     in.read(const_cast<char*>(data.c_str()),length);
     in.close();
+}
+
+void
+file_system::write_string_to_file(std::string const &data, std::string const &filename)
+{
+    std::ofstream out(filename.c_str(),std::ios::binary);
+    if (!out.good())
+    {
+        //抛出异常
+    }
+    out.write(data.c_str(),data.size());
+    out.close();
 }
 UTIL_NAMESPACE_END
