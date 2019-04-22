@@ -16,6 +16,7 @@
 #include <iostream>
 #include <dirent.h>
 #include <fstream>
+#include <bits/locale_facets.tcc>
 
 #ifndef  PATH_MAX
 #define PATH_MAX 2048
@@ -228,22 +229,24 @@ file_system::copy_file(char const* src, char const* dst,int type)
 }
 
 void
-file_system::read_file_to_string(std::string const &filename, std::string *data)
+file_system::read_file_to_string(std::string const &filename, std::string &data)
 {
-    std::ifstream in(filename.c_str(),std::ios::binary);
+    std::ifstream in;//(filename.c_str(),std::ios::binary);
+    in.open(filename);//,std::ios::binary);
     if (!in.good())
     {
         //TODO:抛出异常
+        return;
     }
 
     //基地址为文件结束处，偏移地址为0，于是指针定位在文件结束处
     in.seekg(0,std::ios::end);
     //tellg（）函数不需要带参数，它返回当前定位指针的位置，也代表着输入流的大小。
     std::size_t length = in.tellg();
-    in.seekg(0,std::ios::end);
-    data->resize(length);
+    in.seekg(0,std::ios::beg);
+    data.resize(length);
     //read()从文件中读取 length 个字符到 data指向的缓存中
-    in.read(&(*data)[0],length);
+    in.read(const_cast<char*>(data.c_str()),length);
     in.close();
 }
 UTIL_NAMESPACE_END

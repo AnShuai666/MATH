@@ -106,6 +106,7 @@ bool rmdir(char const* pathname);
  *              失败          false
 */
 bool unlink(char const* pathname);
+
 /*
  *  @property   文件处理函数
  *  @func       重命名文件
@@ -114,7 +115,6 @@ bool unlink(char const* pathname);
  *              成功          true
  *              失败          false
 */
-
 bool rename(char const* from, char const* to);
 /*
  *  @property   文件处理函数
@@ -136,7 +136,13 @@ void copy_file(char const* src, char const* dst,int type = 0);
  *~~~~~~~~~~~~~~~~~~~~文件系统字符串相关操作~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *******************************************************************/
 
-void read_file_to_string(std::string const& filename,std::string* data);
+/*
+ *  @property   文件字符串处理函数
+ *  @func       读取文件内容到字符串中
+ *  @param_in   filename     文件名
+ *  @param_in   data         字符串引用
+*/
+void read_file_to_string(std::string const& filename,std::string& data);
 
 void write_string_to_file(std::string const& data,std::string const& filename);
 
