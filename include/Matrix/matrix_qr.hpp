@@ -33,9 +33,10 @@ MATRIX_NAMESPACE_BEGIN
  *  @param_in   R           正对角元上三角矩阵(MxN)
  *  @param_in   episilon
 */
+#if 0
 template <typename T>
-void qr_decomposition(T const* A,int rows=3,int col=3,T* Q,T* R,T const& epsilon = T(1e-12));
-
+void qr_decomposition(T const* A,int rows,int col,T* Q,T* R,T const& epsilon = T(1e-12));
+#endif
 template <typename T,int m,int n>
 void qr_decomposition(Matrix<T,m,n> *A,Matrix<T,m,m>* Q,Matrix<T,m,n>* R,T const& epsilon = T(1e-12));
 MATRIX_NAMESPACE_END
@@ -47,17 +48,18 @@ MATRIX_NAMESPACE_BEGIN
 
 //TODO:@邹云龙 实现之过程重要步骤注释
 //TODO:没有实现动态模板，矩阵不能初始化，函数未能测试。
+#if 0
 template <typename T>
 void
 math::matrix::qr_decomposition(T const* A, int rows, int cols,T* Q,T* R,T const& epsilon )
 {
 
-    rows =(const int) 3;
     Matrix<T,rows,cols> matrix_A(A),matrix_R;
     Matrix<T,rows,rows> matrix_Q;
     qr_decomposition(matrix_A,Q,R,epsilon);
 
 }
+#endif
 template <typename T,int m,int n>
 void
 math::matrix::qr_decomposition(Matrix<T,m,n> *A,Matrix<T,m,m>* Q,Matrix<T,m,n>* R,T const& epsilon )

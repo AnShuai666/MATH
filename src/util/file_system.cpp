@@ -178,7 +178,7 @@ file_system:: rename(char const* from, char const* to)
     }
 }
 void
-file_system:: copy_file(char const* src, char const* dst,int type)
+file_system::copy_file(char const* src, char const* dst,int type)
 {
     if(1==type)
     {

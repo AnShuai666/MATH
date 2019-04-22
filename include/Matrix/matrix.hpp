@@ -488,31 +488,30 @@ MATRIX_NAMESPACE_BEGIN
 
 MATRIX_NAMESPACE_END
 
-#endif //__MATH_MATRIX_H__
 
 
 
-MATRIX_NAMESPACE_BEGIN
+
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~Matrix成员函数实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ********************************************************************/
     template <typename T,int m,int n>
     inline
-    Matrix<T,m,n>::Matrix()
+    matrix::Matrix<T,m,n>::Matrix()
     {
 
     }
 
     template <typename T,int m, int n>
     inline
-    Matrix<T,m,n>::Matrix(T const *arr)
+    matrix::Matrix<T,m,n>::Matrix(T const *arr)
     {
         std::copy(arr,arr + m * n,M);
     }
 
     template <typename T, int m, int n>
     inline
-    Matrix<T,m,n>::Matrix(T const value)
+    matrix::Matrix<T,m,n>::Matrix(T const value)
     {
         std::fill(M,M + m*n, value);
     }
@@ -929,5 +928,6 @@ MATRIX_NAMESPACE_BEGIN
     }
 
 
-MATRIX_NAMESPACE_END
+
 MATH_NAMESPACE_END
+#endif //__MATH_MATRIX_H__
