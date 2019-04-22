@@ -13,6 +13,10 @@
 #include <cstdio>
 #include <pwd.h>
 #include <cstring>
+#include <iostream>
+#include <dirent.h>
+#include <fstream>
+
 #ifndef  PATH_MAX
 #define PATH_MAX 2048
 #endif
@@ -39,7 +43,25 @@ file_system::is_directory_exist(char const *pathname)
 
     return true;
 }
+bool
+file_system:: is_directory_empty(char const* pathname)
+{
+    DIR *dir = opendir(pathname);
+    struct dirent *ent=NULL;
+    while (ent = readdir (dir))
+    {
+        if ((strcmp(".", ent->d_name)==0) || (strcmp("..", ent->d_name)==0))
+        {
+            continue;
+        }
+        if ((ent->d_type == 4) || (ent->d_type == 8))
+        {
+            return false;
+        }
+    }
+    return true;
 
+}
 bool
 file_system::is_file_exists(char const *pathname)
 {
@@ -109,7 +131,100 @@ file_system::set_cwd(char const *pathname)
 bool
 file_system::mkdir(char const *pathname)
 {
+    if(is_directory_exist(pathname))
+    {
+        std::cerr<<"文件夹已存在！"<<std::endl;
+        return false;
+    }
     //111 | 040 | 010 = 750权限
     return ::mkdir(pathname,S_IRWXU | S_IRGRP | S_IXGRP) >= 0;
+}
+bool
+file_system:: rmdir(char const* pathname)
+{
+    if(!is_directory_exist(pathname))
+    {
+        std::cerr<<"文件夹不存在！"<<std::endl;
+        return false;
+    }
+    else if(is_directory_empty(pathname))
+        return ::rmdir(pathname) >=0;
+    else
+    {
+        std::cerr<<"文件夹内不为空，不能删除！"<<std::endl;
+    }
+
+}
+bool
+file_system:: unlink(char const* pathname)
+{
+    if(is_file_exists(pathname))
+        return ::unlink(pathname);
+    else
+    {
+        std::cerr<<pathname<<":该文件不存在"<<std::endl;
+        return false;
+    }
+}
+bool
+file_system:: rename(char const* from, char const* to)
+{
+    if(is_file_exists(from))
+        return ::rename(from,to);
+    else
+    {
+        std::cerr<<from<<":该文件不存在"<<std::endl;
+        return false;
+    }
+}
+void
+file_system:: copy_file(char const* src, char const* dst,int type)
+{
+    if(1==type)
+    {
+        std::ifstream in(src);
+        std::ofstream out(dst);
+
+        if (!in&&!out)
+        {
+            std::cerr << "文件打开失败！" << std::endl;
+            return ;
+        }
+        std::string str;
+        while (!in.eof())
+        {
+            getline(in,str);
+            out <<str<<"\n";
+        }
+        out << std::endl;
+        out.close();
+        in.close();
+    }
+    else
+    {
+        std::ifstream in;
+        std::ofstream out;
+        in.open(src, std::ios::binary|std::ios::in|std::ios::ate);//直接跳到末尾，方便预留空间。
+        out.open(dst, std::ios::binary|std::ios::out);
+
+        if (!in&&!out)
+        {
+            std::cerr << "文件打开失败！" << std::endl;
+            return ;
+        }
+        int length = in.tellg();
+        char* data = new char[length];
+        in.seekg(0);
+        in.read(data,length);
+        out.write(data,length);
+
+        out.close();
+        in.close();
+
+        delete data;
+    }
+
+
+
 }
 UTIL_NAMESPACE_END
