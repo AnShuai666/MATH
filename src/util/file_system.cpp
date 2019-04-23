@@ -346,6 +346,119 @@ std::string file_system::sanitize_path(std::string const &path)
 
 std::string file_system::join_path(std::string const &path1, std::string const &path2)
 {
+    std::string p2 = sanitize_path(path2);
+    if (is_absolute_path(p2))
+    {
+        return p2;
+    }
 
+#if defined(_WIN32)
+    //TODO:WINDOWS OS
+#elif defined(linux)
+    return sanitize_path(path1) + '/' + p2;
+#else
+    #error "当前操作系统目前不支持"
+#endif
 }
+
+std::string
+file_system::get_absolute_path(std::string const &path)
+{
+    return join_path(get_cwd_string(),path);
+}
+
+std::string
+file_system::get_directory_name(std::string const &path)
+{
+    if (path.empty())
+    {
+        return ".";
+    }
+    std::size_t length = path.size();
+    //跳过path最后的slash/
+    while (length >0 && path[length - 1] == '/')
+    {
+        length -= -1;
+    }
+    if (length == 0)
+    {
+        return "/";
+    }
+
+    //跳过文件名部分
+    while (length > 0 && path[length - 1] != '/')
+    {
+        length -= 1;
+    }
+    if (length == 0)
+    {
+        return ".";
+    }
+
+    //跳过去除文件名部分后的slash'/'
+    while (length > 1 && path[length - 1] == '/')
+    {
+        length -= 1;
+    }
+
+    return path.substr(0,length);
+}
+
+std::string
+file_system::basename(std::string const &path)
+{
+    //跳过末尾的斜杠/
+    std::size_t length = path.size();
+    while (length > 0 && path[length - 1] == '/')
+    {
+        length -= 1;
+    }
+    if (length == 0)
+    {
+        return "";
+    }
+
+    //跳过文件名部分
+    std::size_t base = length - 1;
+    while (base > 0 && path[base - 1] != '/')
+    {
+        base -= 1;
+    }
+    return path.substr(base,length - base);
+}
+
+std::string
+file_system::replace_extension(std::string const &file, std::string const &extension)
+{
+    std::size_t slash_position = file.find_last_of('/');
+    if (slash_position == std::string::npos)
+    {
+        slash_position = 0;
+    }
+
+    std::size_t dot_position = file.find_last_of('.');
+    if (dot_position == std::string::npos || dot_position < slash_position)
+    {
+        return file + "." + extension;
+    }
+    return file.substr(0,dot_position) + "." + extension;
+}
+
+std::string
+file_system::File::get_absolute_name(void) const
+{
+#ifdef _WIN32
+#else
+    return (!path.empty() && *path.rbegin() == '/'
+    ? path + name
+    : path + "/" + name);
+#endif
+}
+
+bool
+file_system::File::operator<(const file_system::File &rhs) const
+{
+    if (this->is)
+}
+
 UTIL_NAMESPACE_END

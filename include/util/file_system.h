@@ -186,22 +186,76 @@ std::string sanitize_path(std::string const& path);
 
 /*
  *  @property   文件获取字符串处理函数
- *  @func       规范化路径        代替路径中 // => /;     \\ => \
- *  @param_in   path            待处理路径
- *  @return     std::string     处理后的路径
+ *  @func       连接path1与path2 path2为path1下的自路径
+ *  @param_in   path1           父路径
+ *  @param_in   path2           子路径
+ *  @return     std::string     处理后的路径 path1+'/'+path2
 */
 std::string join_path(std::string const&path1,std::string const& path2);
 
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       获取当前进程所在路径（父路径）下的文件或文件夹path的绝对路径
+ *  @param_in   path            父路径下子路径
+ *  @return     std::string     path的绝对路径
+*/
 std::string get_absolute_path(std::string const& path);
 
-std::string directory_name(std::string const& path);
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       获取给定路径的文件夹路径部分
+ *  @param_in   path            待处理路径
+ *  @return     std::string     path的文件夹路径
+*/
+//TODO:需要修改代码 保证正确性 path最后为/或者文件名才正确，如果最后是文件夹则需要判断
+std::string get_directory_name(std::string const& path);
 
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       获取给定路径的文件名路径部分
+ *  @param_in   path            待处理路径
+ *  @return     std::string     path的文件名部分
+*/
+//TODO:为了便于理解 重写，此处包含了文件夹名
 std::string basename(std::string const& path);
 
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       给定无后缀文件名加上.extension后缀
+ *  @param_in   file            文件名
+ *  @param_in   extension       后缀名
+ *  @return     std::string     待后缀的文件名
+*/
+std::string replace_extension(std::string const& file, std::string const& extension);
 
 
+/********************************************************************
+ *~~~~~~~~~~~~~~~~~~~~文件系统文件结构体声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *******************************************************************/
+struct File
+{
+    std::string path;
+    std::string name;
+    bool is_directory;
 
+    File(void);
+    File(std::string const& path,std::string const& name, bool is_directory = false);
 
+    std::string get_absolute_name(void) const;
+    bool operator<(File const& rhs) const;
+};
+
+inline
+file_system::File::File()
+        :is_directory(false)
+{
+}
+
+inline
+file_system::File::File(std::string const &path, std::string const &name, bool is_directory)
+        :path(path),name(name),is_directory(is_directory)
+{
+}
 FILE_SYSTEM_NAMESPACE_END
 UTIL_NAMESPACE_END
 #endif //MATH_FILE_SYSTEM_H
