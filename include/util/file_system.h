@@ -12,7 +12,13 @@
 
 UTIL_NAMESPACE_BEGIN
 FILE_SYSTEM_NAMESPACE_BEGIN
+/********************************************************************
+ *~~~~~~~~~~~~~~~~~~~~~文件系统相关函数声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *******************************************************************/
 
+/********************************************************************
+ *~~~~~~~~~~~~~~~~~~~~~文件系统路径相关操作~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *******************************************************************/
 /*
  *  @property   文件夹检测函数
  *  @func       检测文件夹是否存在
@@ -22,6 +28,15 @@ FILE_SYSTEM_NAMESPACE_BEGIN
  *              不存在           false   errno被设置
 */
 bool is_directory_exist(char const* pathname);
+/*
+ *  @property   文件夹检测函数
+ *  @func       检测文件夹是否为空
+ *  @param_in   pathname        路径名
+ *  @return     bool
+ *              存在             true
+ *              不存在           false   errno被设置
+*/
+bool is_directory_empty(char const* pathname);
 /*
  *  @property   文件检测函数
  *  @func       检测文件是否存在
@@ -60,17 +75,128 @@ char* get_cwd(char* buf,std::size_t size);
 */
 bool set_cwd(char const* pathname);
 
+/*
+ *  @property   文件夹处理函数
+ *  @func       创建新的文件夹
+ *  @param_in   pathname     文件夹名字
+ *  @return     bool
+ *              成功          true
+ *              失败          false
+*/
 
+/********************************************************************
+ *~~~~~~~~~~~~~~~~~~~~~文件系统文件相关操作~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *******************************************************************/
 bool mkdir(char const* pathname);
-
+/*
+ *  @property   文件夹处理函数
+ *  @func       删除文件夹
+ *  @param_in   pathname     文件夹名字
+ *  @return     bool
+ *              成功          true
+ *              失败          false
+*/
 bool rmdir(char const* pathname);
-
+/*
+ *  @property   文件处理函数
+ *  @func       断开相关链接的文件
+ *  @param_in   pathname     文件名字
+ *  @return     bool
+ *              成功          true
+ *              失败          false
+*/
 bool unlink(char const* pathname);
 
+/*
+ *  @property   文件处理函数
+ *  @func       重命名文件
+ *  @param_in   pathname     文件名字
+ *  @return     bool
+ *              成功          true
+ *              失败          false
+*/
 bool rename(char const* from, char const* to);
+/*
+ *  @property   文件处理函数
+ *  @func       复制文件
+ *  @param_in   src     源文件名
+ *              dst     目标文件名
+ *              type 1  文本复制
+ *                   else  二进制
+ * 默认二进制读写。
+*/
+void copy_file(char const* src, char const* dst,int type = 0);
 
-void copy_file(char const* src, char const* dst);
+/********************************************************************
+ *~~~~~~~~~~~~~~~~~~~~~文件系统IO相关操作~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *******************************************************************/
 
+/*
+ *  @property   文件IO处理函数
+ *  @func       读取文件内容到字符串中
+ *  @param_in   filename     文件名
+ *  @param_in   data         字符串引用
+*/
+void read_file_to_string(std::string const& filename,std::string& data);
+
+/*
+ *  @property   文件IO处理函数
+ *  @func       读取字符串内容到文件中 原文家内容将被覆盖，写成c语言，可以提高效率
+ *  @param_in   data         字符串引用
+ *  @param_in   filename     文件名
+*/
+void write_string_to_file(std::string const& data,std::string const& filename);
+
+
+/********************************************************************
+ *~~~~~~~~~~~~~~~~~~~~文件系统字符串相关操作~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *******************************************************************/
+
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       获取当前进程执行所在的路径的字符串
+ *  @return     std::string     当前进程所在路径字符串
+*/
+std::string get_cwd_string(void);
+
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       获取当前可执行程序执行的路径的字符串
+ *  @return     std::string     当前可执行程序路径字符串，包括可执行程序名
+*/
+std::string get_binary_path(void);
+
+/*
+ *  @property   文件路径字符串处理函数
+ *  @func       判断path是否为绝对路径
+ *  @param_in   待判断路径
+ *  @return     bool
+ *              是       1
+ *              否       0
+*/
+bool is_absolute_path(std::string const& path);
+
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       规范化路径        代替路径中 // => /;     \\ => \
+ *  @param_in   path            待处理路径
+ *  @return     std::string     处理后的路径
+*/
+std::string sanitize_path(std::string const& path);
+
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       规范化路径        代替路径中 // => /;     \\ => \
+ *  @param_in   path            待处理路径
+ *  @return     std::string     处理后的路径
+*/
+std::string join_path(std::string const&path1,std::string const& path2);
+
+std::string get_absolute_path(std::string const& path);
+
+std::string directory_name(std::string const& path);
+
+std::string basename(std::string const& path);
 
 
 
