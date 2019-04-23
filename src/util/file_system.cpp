@@ -17,6 +17,7 @@
 #include <dirent.h>
 #include <fstream>
 #include <bits/locale_facets.tcc>
+#include <algorithm>
 
 #ifndef  PATH_MAX
 #define PATH_MAX 2048
@@ -260,5 +261,91 @@ file_system::write_string_to_file(std::string const &data, std::string const &fi
     }
     out.write(data.c_str(),data.size());
     out.close();
+}
+
+std::string
+file_system::get_cwd_string(void)
+{
+    std::size_t size = 1 << 8;
+    while (true)
+    {
+        char* buf = new char[size];
+        if (get_cwd(buf,size) == buf)
+        {
+            std::string ret(buf);
+            delete[] buf;
+            return ret;
+        }
+        delete[] buf;
+        size = size << 1;
+        if (size > (1 << 15))
+            //TODO:抛出异常,代替exit
+            exit(0);
+    }
+}
+
+std::string
+file_system::get_binary_path()
+{
+    char path[PATH_MAX];
+    std::fill(path,path+PATH_MAX,'\0');
+#if defined(_WIN32)
+    //TODO:WINDOWS OS
+#elif defined(__APPLE__)
+    //TODO:APPLE OS
+#elif defined(__linux__)
+    //  readlink  执行成功则 传符号连接所指的文件路径字符串，
+    //          失败返回-1， 错误代码存于errno
+    //  /proc/self/exe 代表当前程序
+    // 可以用readlink读取它的源路径就可以获取当前程序的绝对路径
+    ssize_t n_chars = ::readlink("/proc/self/exe",path,PATH_MAX);
+#else
+    #error "不能获取当前二进制路径：操作系统不支持！"
+#endif
+
+if (n_chars >= PATH_MAX)
+    //TODO:抛出异常
+    throw "缓存区太小";
+return std::string(path);
+}
+
+bool
+file_system::is_absolute_path(std::string const &path)
+{
+#ifdef _WIN32
+    //TODO:WINDOWS OS
+#else
+    return path.size() >= 1 && path[0] == '/';
+#endif
+}
+
+std::string file_system::sanitize_path(std::string const &path)
+{
+    if (path.empty())
+        return "";
+    std::string result = path;
+    //用sash/代替backslash'\\'
+    std::replace(result.begin(),result.end(),'\\','/');
+
+    //去除双斜杠//->/ erase(pos,n); 删除从pos开始的n个字符
+    for(std::size_t i = 0;i<result.size()-1;)
+    {
+        if (result[i] == '/' && result[i+1] == '/')
+        {
+            result.erase(i,1);
+        }
+        else
+        {
+            i += 1;
+        }
+    }
+    if (result.size() > 1 && result[result.size() - 1] == '/')
+        result.erase(result.end() - 1);
+    return result;
+}
+
+std::string file_system::join_path(std::string const &path1, std::string const &path2)
+{
+
 }
 UTIL_NAMESPACE_END

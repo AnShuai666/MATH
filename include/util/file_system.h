@@ -152,6 +152,52 @@ void write_string_to_file(std::string const& data,std::string const& filename);
  *~~~~~~~~~~~~~~~~~~~~文件系统字符串相关操作~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *******************************************************************/
 
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       获取当前进程执行所在的路径的字符串
+ *  @return     std::string     当前进程所在路径字符串
+*/
+std::string get_cwd_string(void);
+
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       获取当前可执行程序执行的路径的字符串
+ *  @return     std::string     当前可执行程序路径字符串，包括可执行程序名
+*/
+std::string get_binary_path(void);
+
+/*
+ *  @property   文件路径字符串处理函数
+ *  @func       判断path是否为绝对路径
+ *  @param_in   待判断路径
+ *  @return     bool
+ *              是       1
+ *              否       0
+*/
+bool is_absolute_path(std::string const& path);
+
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       规范化路径        代替路径中 // => /;     \\ => \
+ *  @param_in   path            待处理路径
+ *  @return     std::string     处理后的路径
+*/
+std::string sanitize_path(std::string const& path);
+
+/*
+ *  @property   文件获取字符串处理函数
+ *  @func       规范化路径        代替路径中 // => /;     \\ => \
+ *  @param_in   path            待处理路径
+ *  @return     std::string     处理后的路径
+*/
+std::string join_path(std::string const&path1,std::string const& path2);
+
+std::string get_absolute_path(std::string const& path);
+
+std::string directory_name(std::string const& path);
+
+std::string basename(std::string const& path);
+
 
 
 
