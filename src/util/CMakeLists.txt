@@ -6,6 +6,7 @@ set(HEADERS
         ${PROJECT_SOURCE_DIR}/include/util/system.h
         ${PROJECT_SOURCE_DIR}/include/util/file_system.h
         ${PROJECT_SOURCE_DIR}/include/util/logging.h
+        ${PROJECT_SOURCE_DIR}/include/util/aligned_allocator.hpp
 
 
         )
