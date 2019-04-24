@@ -13,7 +13,6 @@ set(HEADERS
 set(SOURCE_FILES
         ${PROJECT_SOURCE_DIR}/src/Util/system.cpp
         ${PROJECT_SOURCE_DIR}/src/Util/file_system.cpp
-\
         ${PROJECT_SOURCE_DIR}/src/Util/ArgParser.cpp
 
         )

@@ -23,7 +23,7 @@ public:
     void set_usage(std::string const& str);
 
 private:
-    std::size_t
+   // std::size_t
 };
 
  UTIL_NAMESPACE_END
