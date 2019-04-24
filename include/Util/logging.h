@@ -102,5 +102,17 @@ Logging::info() const
 {
     return this->log(LOG_INFO);
 }
+
+inline std::ostream&
+Logging::verbose() const
+{
+    return this->log(LOG_VERBOSE);
+}
+
+inline std::ostream&
+Logging::debug() const
+{
+    return this->log(LOG_DEBUG);
+}
 UTIL_NAMESPACE_END
 #endif //MATH_LOGGING_H
