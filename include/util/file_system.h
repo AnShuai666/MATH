@@ -8,6 +8,7 @@
 #ifndef MATH_FILE_SYSTEM_H
 #define MATH_FILE_SYSTEM_H
 #include <string>
+#include <vector>
 #include "define.h"
 
 UTIL_NAMESPACE_BEGIN
@@ -232,6 +233,14 @@ std::string replace_extension(std::string const& file, std::string const& extens
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~文件系统文件结构体声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *******************************************************************/
+
+/*
+ *  @property   文件结构体
+ *  @func       文件结构体包含 路径 文件名，按照原定义，包含文件 文件夹
+ *  @param_in   path            路径
+ *  @param_in   name            文件名
+ *  @param_in   is_directory    是否文件夹
+*/
 struct File
 {
     std::string path;
@@ -241,9 +250,48 @@ struct File
     File(void);
     File(std::string const& path,std::string const& name, bool is_directory = false);
 
+    /*
+     *  @property   获取文件结构体绝对路径
+     *  @func       获取File结构体绝对路径
+     *  @return     std::string         文件名绝对路径
+    */
     std::string get_absolute_name(void) const;
+
+    /*
+     *  @property   重载
+     *  @func       <文件结构体大小比较
+     *  @return     bool
+     *              left hand side < right hand side    true
+     *              left hand side > right hand side    false
+    */
     bool operator<(File const& rhs) const;
 };
+
+/*******************************************************************
+*~~~~~~~~~~~~~~~~~~~~~~~文件系统目录类声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*******************************************************************/
+class Directory:public std::vector<File>
+{
+public:
+    Directory(void);
+    Directory(std::string const& path);
+    /*
+     *  @property   获取文件结构体绝对路径
+     *  @func       扫描path路径下所有的文件 并存在Directory中
+     *  path        输入路径
+     *  @return     void
+    */
+    void scan(std::string const& path);
+};
+
+/*******************************************************************
+*~~~~~~~~~~~~~~~~~~~~~~~文件系统文件锁机制类~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*******************************************************************/
+class FileLock
+{
+
+};
+
 
 inline
 file_system::File::File()
@@ -255,6 +303,17 @@ inline
 file_system::File::File(std::string const &path, std::string const &name, bool is_directory)
         :path(path),name(name),is_directory(is_directory)
 {
+}
+
+inline
+file_system::Directory::Directory(void)
+{
+}
+
+inline
+file_system::Directory::Directory(std::string const &path)
+{
+    this->scan(path);
 }
 FILE_SYSTEM_NAMESPACE_END
 UTIL_NAMESPACE_END

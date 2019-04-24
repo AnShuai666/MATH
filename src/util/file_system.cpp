@@ -458,7 +458,53 @@ file_system::File::get_absolute_name(void) const
 bool
 file_system::File::operator<(const file_system::File &rhs) const
 {
-    if (this->is)
+    if (this->is_directory && !rhs.is_directory)
+    {
+        return true;
+    }
+    else if(!this->is_directory && rhs.is_directory)
+    {
+        return false;
+    }
+    else if (this->path < rhs.path)
+    {
+        return true;
+    }
+    else
+    {
+        return (this->name < rhs.name);
+    }
 }
 
+void
+file_system::Directory::scan(std::string const &path)
+{
+    this->clear();
+#if defined(_WIN32)
+
+#elif defined(linux)
+    DIR *dir = ::opendir(path.c_str());
+    if (dir == nullptr)
+        //TODO:为定位异常信息，重写加上错误信息std::strerror(errno) 或perror
+        throw "不能打开文件夹目录：" ;
+    //不但指向文件目录，也指向目录中文件
+    dirent *dirent;
+    while ((dirent = ::readdir(dir)))
+    {
+        //strcmp
+        //如果返回值 < 0，则表示 str1 小于 str2。
+        //如果返回值 > 0，则表示 str2 小于 str1。
+        //如果返回值 = 0，则表示 str1 等于 str2。
+        if (!std::strcmp(dirent->d_name,"."))
+            continue;
+        if (!std::strcmp(dirent->d_name,".."))
+            continue;
+        this->push_back(File());
+        this->back().path = path;
+        this->back().name = dirent->d_name;
+        this->back().is_directory = (dirent->d_type == DT_DIR);
+    }
+    ::closedir(dir);
+#endif
+}
 UTIL_NAMESPACE_END
