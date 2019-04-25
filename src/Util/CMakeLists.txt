@@ -8,7 +8,9 @@ set(HEADERS
         ${PROJECT_SOURCE_DIR}/include/Util/logging.h
         ${PROJECT_SOURCE_DIR}/include/Util/aligned_allocator.hpp
         ${PROJECT_SOURCE_DIR}/include/Util/ArgParser.h
-
+        ${PROJECT_SOURCE_DIR}/include/Util/string.h
+        ${PROJECT_SOURCE_DIR}/include/Util/exception.h
+        ${PROJECT_SOURCE_DIR}/include/Util/timer.h
         )
 set(SOURCE_FILES
         ${PROJECT_SOURCE_DIR}/src/Util/system.cpp

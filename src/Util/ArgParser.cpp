@@ -6,3 +6,22 @@
 */
 
 #include "Util/ArgParser.h"
+#include <limits>
+
+UTIL_NAMESPACE_BEGIN
+/********************************************************************
+ *~~~~~~~~~~~~~~~~~~~~~~~~参数解析类实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *******************************************************************/
+Arguments::Arguments(void)
+    :nonoption_min(0)
+    ,nonoption_max(std::numeric_limits<std::size_t>::max())
+    ,auto_exit(false)
+    ,help_text_indent(16)
+    ,description_text_width(75)
+    ,current_result(std::numeric_limits<std::size_t>::max())
+{
+}
+
+
+
+UTIL_NAMESPACE_END

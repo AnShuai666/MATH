@@ -40,8 +40,28 @@ public:
 
     void set_usage(std::string const& str);
 
+    void set_usage(char const* argv[0], std::string const& usage);
+
+    void set_description(std::string const& str);
+
+    void set_help_text_indent(int indent);
+
+    void set_nonoption_maxmum(std::size_t limit);
+
+    void set_nonoption_minum(std::size_t limit);
+
+    void set_exit_on_error(bool exit);
+
+    void add_option(char shortname,std::string const& longname,
+            bool has_argument,std::string const& description = "");
+
+    void parse(std::vector<std::string> const& args);
+
+    void parse(int argc,char const* const* argv);
+
 private:
-   // std::size_t
+   std::size_t nonoption_min;
+   std::size_t nonoption_max;
    bool auto_exit;
    std::vector<ArgOption> arg_options;
    std::string usage_str;
@@ -52,6 +72,23 @@ private:
    std::vector<ArgResult> arg_results;
    std::size_t current_result;
 };
+
+/********************************************************************
+ *~~~~~~~~~~~~~~~~~~~~~~~~参数解析类实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *******************************************************************/
+
+template <typename T>
+inline T
+ArgResult::get_arg(void) const
+{
+    return ;
+}
+
+inline void
+Arguments::set_usage(std::string const &str)
+{
+    this->usage_str = str;
+}
 
  UTIL_NAMESPACE_END
 #endif //MATH_ARGPARSER_H
