@@ -74,7 +74,22 @@ throw(util::Exception)
                 continue;
             }
 
-            //std::string
+            std::string token = args[i];
+            util::clip_newlines(token);
+            util::clip_whitespaces(token);
+
+            if (token.empty())
+                continue;
+
+            if (parse_option && token.size() == 2 && token == "--")
+            {
+                parse_option = false;
+                continue;
+            }
+            else if (parse_option && token.size() >= 3 && token[0] == '-' && token[1] == '-')
+            {
+                this->parse_long_option(token);
+            }
 
         }
     }
@@ -144,6 +159,18 @@ Arguments::generate_help_text(std::ostream &ostream) const
                 << argOption.description
                 << std::endl;
     }
+
+}
+
+void
+Arguments::parse_long_option(std::string const &token)
+{
+
+}
+
+bool
+Arguments::parse_short_option(std::string const &token1, std::string const &token2)
+{
 
 }
 UTIL_NAMESPACE_END
