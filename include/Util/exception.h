@@ -9,10 +9,11 @@
 #define IMAGE_EXCEPTION_H
 
 #include <exception>
+#include <iostream>
 #include <string>
 #include "define.h"
 
-IMAGE_NAMESPACE_BEGIN
+UTIL_NAMESPACE_BEGIN
 
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~~~~~~Exception类的声明与实现~~~~~~~~~~~~~~~~~~~~~
@@ -57,6 +58,6 @@ public:
     std::string _errMsg;
     std::string _errInfo;
 };
-IMAGE_NAMESPACE_END
+UTIL_NAMESPACE_END
 
 #endif //IMAGE_EXCEPTION_H

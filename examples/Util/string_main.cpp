@@ -11,9 +11,13 @@
 int main()
 {
 
-    //No.5函数 强制转换为int类型
+    //No.5convert函数 强制转换为int类型
     std::string str = "12345";
     int integer = util::convert<int>(str, false);
     std::cout<<integer<<std::endl;
+
+    //No.6word_wrap函数 自动换行
+    str = "123456789101112";
+    std::cout<<util::word_wrap(str.c_str(),5)<<std::endl;
     return 0;
 }

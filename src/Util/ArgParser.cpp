@@ -6,7 +6,9 @@
 */
 
 #include "Util/ArgParser.h"
+#include "Util/string.h"
 #include <limits>
+#include <iomanip>
 
 UTIL_NAMESPACE_BEGIN
 /********************************************************************
@@ -30,4 +32,117 @@ Arguments::set_usage(const char *argv0, std::string const &usage)
     this->usage_str = ss.str();
 }
 
+void
+Arguments::add_option(char shortname, std::string const &longname, bool has_argument,
+                           const std::string &description)
+{
+    if(shortname == '\0' && longname.empty())
+        throw std::invalid_argument("长短参数都未给定");
+
+    //检测参数选项是否存在
+    for (std::size_t i = 0; i < this->arg_options.size(); ++i)
+    {
+        if ((shortname != '\0' && this->arg_options[i].short_option_name == shortname)
+            || (!longname.empty() && this->arg_options[i].long_option_name == longname))
+            throw std::runtime_error("参数选项已经存在！");
+    }
+
+    ArgOption argOption;
+    argOption.short_option_name = shortname;
+    argOption.long_option_name = longname;
+    argOption.description = description;
+    argOption.is_argument_needed = has_argument;
+    this->arg_options.push_back(argOption);
+}
+
+void
+Arguments::parse(std::vector<std::string> const &args)
+throw(util::Exception)
+{
+    try
+    {
+        this->arg_results.clear();
+        this->command_name.clear();
+        this->current_result = std::numeric_limits<std::size_t>::max();
+
+        bool parse_option = true;
+        for (std::size_t i = 0; i < args.size(); ++i)
+        {
+            if (i == 0)
+            {
+                this->command_name = args[i];
+                continue;
+            }
+
+            std::string
+        }
+    }
+    catch(util::Exception const& e)
+    {
+        if (!this->auto_exit)
+            throw;
+        std::cerr << std::endl;
+        this->generate_help_text(std::cerr);
+        std::cerr << std::endl << "错误：" << e.what() << std::endl;
+        std::exit(1);
+    }
+}
+
+void
+Arguments::parse(int argc, char const *const *argv)
+throw(util::Exception)
+{
+    std::vector<std::string> args;
+    for (int i = 0; i < argc; ++i)
+    {
+        args.push_back(argv[i]);
+    }
+    this->parse(args);
+}
+
+void
+Arguments::generate_help_text(std::ostream &ostream) const
+{
+    std::string decsription = util::word_wrap(
+            this->description_str.c_str(),this->description_text_width);
+
+    if (!decsription.empty())
+        ostream << decsription << std::endl << std::endl;
+
+    if (!this->usage_str.empty())
+        ostream << this->usage_str << std::endl;
+
+    if (!this->arg_options.empty() && (!this->usage_str.empty() || !decsription.empty()))
+        ostream << "可用的参数选项为：" << std::endl;
+
+    for (size_t i = 0; i < this->arg_options.size(); ++i)
+    {
+        ArgOption const& argOption(this->arg_options[i]);
+        std::stringstream option_string;
+
+        if (argOption.short_option_name != '\0')
+        {
+            option_string << "-" << argOption.short_option_name;
+            if (argOption.is_argument_needed && argOption.long_option_name.empty())
+                option_string << " ARG";
+            if (!argOption.long_option_name.empty())
+                option_string << ", ";
+        }
+
+        if (!argOption.long_option_name.empty())
+        {
+            option_string << "--" << argOption.long_option_name;
+            if (argOption.is_argument_needed)
+                option_string << "=ARG";
+        }
+        option_string << " ";
+        ostream << " "
+                << std::setiosflags(std::ios::left)
+                << std::setw(this->help_text_indent)
+                << option_string.str()
+                << argOption.description
+                << std::endl;
+    }
+
+}
 UTIL_NAMESPACE_END

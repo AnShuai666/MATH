@@ -67,7 +67,15 @@ std::string uppercase(std::string const &str);
 template <typename T>
 T convert(std::string const& str,bool strict_conversion = true);
 
-
+/*
+*  @Number      No.6
+*  @property   字符串格式
+*  @func       字符串自动换行 每行宽度width时自动换行
+*  @param_in   str        待换行字符串
+*  @param_in   width      每行显示最多字符个数
+*  @return     std::string
+*/
+std::string word_wrap(char const* str,int width);
 
 /*******************************************************************
 *~~~~~~~~~~~~~~~~~~~~~常用字符串处理函数实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -125,6 +133,60 @@ convert(std::string const &str, bool strict_conversion)
         throw std::invalid_argument("非法字符串转换：" + str);
     }
     return ret;
+}
+
+std::string
+word_wrap(char const *str, int width)
+{
+    if (str == nullptr)
+        return std::string();
+    if (width <= 0)
+        return str;
+
+    int spaceleft = width;
+    bool firstword = true;
+    std::string out;
+
+    for (int i = 0,word = 0; true ; ++i)
+    {
+        char c(str[i]);
+        bool softbreak = (c == ' ' || c == '\t' || c == '\0' || c == '\n');
+
+        if (softbreak)
+        {
+            if (word > spaceleft)
+            {
+                if(!firstword)
+                    out.append(1,'\n');
+                spaceleft = width - word - 1;
+            }
+            else
+            {
+                if (!firstword)
+                    out.append(1,' ');
+                out.append(str + i - word,word);
+                spaceleft -= word + 1;
+            }
+            firstword = false;
+
+            word = 0;
+            if (c == '\n')
+            {
+                out.append(1,'\n');
+                firstword = true;
+                word = 0;
+                spaceleft = width;
+            }
+        }
+        else
+        {
+            word += 1;
+        }
+
+        if (str[i] == '\0')
+            break;
+    }
+    return out;
 }
 
 UTIL_NAMESPACE_END

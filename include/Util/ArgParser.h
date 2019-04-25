@@ -10,6 +10,7 @@
 
 #include "Util/define.h"
 #include "Util/string.h"
+#include "Util/exception.h"
 #include <iostream>
 #include <vector>
 UTIL_NAMESPACE_BEGIN
@@ -59,9 +60,15 @@ public:
     void add_option(char shortname,std::string const& longname,
             bool has_argument,std::string const& description = "");
 
-    void parse(std::vector<std::string> const& args);
+    //只抛出util::Exception类型异常
+    void parse(std::vector<std::string> const& args)
+    throw(util::Exception);
 
-    void parse(int argc,char const* const* argv);
+    //只抛出util::Exception类型异常
+    void parse(int argc,char const* const* argv)
+    throw(util::Exception);
+
+    void generate_help_text(std::ostream& ostream) const;
 
 private:
    std::size_t nonoption_min;
@@ -74,6 +81,8 @@ private:
    int description_text_width;
 
    std::vector<ArgResult> arg_results;
+   std::string command_name;
+
    std::size_t current_result;
 };
 
@@ -122,6 +131,12 @@ inline void
 Arguments::set_nonoption_max_number(std::size_t limit_max)
 {
     this->nonoption_max = limit_max;
+}
+
+inline void
+Arguments::set_exit_on_error(bool exit)
+{
+    this->auto_exit = exit;
 }
 
  UTIL_NAMESPACE_END
