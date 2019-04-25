@@ -74,7 +74,8 @@ throw(util::Exception)
                 continue;
             }
 
-            std::string
+            //std::string
+
         }
     }
     catch(util::Exception const& e)

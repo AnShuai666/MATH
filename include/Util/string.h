@@ -77,49 +77,26 @@ T convert(std::string const& str,bool strict_conversion = true);
 */
 std::string word_wrap(char const* str,int width);
 
+/*
+*  @Number      No.7
+*  @property   字符串格式
+*  @func       去掉str末尾所有的\n \r字符 即换行符
+*  @param_in   str        待处理字符串
+*  @return     void
+*/
+void clip_newlines(std::string& str);
+
+/*
+*  @Number      No.7
+*  @property   字符串格式
+*  @func       去掉str前端与末尾所有的空格和'\t'字符
+*  @param_in   str        待处理字符串
+*  @return     void
+*/
+void clip_whitespaces(std::string& str);
 /*******************************************************************
 *~~~~~~~~~~~~~~~~~~~~~常用字符串处理函数实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 *******************************************************************/
-std::string
-left(std::string const &str, std::size_t size)
-{
-    return str.substr(0,size);
-}
-
-std::string
-right(std::string const &str, std::size_t size)
-{
-    unsigned long sub_size=str.size() > size?(str.size() - size):0;
-    return str.substr(sub_size);
-}
-
-std::string
-lowercase(std::string const &str)
-{
-    std::string string(str);
-    for (int i = 0; i < str.size(); ++i)
-    {
-        if(string[i] >= 0x41 && string[i] <= 0x5a)
-        {
-            string[i] += 0x20;
-        }
-    }
-    return string;
-}
-
-std::string
-uppercase(std::string const &str)
-{
-    std::string string(str);
-    for (int i = 0; i < str.size(); ++i)
-    {
-        if(string[i] >= 0x61 && string[i] <= 0x7a)
-        {
-            string[i] -= 0x20;
-        }
-    }
-    return string;
-}
 
 template <typename T>
 inline T
@@ -135,59 +112,8 @@ convert(std::string const &str, bool strict_conversion)
     return ret;
 }
 
-std::string
-word_wrap(char const *str, int width)
-{
-    if (str == nullptr)
-        return std::string();
-    if (width <= 0)
-        return str;
 
-    int spaceleft = width;
-    bool firstword = true;
-    std::string out;
 
-    for (int i = 0,word = 0; true ; ++i)
-    {
-        char c(str[i]);
-        bool softbreak = (c == ' ' || c == '\t' || c == '\0' || c == '\n');
-
-        if (softbreak)
-        {
-            if (word > spaceleft)
-            {
-                if(!firstword)
-                    out.append(1,'\n');
-                spaceleft = width - word - 1;
-            }
-            else
-            {
-                if (!firstword)
-                    out.append(1,' ');
-                out.append(str + i - word,word);
-                spaceleft -= word + 1;
-            }
-            firstword = false;
-
-            word = 0;
-            if (c == '\n')
-            {
-                out.append(1,'\n');
-                firstword = true;
-                word = 0;
-                spaceleft = width;
-            }
-        }
-        else
-        {
-            word += 1;
-        }
-
-        if (str[i] == '\0')
-            break;
-    }
-    return out;
-}
 
 UTIL_NAMESPACE_END
 

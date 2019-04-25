@@ -16,7 +16,7 @@ set(SOURCE_FILES
         ${PROJECT_SOURCE_DIR}/src/Util/system.cpp
         ${PROJECT_SOURCE_DIR}/src/Util/file_system.cpp
         ${PROJECT_SOURCE_DIR}/src/Util/ArgParser.cpp
-
+        ${PROJECT_SOURCE_DIR}/src/Util/string.cpp
         )
 
 add_library(math_util SHARED ${HEADERS} ${SOURCE_FILES})
