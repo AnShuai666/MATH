@@ -9,6 +9,7 @@
 #define MATH_ARGPARSER_H
 
 #include "Util/define.h"
+#include "Util/string.h"
 #include <iostream>
 #include <vector>
 UTIL_NAMESPACE_BEGIN
@@ -81,7 +82,7 @@ template <typename T>
 inline T
 ArgResult::get_arg(void) const
 {
-    return ;
+    return util::convert<T>(this->arg);
 }
 
 inline void

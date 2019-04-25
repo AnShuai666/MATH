@@ -1,6 +1,9 @@
-//
-// Created by yhl on 19-4-24.
-//
+/*
+ * 日期:	2019-4-24
+ * 时间:	21:01
+ * 姓名:	安帅
+ * @func    日志记录文件函数测试
+*/
 
 #include <iostream>
 #include "Util/logging.h"
