@@ -22,6 +22,12 @@ Arguments::Arguments(void)
 {
 }
 
-
+void
+Arguments::set_usage(const char *argv0, std::string const &usage)
+{
+    std::stringstream ss;
+    ss << "Usage: " << argv0 <<" " << usage;
+    this->usage_str = ss.str();
+}
 
 UTIL_NAMESPACE_END

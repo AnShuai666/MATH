@@ -41,15 +41,18 @@ public:
 
     void set_usage(std::string const& str);
 
-    void set_usage(char const* argv[0], std::string const& usage);
+    void set_usage(char const* argv0, std::string const& usage);
 
     void set_description(std::string const& str);
 
+    //设置描述语换行宽度
+    void set_description_word_warp(int width);
+
     void set_help_text_indent(int indent);
 
-    void set_nonoption_maxmum(std::size_t limit);
+    void set_nonoption_max_number(std::size_t limit_min);
 
-    void set_nonoption_minum(std::size_t limit);
+    void set_nonoption_min_number(std::size_t limit_max);
 
     void set_exit_on_error(bool exit);
 
@@ -89,6 +92,36 @@ inline void
 Arguments::set_usage(std::string const &str)
 {
     this->usage_str = str;
+}
+
+inline void
+Arguments::set_description(std::string const &str)
+{
+    this->description_str = str;
+}
+
+inline void
+Arguments::set_description_word_warp(int width)
+{
+    this->description_text_width = width;
+}
+
+inline void
+Arguments::set_help_text_indent(int indent)
+{
+    this->help_text_indent = indent;
+}
+
+inline void
+Arguments::set_nonoption_min_number(std::size_t limit_min)
+{
+    this->nonoption_min = limit_min;
+}
+
+inline void
+Arguments::set_nonoption_max_number(std::size_t limit_max)
+{
+    this->nonoption_max = limit_max;
 }
 
  UTIL_NAMESPACE_END

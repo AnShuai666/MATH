@@ -11,3 +11,6 @@ target_link_libraries(logging_main math_util)
 add_executable(file_system_main file_system_main.cpp)
 target_link_libraries(file_system_main matrix_base math_util)
 
+add_executable(ArgPaser_main ArgPaser_main.cpp)
+target_link_libraries(ArgPaser_main math_util)
+
