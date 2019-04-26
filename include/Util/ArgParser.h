@@ -62,11 +62,11 @@ public:
 
     //只抛出util::Exception类型异常
     void parse(std::vector<std::string> const& args)
-    noexcept(util::Exception);
+    throw(util::Exception);
 
     //只抛出util::Exception类型异常
     void parse(int argc,char const* const* argv)
-    noexcept(util::Exception);
+    throw(util::Exception);
 
     void generate_help_text(std::ostream& ostream) const;
 

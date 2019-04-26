@@ -57,7 +57,7 @@ Arguments::add_option(char shortname, std::string const &longname, bool has_argu
 
 void
 Arguments::parse(std::vector<std::string> const &args)
-noexcept(util::Exception)
+throw(util::Exception)
 {
     try
     {
@@ -95,11 +95,34 @@ noexcept(util::Exception)
                 std::string next_token;
                 if (i + 1 < args.size())
                 {
-
+                    next_token = args[i + 1];
+                    util::clip_newlines(next_token);
+                    util::clip_whitespaces(next_token);
                 }
+                bool used_next = this->parse_short_option(token,next_token);
+                if (used_next)
+                    i += 1;
             }
-
+            else
+            {
+                ArgResult argResult;
+                argResult.arg_option = nullptr;
+                argResult.arg = token;
+                this->arg_results.push_back(argResult);
+            }
         }
+
+        std::size_t num_no_option = 0;
+        for (std::size_t j = 0; j < this->arg_results.size(); ++j)
+        {
+            if(this->arg_results[j].arg_option == nullptr)
+                num_no_option += 1;
+        }
+
+        if (num_no_option > this->nonoption_max)
+            throw util::Exception("无参数选项参数过多");
+        if (num_no_option < this->nonoption_min)
+            throw util::Exception("无参数选项参数过少");
     }
     catch(util::Exception const& e)
     {
@@ -114,7 +137,7 @@ noexcept(util::Exception)
 
 void
 Arguments::parse(int argc, char const *const *argv)
-noexcept(util::Exception)
+throw(util::Exception)
 {
     std::vector<std::string> args;
     for (int i = 0; i < argc; ++i)
