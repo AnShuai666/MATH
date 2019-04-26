@@ -1,6 +1,6 @@
 
 
-#include <flann.h>
+#include <flann/flann.h>
 #include <stdio.h>
 #include <stdlib.h>
 

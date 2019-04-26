@@ -31,7 +31,7 @@
 #ifndef FLANN_H_
 #define FLANN_H_
 
-#include "../src/flann/defines.h"
+#include "../../src/flann/defines.h"
 
 #ifdef __cplusplus
 extern "C"

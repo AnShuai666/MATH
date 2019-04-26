@@ -1,5 +1,5 @@
 
-#include <flann.hpp>
+#include <flann/flann.hpp>
 #include <stdio.h>
 #include <iostream>
 using namespace std;
@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 
     //load_from_file(dataset, "dataset.hdf5","dataset");
     //load_from_file(query, "dataset.hdf5","query");
-    int m=10000,n=10;
+    int m=10000,n=32;
     float* data=new float[m*n];
     float* que=new float[m*n];
     int* res=new int[m*n];
@@ -34,7 +34,7 @@ int main(int argc, char** argv)
     {
         for(int j=0;j<n;j++)
         {
-            que[i*n+j]=data[res[i]*n+j]+1;
+            que[i*n+j]=data[res[i]*n+j];
         }
     }
     dataset=Features<float>(data,m,n);
@@ -42,13 +42,14 @@ int main(int argc, char** argv)
     Features<int> indices(new int[query.rows*nn], query.rows, nn);
     Features<float> dists(new float[query.rows*nn], query.rows, nn);
 
-    // construct an randomized kd-tree index using 4 kd-trees
-    Index<L2<float> > index(dataset, flann::KDTreeIndexParams(4));
-    index.buildIndex();
+
 
     // do a knn search, using 128 checks
     clock_t start,end,total;
     start=clock();
+    // construct an randomized kd-tree index using 4 kd-trees
+    Index<L2<float> > index(dataset, flann::HierarchicalClusteringIndexParams());
+    index.buildIndex();
     index.knnSearch(query, indices, dists, nn, flann::SearchParams(128));
     end=clock();
     total=end-start;
@@ -65,6 +66,7 @@ int main(int argc, char** argv)
         }
     }
     //flann::save_to_file(indices,"result.hdf5","result");
+
 
     delete[] dataset.ptr();
     delete[] query.ptr();
