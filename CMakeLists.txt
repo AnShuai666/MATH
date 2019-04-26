@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8 )
 project(MATH)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "-fPIC")
-set(CMAKE_BUILD_TYPE "Debug")
+set(CMAKE_BUILD_TYPE "Release")
 
 set(MATH_VERSION_MAJOR 1)
 set(MATH_VERSION_MINOR 0)

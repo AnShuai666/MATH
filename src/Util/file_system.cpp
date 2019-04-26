@@ -5,7 +5,7 @@
  * @func    文件系统
 */
 
-#include "util/file_system.h"
+#include "Util/file_system.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -346,6 +346,165 @@ std::string file_system::sanitize_path(std::string const &path)
 
 std::string file_system::join_path(std::string const &path1, std::string const &path2)
 {
+    std::string p2 = sanitize_path(path2);
+    if (is_absolute_path(p2))
+    {
+        return p2;
+    }
 
+#if defined(_WIN32)
+    //TODO:WINDOWS OS
+#elif defined(linux)
+    return sanitize_path(path1) + '/' + p2;
+#else
+    #error "当前操作系统目前不支持"
+#endif
+}
+
+std::string
+file_system::get_absolute_path(std::string const &path)
+{
+    return join_path(get_cwd_string(),path);
+}
+
+std::string
+file_system::get_directory_name(std::string const &path)
+{
+    if (path.empty())
+    {
+        return ".";
+    }
+    std::size_t length = path.size();
+    //跳过path最后的slash/
+    while (length >0 && path[length - 1] == '/')
+    {
+        length -= -1;
+    }
+    if (length == 0)
+    {
+        return "/";
+    }
+
+    //跳过文件名部分
+    while (length > 0 && path[length - 1] != '/')
+    {
+        length -= 1;
+    }
+    if (length == 0)
+    {
+        return ".";
+    }
+
+    //跳过去除文件名部分后的slash'/'
+    while (length > 1 && path[length - 1] == '/')
+    {
+        length -= 1;
+    }
+
+    return path.substr(0,length);
+}
+
+std::string
+file_system::basename(std::string const &path)
+{
+    //跳过末尾的斜杠/
+    std::size_t length = path.size();
+    while (length > 0 && path[length - 1] == '/')
+    {
+        length -= 1;
+    }
+    if (length == 0)
+    {
+        return "";
+    }
+
+    //跳过文件名部分
+    std::size_t base = length - 1;
+    while (base > 0 && path[base - 1] != '/')
+    {
+        base -= 1;
+    }
+    return path.substr(base,length - base);
+}
+
+std::string
+file_system::replace_extension(std::string const &file, std::string const &extension)
+{
+    std::size_t slash_position = file.find_last_of('/');
+    if (slash_position == std::string::npos)
+    {
+        slash_position = 0;
+    }
+
+    std::size_t dot_position = file.find_last_of('.');
+    if (dot_position == std::string::npos || dot_position < slash_position)
+    {
+        return file + "." + extension;
+    }
+    return file.substr(0,dot_position) + "." + extension;
+}
+
+std::string
+file_system::File::get_absolute_name(void) const
+{
+#ifdef _WIN32
+#else
+    return (!path.empty() && *path.rbegin() == '/'
+    ? path + name
+    : path + "/" + name);
+#endif
+}
+
+bool
+file_system::File::operator<(const file_system::File &rhs) const
+{
+    if (this->is_directory && !rhs.is_directory)
+    {
+        return true;
+    }
+    else if(!this->is_directory && rhs.is_directory)
+    {
+        return false;
+    }
+    else if (this->path < rhs.path)
+    {
+        return true;
+    }
+    else
+    {
+        return (this->name < rhs.name);
+    }
+}
+
+void
+file_system::Directory::scan(std::string const &path)
+{
+    this->clear();
+#if defined(_WIN32)
+
+#elif defined(linux)
+    DIR *dir = ::opendir(path.c_str());
+    if (dir == nullptr)
+        //TODO:为定位异常信息，重写加上错误信息std::strerror(errno) 或perror
+        throw "不能打开文件夹目录：" ;
+    //不但指向文件目录，也指向目录中文件
+    dirent *dirent;
+    while ((dirent = ::readdir(dir)))
+    {
+        //strcmp
+        //如果返回值 < 0，则表示 str1 小于 str2。
+        //如果返回值 > 0，则表示 str2 小于 str1。
+        //如果返回值 = 0，则表示 str1 等于 str2。
+        if (!std::strcmp(dirent->d_name,"."))
+            continue;
+        if (!std::strcmp(dirent->d_name,".."))
+            continue;
+        this->push_back(File());
+        this->back().path = path;
+        this->back().name = dirent->d_name;
+        this->back().is_directory = (dirent->d_type == DT_DIR);
+    }
+    ::closedir(dir);
+#endif
 }
 UTIL_NAMESPACE_END

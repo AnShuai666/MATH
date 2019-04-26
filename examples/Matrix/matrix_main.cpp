@@ -1,9 +1,3 @@
-///*
-// * 日期:	2018-12-1
-// * 时间:	16:15
-// * 姓名:
-// * 邮箱:
-//*/
 #include "Matrix/matrix_svd.hpp"
 #include "Matrix/matrix.hpp"
 #include "Matrix/matrix_LU.hpp"
@@ -13,9 +7,8 @@ using namespace std;
 const int n =24;
 //矩阵的ALU分解
 
-int main()
-{
-    double arr[n*n]= {
+int main() {
+    double arr[n * n] = {
             -2, 1, 2, 0, -2, 0, 1, -3, 4, -4, -3, 2, -5, 4, -2, 1, -5, 1, -3, 1, -4, 3, 2, 4,
             -3, -5, -3, -2, 2, 0, 4, -3, -3, 3, 4, 2, -2, 1, -4, -3, 4, -2, -4, 4, -1, 2, 3, -1,
             0, -5, -2, 1, -4, -5, 1, -2, -3, -5, 1, -4, 0, 0, -1, 2, 1, 0, 1, 4, -2, 2, -1, 0,
@@ -41,15 +34,25 @@ int main()
             1, -3, 3, 4, 1, -5, 2, -5, -4, -5, -4, -2, 2, 2, -3, 1, -1, 0, -3, -5, -3, 4, -5, 4,
             4, -1, 0, -4, -5, -2, 2, 3, 3, 1, -5, -1, 1, 2, 1, -5, 4, 2, 0, 4, 2, 3, 0, -2
     };
-    double arr3[n][n]={  5, -2, 2, 7, 1, 0, 0, 3, -3, 1, 5, 0, 3, -1, -9, 4  };//{111,2,23,4,45,16,5,8,9,10,415,12,23,3,4,215,2,55,2,3,113,33,22,55,33};
-    Matrix<double ,n,n> matrix(arr);
+    double arr3[n][n] = {5, -2, 2, 7, 1, 0, 0, 3, -3, 1, 5, 0, 3, -1, -9,
+                         4};//{111,2,23,4,45,16,5,8,9,10,415,12,23,3,4,215,2,55,2,3,113,33,22,55,33};
+    Matrix<double, n, n> matrix(arr);
     //Matrix<float ,5,5> mat2;
     //mat2 = matrix.inverse();
-    double s=matrix.determiniant();
-    cout<<s<<endl;
-    Matrix<float ,n,n> matrix2=matrix.inverse();
-    PrintMatrix<float,n,n>(matrix2);
-    Matrix<double ,n,n> matrix3=matrix.adjoint();
-    PrintMatrix<double,n,n>(matrix3);
+    double s = matrix.determiniant();
+    cout << s << endl;
+    Matrix<float, n, n> matrix2 = matrix.inverse();
+    PrintMatrix<float, n, n>(matrix2);
+    Matrix<double, n, n> matrix3 = matrix.adjoint();
+    PrintMatrix<double, n, n>(matrix3);
+}
+#include "Matrix/matrix.hpp"
+//#include "Matrix/matrix_qr.hpp"
+int main2()
+{
+    //Matrix<int,3,3> matrix1(3);
+   // Matrix<int,3,3> matrixQ;
+    //Matrix<int,3,3> matrixR;
+    //qr_decomposition(&matrix1,&matrixQ,&matrixR);
     return 0;
 }
