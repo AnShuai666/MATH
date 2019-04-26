@@ -11,7 +11,7 @@ set(HEADERS
         ${PROJECT_SOURCE_DIR}/include/Util/string.h
         ${PROJECT_SOURCE_DIR}/include/Util/exception.h
         ${PROJECT_SOURCE_DIR}/include/Util/timer.h
-        )
+        ../../include/Util/tokenizer.h)
 set(SOURCE_FILES
         ${PROJECT_SOURCE_DIR}/src/Util/system.cpp
         ${PROJECT_SOURCE_DIR}/src/Util/file_system.cpp
