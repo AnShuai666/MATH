@@ -62,17 +62,19 @@ public:
 
     //只抛出util::Exception类型异常
     void parse(std::vector<std::string> const& args)
-    throw(util::Exception);
+    noexcept(util::Exception);
 
     //只抛出util::Exception类型异常
     void parse(int argc,char const* const* argv)
-    throw(util::Exception);
+    noexcept(util::Exception);
 
     void generate_help_text(std::ostream& ostream) const;
 
 private:
     void parse_long_option(std::string const& token);
     bool parse_short_option(std::string const& token1, std::string const& token2);
+    ArgOption const* find_option(char short_option_name);
+    ArgOption const* find_option(std::string const& long_option_name);
 
 private:
    std::size_t nonoption_min;

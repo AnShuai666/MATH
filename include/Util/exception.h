@@ -19,13 +19,24 @@ UTIL_NAMESPACE_BEGIN
 *~~~~~~~~~~~~~~~~~~~~~~~~~~Exception类的声明与实现~~~~~~~~~~~~~~~~~~~~~
 ********************************************************************/
 
-class Exception : public std::exception
+class Exception : public std::exception,public std::string
 {
 public:
     Exception() noexcept
     {
 
     };
+
+    Exception(std::string const& msg) noexcept
+        :std::string(msg)
+    {}
+
+    Exception(std::string const& msg1,std::string const& msg2)
+    noexcept : std::string(msg1)
+    {
+        this->append(msg2);
+    }
+
     virtual ~Exception(void) noexcept
     {
 

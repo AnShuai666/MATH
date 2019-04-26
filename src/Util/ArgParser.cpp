@@ -57,7 +57,7 @@ Arguments::add_option(char shortname, std::string const &longname, bool has_argu
 
 void
 Arguments::parse(std::vector<std::string> const &args)
-throw(util::Exception)
+noexcept(util::Exception)
 {
     try
     {
@@ -90,6 +90,14 @@ throw(util::Exception)
             {
                 this->parse_long_option(token);
             }
+            else if (parse_option && token.size() >= 2 && token[0] == '-')
+            {
+                std::string next_token;
+                if (i + 1 < args.size())
+                {
+
+                }
+            }
 
         }
     }
@@ -106,7 +114,7 @@ throw(util::Exception)
 
 void
 Arguments::parse(int argc, char const *const *argv)
-throw(util::Exception)
+noexcept(util::Exception)
 {
     std::vector<std::string> args;
     for (int i = 0; i < argc; ++i)
@@ -165,12 +173,52 @@ Arguments::generate_help_text(std::ostream &ostream) const
 void
 Arguments::parse_long_option(std::string const &token)
 {
+    std::size_t position = token.find_first_of('=');
+    std::string option = token.substr(2,position - 2);//”--“与"="的参数名 --help = "ss"
+    std::string arg;
+    if (position != std::string::npos)
+        arg = token.substr(position + 1);// “="之后的参数
+    if (option.empty())
+        throw util::Exception("非法的参数名选项： ",token);
 
+    ArgOption const* argOption = this->find_option(option);
+    if (argOption == nullptr)
+        throw util::Exception("非法的参数名选项：",token);
+
+    if (argOption->is_argument_needed && arg.empty())
+        throw util::Exception("参数名选项缺少参数",token);
+
+    ArgResult argResult;
+    argResult.arg = arg;
+    argResult.arg_option = argOption;
+    this->arg_results.push_back(argResult);
 }
 
 bool
 Arguments::parse_short_option(std::string const &token1, std::string const &token2)
 {
+    if (token1)
+}
 
+ArgOption const*
+Arguments::find_option(char short_option_name)//TODO:改写成引用形式 提高效率
+{
+    for (std::size_t i = 0; i < this->arg_options.size(); ++i)
+    {
+        if(this->arg_options[i].short_option_name == short_option_name)
+            return &this->arg_options[i];
+    }
+    return nullptr;
+}
+
+ArgOption const*
+Arguments::find_option(std::string const &long_option_name)
+{
+    for (std::size_t i = 0; i < this->arg_options.size(); ++i)
+    {
+        if(this->arg_options[i].long_option_name == long_option_name)
+            return &this->arg_options[i];
+    }
+    return nullptr;
 }
 UTIL_NAMESPACE_END
