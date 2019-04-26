@@ -220,7 +220,49 @@ Arguments::parse_long_option(std::string const &token)
 bool
 Arguments::parse_short_option(std::string const &token1, std::string const &token2)
 {
-    if (token1)
+    if (token1.size() < 2)
+        throw std::runtime_error("短参数选项字符过少");
+
+    char option = token1[1];
+    std::string arg;
+    bool retval = false;
+    ArgOption const* argOption = this->find_option(option);
+
+    if (argOption == nullptr)
+        throw util::Exception("非法的参数选项：",token1);
+
+    if (!argOption->is_argument_needed && token1.size() > 2)
+    {
+        for (int i = 0; i < token1.size(); ++i)
+        {
+            std::string short_option = "-";
+            short_option.append(1,token1[i]);
+            this->parse_short_option(short_option,"");
+        }
+        return false;
+    }
+
+    if (argOption->is_argument_needed && token1.size() == 2)
+    {
+        if (token2.empty() || token2[0] == 2)
+            throw util::Exception("参数选项缺少参数： ",token1);
+        arg = token2;
+        retval = true;
+    }
+    else if (argOption->is_argument_needed)
+    {
+        arg = token1.substr(2);
+    }
+
+    if (!argOption->is_argument_needed && token1.size() != 2)
+        throw util::Exception("参数选项未预期的参数： ",token1);
+
+    ArgResult argResult;
+    argResult.arg = arg;
+    argResult.arg_option = argOption;
+    this->arg_results.push_back(argResult);
+
+    return retval;
 }
 
 ArgOption const*
