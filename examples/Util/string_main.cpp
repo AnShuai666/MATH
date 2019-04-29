@@ -36,5 +36,11 @@ int main()
     util::clip_whitespaces(str);
     std::cout<<str;
 
+    //No.9
+    str = "Asahi Optical Co.,Ltd.  PENTAX Optio330RS";
+    std::cout<<"uppercase_alpha_numeric_only"<<std::endl;
+    util::uppercase_alpha_numeric_only(str);
+    std::cout<<str;
+
     return 0;
 }

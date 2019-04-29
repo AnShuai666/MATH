@@ -94,6 +94,18 @@ void clip_newlines(std::string& str);
 *  @return     void
 */
 void clip_whitespaces(std::string& str);
+
+/*
+*  @Number      No.8
+*  @property   字符串转换
+*  @func       将字符串中字符转换为大写，数字保留，其他字符转为空格，多个空格转为1个空格
+*  @param_in   str         待转换字符串
+*  @return     std::string
+*  @Example:   Qcit  Co.,Ltd.  PENTAX Optio330RS
+*  ========>   QCIT CO LTD PENTAX OPTIO330RS
+*/
+std::string uppercase_alpha_numeric_only(std::string const& str);
+
 /*******************************************************************
 *~~~~~~~~~~~~~~~~~~~~~常用字符串处理函数实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 *******************************************************************/

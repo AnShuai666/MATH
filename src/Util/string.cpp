@@ -121,4 +121,25 @@ clip_whitespaces(std::string &str)
     while (!str.empty() && (str.front() == ' ' || str.front() == '\t'))
         str.erase(str.front());
 }
+
+std::string
+uppercase_alpha_numeric_only(std::string const &str)
+{
+    std::string ret;
+
+    bool was_alpha_numeric = true;
+    for (int i = 0; i < str.size(); ++i)
+    {
+        if(std::isalnum(str[i]))
+        {
+            if (!was_alpha_numeric)
+                ret.append(1,' ');//在当前ret末尾添加‘ ’
+             ret.append(1,std::toupper(str[i]));
+             was_alpha_numeric = true;
+        }
+        else
+            was_alpha_numeric = false;
+    }
+}
+
 UTIL_NAMESPACE_END
