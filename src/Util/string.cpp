@@ -140,6 +140,7 @@ uppercase_alpha_numeric_only(std::string const &str)
         else
             was_alpha_numeric = false;
     }
+    return ret;
 }
 
 UTIL_NAMESPACE_END

@@ -34,13 +34,17 @@ int main()
     //str = "\t1234567891 011\t13\t";
     std::cout<<"test clip_whitespaces()"<<std::endl;
     util::clip_whitespaces(str);
-    std::cout<<str;
+    std::cout<<str<<std::endl;
 
     //No.9
     str = "Asahi Optical Co.,Ltd.  PENTAX Optio330RS";
-    std::cout<<"uppercase_alpha_numeric_only"<<std::endl;
+    std::cout<<"test uppercase_alpha_numeric_only"<<std::endl;
     util::uppercase_alpha_numeric_only(str);
-    std::cout<<str;
+    std::cout<<str<<std::endl;
+    str = "Canon IXUS";
+    util::uppercase_alpha_numeric_only(str);
+
+    std::cout<<str<<std::endl;
 
     return 0;
 }
