@@ -1,7 +1,28 @@
-find_path(MATH_INCLUDE_DIRS NAMES MATHConfig.h PATHS "${PROJECT_SOURCE_DIR}/include")
+#不能用${PROJECT_SOURCE_DIR} 会变成调用这个库的工程路径
+
+macro(MATH_REPORT_NOT_FOUND REASON_MSG)
+    set(MATH_FOUND FALSE)
+    set(math_FOUND FALSE)
+    unset(MATH_INLCUDE_DIRS)
+    unset(MATH_LIBRARIES)
+
+    #set(CMAKE_MODULE_PATH )
+
+    if (MATH_FIND_QUIETLY)
+        message(STATUS "查找MATH库失败")
+    else (MATH_FIND_REQUIRED)
+        message(FATAL_ERROR "未找到MATH库")
+    else()
+        message(SEND_ERROR "未找到MATH库")
+endif ()
+endmacro(MATH_REPORT_NOT_FOUND REASON_MSG)
+
+#find_path(MATH_INCLUDE_DIRS NAMES MATHConfig.h PATHS "${PROJECT_SOURCE_DIR}/include")
+#set(MATH_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/include")
+set(MATH_INCLUDE_DIRS "/home/as/MATH/include")
 find_library(MATH_LIBRARIES NAMES function PATHS "${PROJECT_SOURCE_DIR}/lib")
 find_library(MATH_LIBRARIES NAMES matrix_base PATHS "${PROJECT_SOURCE_DIR}/lib")
-
+find_library(MATH_LIBRARIES NAMES math_util PATHS "${PROJECT_SOURCE_DIR}/lib")
 
 set(MATH_FOUND TRUE)
 set(MATH_INCLUDE_DIR ${MATH_INCLUDE_DIRS})
