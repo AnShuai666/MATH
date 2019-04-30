@@ -17,7 +17,7 @@ endif ()
 
 configure_file(
         "${PROJECT_SOURCE_DIR}/config/MATHConfig.h.in"
-        "${PROJECT_SOURCE_DIR}/include/MATHConfig.h"
+        "include/MATH/MATHConfig.h"
 )
 
 configure_file(
@@ -41,5 +41,5 @@ add_subdirectory(examples)
 add_subdirectory(src)
 
 
-install(FILES MATHConfig.h include/math_define.h
+install(FILES MATHConfig.h include/MATH/math_define.h
         DESTINATION include/MATH)

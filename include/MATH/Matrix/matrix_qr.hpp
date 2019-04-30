@@ -16,7 +16,7 @@
 #ifndef MATH_MATRIX_QR_HPP
 #define MATH_MATRIX_QR_HPP
 
-#include <math_define.h>
+#include <MATH/math_define.h>
 #include "define.h"
 #include "matrix.hpp"
 #include "vector.hpp"

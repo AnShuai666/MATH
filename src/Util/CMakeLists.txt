@@ -1,17 +1,17 @@
-include_directories(../../include)
+include_directories(../../include/MATH)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 set(HEADERS
-        ${PROJECT_SOURCE_DIR}/include/Util/define.h
-        ${PROJECT_SOURCE_DIR}/include/Util/system.h
-        ${PROJECT_SOURCE_DIR}/include/Util/file_system.h
-        ${PROJECT_SOURCE_DIR}/include/Util/logging.h
-        ${PROJECT_SOURCE_DIR}/include/Util/aligned_allocator.hpp
-        ${PROJECT_SOURCE_DIR}/include/Util/ArgParser.h
-        ${PROJECT_SOURCE_DIR}/include/Util/string.h
-        ${PROJECT_SOURCE_DIR}/include/Util/exception.h
-        ${PROJECT_SOURCE_DIR}/include/Util/timer.h
-        ../../include/Util/tokenizer.h)
+        ../../include/MATH/Util/define.h
+        ../../include/MATH/Util/system.h
+        ../../include/MATH/Util/file_system.h
+        ../../include/MATH/Util/logging.h
+        ../../include/MATH/Util/aligned_allocator.hpp
+        ../../include/MATH/Util/ArgParser.h
+        ../../include/MATH/Util/string.h
+        ../../include/MATH/Util/exception.h
+        ../../include/MATH/Util/timer.h
+        ../../include/MATH/Util/tokenizer.h)
 set(SOURCE_FILES
         ${PROJECT_SOURCE_DIR}/src/Util/system.cpp
         ${PROJECT_SOURCE_DIR}/src/Util/file_system.cpp

@@ -13,7 +13,7 @@
 #include "define.h"
 #include <algorithm>
 #include <iterator>
-#include <math_define.h>
+#include "math_define.h"
 using namespace std;
 MATH_NAMESPACE_BEGIN
 MATRIX_NAMESPACE_BEGIN

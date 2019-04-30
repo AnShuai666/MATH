@@ -8,9 +8,9 @@
 #ifndef MATH_ARGPARSER_H
 #define MATH_ARGPARSER_H
 
-#include "Util/define.h"
-#include "Util/string.h"
-#include "Util/exception.h"
+#include "define.h"
+#include "string.h"
+#include "exception.h"
 #include <iostream>
 #include <vector>
 UTIL_NAMESPACE_BEGIN

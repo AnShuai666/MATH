@@ -12,8 +12,8 @@
 #include <iostream>
 #include <memory>
 #include <algorithm>
-#include "Matrix/vector.hpp"
-#include <math_define.h>
+#include "vector.hpp"
+#include "math_define.h"
 using namespace std;
 using namespace math::matrix;
 MATH_NAMESPACE_BEGIN

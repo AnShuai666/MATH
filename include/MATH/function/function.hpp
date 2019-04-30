@@ -10,7 +10,7 @@
 
 #include <cmath>
 #include "define.h"
-#include <math_define.h>
+#include <MATH/math_define.h>
 
 MATH_NAMESPACE_BEGIN
 FUNCTION_NAMESPACE_BEGIN

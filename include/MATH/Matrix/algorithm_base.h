@@ -5,7 +5,7 @@
 #define MATRIX_BASE_ALGORITHM_BASE_H
 #include "define.h"
 
-#include <math_define.h>
+#include <MATH/math_define.h>
 
 MATH_NAMESPACE_BEGIN
 ALGORITHM_NAMESPACE_BEGIN

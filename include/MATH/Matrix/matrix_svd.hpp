@@ -8,7 +8,7 @@
 #ifndef MATH_MATRIX_SVD_HPP
 #define MATH_MATRIX_SVD_HPP
 
-#include <math_define.h>
+#include <MATH/math_define.h>
 #include "define.h"
 MATH_NAMESPACE_BEGIN
 MATRIX_NAMESPACE_BEGIN
