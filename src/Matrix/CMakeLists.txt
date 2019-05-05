@@ -1,4 +1,5 @@
 include_directories(../../include/MATH)
+include_directories(../../include/)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 set(HEADERS
@@ -10,7 +11,7 @@ set(HEADERS
         ../../include/MATH/Matrix/matrix_qr.hpp
         ../../include/MATH/Matrix/matrix_svd.hpp
         ../../include/MATH/Matrix/matrix_conjugate_gradient.hpp
-
+        ../../include/MATH/math_define.h
         )
 set(SOURCE_FILES
         a.cpp
