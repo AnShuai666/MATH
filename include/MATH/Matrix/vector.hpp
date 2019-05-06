@@ -28,6 +28,14 @@ typedef Vector<char,3> Vector3c;
 typedef Vector<char,4> Vector4c;
 typedef Vector<char,5> Vector5c;
 typedef Vector<char,6> Vector6c;
+
+typedef Vector<unsigned char,1> Vector1uc;
+typedef Vector<unsigned char,2> Vector2uc;
+typedef Vector<unsigned char,3> Vector3uc;
+typedef Vector<unsigned char,4> Vector4uc;
+typedef Vector<unsigned char,5> Vector5uc;
+typedef Vector<unsigned char,6> Vector6uc;
+
 typedef Vector<short,64> Vector64s;
 typedef Vector<unsigned short,128> Vector128s;
 typedef Vector<int,1> Vector1i;
