@@ -8,7 +8,7 @@
 #ifndef MATH_CHOLESKY_HPP
 #define MATH_CHOLESKY_HPP
 
-#include <MATH/math_define.h>
+#include "math_define.h"
 #include <cmath>
 #include "define.h"
 MATH_NAMESPACE_BEGIN

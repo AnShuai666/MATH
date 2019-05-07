@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Util/string.h"
+using namespace math;
 
 int main()
 {
@@ -45,6 +46,8 @@ int main()
     util::uppercase_alpha_numeric_only(str);
 
     std::cout<<str<<std::endl;
+
+    //No.10
 
     return 0;
 }

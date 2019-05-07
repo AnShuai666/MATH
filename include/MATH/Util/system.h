@@ -8,6 +8,7 @@
 #ifndef MATH_UTIL_SYSTEM_H
 #define MATH_UTIL_SYSTEM_H
 
+#include "../math_define.h"
 #include "define.h"
 #include <iostream>
 #include <chrono>
@@ -19,6 +20,7 @@
         #define HOST_BYTE_ORDER_BIG_ENDIAN
     #endif
 #endif
+MATH_NAMESPACE_BEGIN
 UTIL_NAMESPACE_BEGIN
 SYSTEM_NAMESPACE_BEGIN
 
@@ -182,4 +184,5 @@ big_end_to_host(const T &x)
 #endif
 SYSTEM_NAMESPACE_END
 UTIL_NAMESPACE_END
+MATH_NAMESPACE_END
 #endif //MATH_UTIL_SYSTEM_H

@@ -10,9 +10,11 @@
 #include <string>
 #include <vector>
 #include "define.h"
+#include "../math_define.h"
 
+MATH_NAMESPACE_BEGIN
 UTIL_NAMESPACE_BEGIN
-FILE_SYSTEM_NAMESPACE_BEGIN
+
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~文件系统相关函数声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *******************************************************************/
@@ -294,27 +296,28 @@ class FileLock
 
 
 inline
-file_system::File::File()
+File::File()
         :is_directory(false)
 {
 }
 
 inline
-file_system::File::File(std::string const &path, std::string const &name, bool is_directory)
+File::File(std::string const &path, std::string const &name, bool is_directory)
         :path(path),name(name),is_directory(is_directory)
 {
 }
 
 inline
-file_system::Directory::Directory(void)
+Directory::Directory(void)
 {
 }
 
 inline
-file_system::Directory::Directory(std::string const &path)
+Directory::Directory(std::string const &path)
 {
     this->scan(path);
 }
-FILE_SYSTEM_NAMESPACE_END
+
 UTIL_NAMESPACE_END
+MATH_NAMESPACE_END
 #endif //MATH_FILE_SYSTEM_H

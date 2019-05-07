@@ -8,6 +8,7 @@
 #include <iostream>
 #include <Util/file_system.h>
 #include <fstream>
+using namespace math;
 int main()
 {
     std::string filename = "a";

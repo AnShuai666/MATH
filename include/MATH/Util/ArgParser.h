@@ -8,11 +8,13 @@
 #ifndef MATH_ARGPARSER_H
 #define MATH_ARGPARSER_H
 
+#include "../math_define.h"
 #include "define.h"
 #include "string.h"
 #include "exception.h"
 #include <iostream>
 #include <vector>
+MATH_NAMESPACE_BEGIN
 UTIL_NAMESPACE_BEGIN
 
 struct ArgOption
@@ -146,4 +148,5 @@ Arguments::set_exit_on_error(bool exit)
 }
 
  UTIL_NAMESPACE_END
+ MATH_NAMESPACE_END
 #endif //MATH_ARGPARSER_H

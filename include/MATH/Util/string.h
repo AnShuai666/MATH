@@ -8,11 +8,13 @@
 #ifndef UTIL_STRING_H
 #define UTIL_STRING_H
 
+#include "../math_define.h"
 #include "define.h"
 #include <string>
 #include <stdexcept>
 #include <sstream>
 
+MATH_NAMESPACE_BEGIN
 UTIL_NAMESPACE_BEGIN
 
 /*******************************************************************
@@ -87,7 +89,7 @@ std::string word_wrap(char const* str,int width);
 void clip_newlines(std::string& str);
 
 /*
-*  @Number      No.7
+*  @Number      No.8
 *  @property   字符串格式
 *  @func       去掉str前端与末尾所有的空格和'\t'字符
 *  @param_in   str        待处理字符串
@@ -96,7 +98,7 @@ void clip_newlines(std::string& str);
 void clip_whitespaces(std::string& str);
 
 /*
-*  @Number      No.8
+*  @Number      No.9
 *  @property   字符串转换
 *  @func       将字符串中字符转换为大写，数字保留，其他字符转为空格，多个空格转为1个空格
 *  @param_in   str         待转换字符串
@@ -105,6 +107,8 @@ void clip_whitespaces(std::string& str);
 *  ========>   QCIT CO LTD PENTAX OPTIO330RS
 */
 std::string uppercase_alpha_numeric_only(std::string const& str);
+
+
 
 /*******************************************************************
 *~~~~~~~~~~~~~~~~~~~~~常用字符串处理函数实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -128,5 +132,5 @@ convert(std::string const &str, bool strict_conversion)
 
 
 UTIL_NAMESPACE_END
-
+MATH_NAMESPACE_END
 #endif //UTIL_STRING_H

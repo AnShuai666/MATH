@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include "Util/ArgParser.h"
-
+using namespace math;
 int main(int argc,char** argv)
 {
     //struct ArgOption

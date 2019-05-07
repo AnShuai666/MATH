@@ -12,7 +12,9 @@
 #include <iostream>
 #include <string>
 #include "define.h"
+#include "../math_define.h"
 
+MATH_NAMESPACE_BEGIN
 UTIL_NAMESPACE_BEGIN
 
 /********************************************************************
@@ -70,5 +72,5 @@ public:
     std::string _errInfo;
 };
 UTIL_NAMESPACE_END
-
+MATH_NAMESPACE_END
 #endif //IMAGE_EXCEPTION_H

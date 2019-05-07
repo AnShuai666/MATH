@@ -5,7 +5,9 @@
  * @func    参数解析
 */
 
+#include <algorithm>
 #include "Util/string.h"
+MATH_NAMESPACE_BEGIN
 UTIL_NAMESPACE_BEGIN
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~~~~常用字符串处理函数实现~~~~~~~~~~~~~~~~~~~~~~~~
@@ -143,4 +145,6 @@ uppercase_alpha_numeric_only(std::string const &str)
     return ret;
 }
 
+
 UTIL_NAMESPACE_END
+MATH_NAMESPACE_END

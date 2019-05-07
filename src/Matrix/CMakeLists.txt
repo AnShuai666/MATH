@@ -1,4 +1,4 @@
-include_directories(../../include/MATH)
+#include_directories(../../include/MATH)
 include_directories(../../include/)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 

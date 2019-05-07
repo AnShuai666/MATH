@@ -8,6 +8,7 @@
 #include <thread>
 #include <csignal>
 #include <execinfo.h>
+MATH_NAMESPACE_BEGIN
 UTIL_NAMESPACE_BEGIN
 SYSTEM_NAMESPACE_BEGIN
 
@@ -84,3 +85,4 @@ print_stack_trace()
 
 SYSTEM_NAMESPACE_END
 UTIL_NAMESPACE_END
+MATH_NAMESPACE_END
