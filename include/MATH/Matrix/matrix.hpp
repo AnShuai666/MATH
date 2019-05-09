@@ -22,6 +22,7 @@ MATRIX_NAMESPACE_BEGIN
  *~~~~~~~~~~~~~~~~~~~~~常用矩阵类型别名声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *******************************************************************/
     template <typename T, int m ,int n> class Matrix;
+
     typedef Matrix<int,2,2> Matrix2i;
     typedef Matrix<int,3,3> Matrix3i;
     typedef Matrix<int,3,4> Matrix34i;
@@ -457,7 +458,8 @@ MATRIX_NAMESPACE_BEGIN
 
 
 
-
+        //先判断为方阵
+        Matrix<T,m,n>& set_identity(Matrix<T,m,n>* matrix);
 
 
         //TODO(8): 伴随矩阵
@@ -934,7 +936,19 @@ MATRIX_NAMESPACE_END
 
     }
 
-
+    template <typename T,int m,int n>
+    Matrix<T,m,n>&
+    Matrix<T,m,n>::set_identity(Matrix <T,m,n> *matrix)
+    {
+        if (m != n)
+        {
+            throw runtime_error("该矩阵不为方阵！");
+        }
+        matrix(T(0));
+        for (int i = 0; i < m * n; ++i)
+            (*matrix)[i] = T(1);
+        return *matrix;
+    }
 
 MATH_NAMESPACE_END
 #endif //__MATH_MATRIX_H__
