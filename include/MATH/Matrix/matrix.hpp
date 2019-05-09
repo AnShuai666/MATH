@@ -459,7 +459,7 @@ MATRIX_NAMESPACE_BEGIN
 
 
         //先判断为方阵
-        Matrix<T,m,n>& set_identity(Matrix<T,m,n>* matrix);
+        void set_identity();
 
 
         //TODO(8): 伴随矩阵
@@ -937,17 +937,17 @@ MATRIX_NAMESPACE_END
     }
 
     template <typename T,int m,int n>
-    Matrix<T,m,n>&
-    Matrix<T,m,n>::set_identity(Matrix <T,m,n> *matrix)
+    void
+    Matrix<T,m,n>::set_identity()
     {
         if (m != n)
         {
             throw runtime_error("该矩阵不为方阵！");
         }
-        matrix(T(0));
+
+        Matrix<T,m,n> matrix(T(0));
         for (int i = 0; i < m * n; ++i)
-            (*matrix)[i] = T(1);
-        return *matrix;
+            (matrix)[i] = T(1);
     }
 
 MATH_NAMESPACE_END
