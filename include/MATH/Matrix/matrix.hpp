@@ -408,6 +408,8 @@ MATRIX_NAMESPACE_BEGIN
         */
         Matrix<T,m,n - 1> delete_col(int index) const;
 
+        Matrix<T,m,n>& fill(T const& value);
+
 
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~~Vector一元运算~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -889,6 +891,13 @@ MATRIX_NAMESPACE_END
         return matrix1;
     }
 
+    template <typename T,int m, int n>
+    Matrix<T,m,n>&
+    Matrix<T,m,n>::fill(const T &value)
+    {
+        std::fill(M,M + m * n,value);
+        return *this;
+    }
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n>&
@@ -940,7 +949,7 @@ MATRIX_NAMESPACE_END
     void
     Matrix<T,m,n>::set_identity()
     {
-        if (m != n)
+        if (!this->is_square())
         {
             throw runtime_error("该矩阵不为方阵！");
         }
