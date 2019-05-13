@@ -9,8 +9,8 @@
 #define MATRIX_BASE_FUNCTION_HPP
 
 #include <cmath>
+#include "../math_define.h"
 #include "define.h"
-#include <MATH/math_define.h>
 
 MATH_NAMESPACE_BEGIN
 FUNCTION_NAMESPACE_BEGIN

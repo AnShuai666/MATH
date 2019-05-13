@@ -6,7 +6,7 @@ set(HEADERS
         ../../include/MATH/Matrix/define.h
         ../../include/MATH/Matrix/matrix.hpp
         ../../include/MATH/Matrix/vector.hpp
-        ../../include/MATH/Matrix/algorithm_base.h
+        ../../include/MATH/function/algorithm.hpp
         ../../include/MATH/Matrix/matrix_cholesky.hpp
         ../../include/MATH/Matrix/matrix_qr.hpp
         ../../include/MATH/Matrix/matrix_svd.hpp
