@@ -12,5 +12,5 @@ add_executable(file_system_main file_system_main.cpp)
 target_link_libraries(file_system_main matrix util)
 
 add_executable(ArgPaser_main ArgPaser_main.cpp)
-target_link_libraries(ArgPaser_main util)
+target_link_libraries(ArgPaser_main math)
 

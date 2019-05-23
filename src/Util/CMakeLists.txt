@@ -22,7 +22,7 @@ set(SOURCE_FILES
 add_library(util SHARED ${HEADERS} ${SOURCE_FILES})
 target_link_libraries(util function)
 install(TARGETS util
-        LIBRARY DESTINATION lib/MATH/Util
-        ARCHIVE DESTINATION lib/MATH/Util
-        RUNTIME DESTINATION bin/MATH/Util
+        LIBRARY DESTINATION lib/MATH
+        ARCHIVE DESTINATION lib/MATH
+        RUNTIME DESTINATION bin/MATH
         )

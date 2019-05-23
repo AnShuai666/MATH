@@ -1,26 +1,8 @@
 #不能用${PROJECT_SOURCE_DIR} 会变成调用这个库的工程路径
 
-macro(MATH_REPORT_NOT_FOUND REASON_MSG)
-    set(MATH_FOUND FALSE)
-    set(math_FOUND FALSE)
-    unset(MATH_INLCUDE_DIRS)
-    unset(MATH_LIBRARIES)
-
-    #set(CMAKE_MODULE_PATH )
-
-    if (MATH_FIND_QUIETLY)
-        message(STATUS "查找MATH库失败")
-    else (MATH_FIND_REQUIRED)
-        message(FATAL_ERROR "未找到MATH库")
-    #else()
-    #    message(SEND_ERROR "未找到MATH库")
-endif ()
-endmacro(MATH_REPORT_NOT_FOUND REASON_MSG)
-
-
-set(MATH_INCLUDE_DIRS "/usr/local/include/MATH")
-set(MATH_LIBRARIES "/usr/local/lib/MATH/libmath.so")
-
+set(MATH_INCLUDE_DIRS "/usr/local/include")
+find_library(MATH_LIBRARIES NAMES math "/usr/local/lib/MATH")
+set(MATH_LIBRARY_DIRS "/usr/local/lib/MATH")
 
 set(MATH_FOUND TRUE)
 set(MATH_INCLUDE_DIR ${MATH_INCLUDE_DIRS})

@@ -1,4 +1,4 @@
-include_directories(${PROJECT_SOURCE_DIR}/include)
+
 include_directories(../../include)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
@@ -14,7 +14,7 @@ set(SOURCE_FILES
 add_library(function SHARED ${HEADERS} ${SOURCE_FILES})
 
 install(TARGETS function
-        LIBRARY DESTINATION lib/MATH/function
-        ARCHIVE DESTINATION lib/MATH/function
-        RUNTIME DESTINATION bin/MATH/function
+        LIBRARY DESTINATION lib/MATH
+        ARCHIVE DESTINATION lib/MATH
+        RUNTIME DESTINATION bin/MATH
         )

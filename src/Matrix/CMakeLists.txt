@@ -20,7 +20,7 @@ set(SOURCE_FILES
 add_library(matrix SHARED ${HEADERS} ${SOURCE_FILES})
 target_link_libraries(matrix function)
 install(TARGETS matrix
-        LIBRARY DESTINATION lib/MATH/Matrix
-        ARCHIVE DESTINATION lib/MATH/Matrix
-        RUNTIME DESTINATION bin/MATH/Matrix
+        LIBRARY DESTINATION lib/MATH
+        ARCHIVE DESTINATION lib/MATH
+        RUNTIME DESTINATION bin/MATH
         )
