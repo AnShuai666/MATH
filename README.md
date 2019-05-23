@@ -34,3 +34,7 @@ sudo ./installMATH.sh
 卸载：
 
 sudo ./uninstallMATH.sh
+
+进行测试
+
+cmake .. -DTESTS_ENABLED=ON
