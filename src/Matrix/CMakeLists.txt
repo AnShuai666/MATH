@@ -6,7 +6,7 @@ set(HEADERS
         ../../include/MATH/Matrix/define.h
         ../../include/MATH/Matrix/matrix.hpp
         ../../include/MATH/Matrix/vector.hpp
-        ../../include/MATH/function/algorithm.hpp
+        ../../include/MATH/Function/algorithm.hpp
         ../../include/MATH/Matrix/matrix_cholesky.hpp
         ../../include/MATH/Matrix/matrix_qr.hpp
         ../../include/MATH/Matrix/matrix_svd.hpp
@@ -17,12 +17,10 @@ set(SOURCE_FILES
         a.cpp
         )
 
-add_library(matrix_base SHARED ${HEADERS} ${SOURCE_FILES})
-target_link_libraries(matrix_base function)
-install(TARGETS matrix_base
+add_library(matrix SHARED ${HEADERS} ${SOURCE_FILES})
+target_link_libraries(matrix function)
+install(TARGETS matrix
         LIBRARY DESTINATION lib/MATH/Matrix
         ARCHIVE DESTINATION lib/MATH/Matrix
         RUNTIME DESTINATION bin/MATH/Matrix
         )
-install(FILES ${HEADERS}
-        DESTINATION include/MATH/Matrix)

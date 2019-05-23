@@ -3,12 +3,12 @@ include_directories(../../include)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 set(HEADERS
-        ../../include/MATH/function/define.h
-        ../../include/MATH/function/function.hpp
-        ../../include/MATH/function/algorithm.hpp
+        ../../include/MATH/Function/define.h
+        ../../include/MATH/Function/function.hpp
+        ../../include/MATH/Function/algorithm.hpp
         )
 set(SOURCE_FILES
-        ${PROJECT_SOURCE_DIR}/src/function/a.cpp
+        ${PROJECT_SOURCE_DIR}/src/Function/a.cpp
         )
 
 add_library(function SHARED ${HEADERS} ${SOURCE_FILES})
@@ -18,6 +18,3 @@ install(TARGETS function
         ARCHIVE DESTINATION lib/MATH/function
         RUNTIME DESTINATION bin/MATH/function
         )
-
-install(FILES ${HEADERS}
-        DESTINATION include/MATH/function)

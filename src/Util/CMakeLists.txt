@@ -19,12 +19,10 @@ set(SOURCE_FILES
         ${PROJECT_SOURCE_DIR}/src/Util/string.cpp
         )
 
-add_library(math_util SHARED ${HEADERS} ${SOURCE_FILES})
-target_link_libraries(math_util function)
-install(TARGETS math_util
+add_library(util SHARED ${HEADERS} ${SOURCE_FILES})
+target_link_libraries(util function)
+install(TARGETS util
         LIBRARY DESTINATION lib/MATH/Util
         ARCHIVE DESTINATION lib/MATH/Util
         RUNTIME DESTINATION bin/MATH/Util
         )
-install(FILES ${HEADERS}
-        DESTINATION include/MATH/Util)

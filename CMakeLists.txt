@@ -17,7 +17,7 @@ endif ()
 
 configure_file(
         "${PROJECT_SOURCE_DIR}/config/MATHConfig.h.in"
-        "include/MATH/MATHConfig.h"
+        "${PROJECT_SOURCE_DIR}/include/MATH/MATHConfig.h"
 )
 
 configure_file(
@@ -28,18 +28,17 @@ set_property(TARGET ${MATHConfig.cmake} PROPERTY FOLDER cmakemodule)
 
 configure_file(
         "${PROJECT_SOURCE_DIR}/config/MATHConfigVersion.cmake.in"
-        "${PROJECT_SOURCE_DIR}/cmakemodule/MATHConfigVeision.cmake" @ONLY
+        "${PROJECT_SOURCE_DIR}/cmakemodule/MATHConfigVersion.cmake" @ONLY
 )
-
-install(FILES MATHConfig.cmake
-        DESTINATION share/MATH)
-install(FILES MATHConfigVersion.cmake
-        DESTINATION share/MATH)
 
 
 add_subdirectory(examples)
 add_subdirectory(src)
 
 
-install(FILES MATHConfig.h include/MATH/math_define.h
+install(FILES cmakemodule/MATHConfig.cmake
+        DESTINATION share/MATH)
+install(FILES cmakemodule/MATHConfigVeision.cmake
+        DESTINATION share/MATH)
+install(DIRECTORY include/MATH/
         DESTINATION include/MATH)

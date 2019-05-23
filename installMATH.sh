@@ -12,7 +12,7 @@ else
     echo "ERROR"
 fi
 
-rm -drf build
+#rm -drf build
 rm -drf $INSTALL_DIR/include/MATH
 rm -drf $INSTALL_DIR/lib/MATH
 rm -drf $INSTALL_DIR/bin/MATH
@@ -20,8 +20,8 @@ rm -drf $INSTALL_DIR/share/MATH
 
 
 
-mkdir build
-
+#mkdir build
+#chmod -R 777 build/ build/*
 cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}
 make

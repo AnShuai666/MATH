@@ -5,3 +5,4 @@ examples_bin/
 .idea/
 cmakemodule/
 a
+include/MATH/*Config.h
