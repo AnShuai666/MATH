@@ -22,3 +22,15 @@ email:
 
 wechat:
 
+
+编译：
+
+./build.sh
+
+安装：
+
+sudo ./installMATH.sh
+
+卸载：
+
+sudo ./uninstallMATH.sh
