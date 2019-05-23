@@ -17,6 +17,7 @@ configure_file(
         "${PROJECT_SOURCE_DIR}/config/CmakeHelper.cmake.in"
         "${PROJECT_SOURCE_DIR}/cmakemodule/CmakeHelper.cmake" @ONLY
 )
+include(cmakemodule/CmakeHelper.cmake)
 
 configure_file(
         "${PROJECT_SOURCE_DIR}/config/MATHConfig.h.in"
@@ -112,6 +113,7 @@ endif ()
 
 add_subdirectory(examples)
 add_subdirectory(src)
+add_subdirectory(TestCase)
 
 
 install(FILES cmakemodule/MATHConfig.cmake
