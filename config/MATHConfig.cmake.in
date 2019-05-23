@@ -16,16 +16,11 @@ macro(MATH_REPORT_NOT_FOUND REASON_MSG)
     #    message(SEND_ERROR "未找到MATH库")
 endif ()
 endmacro(MATH_REPORT_NOT_FOUND REASON_MSG)
-unset(MATH_LIBRARIES)
-#find_path(MATH_INCLUDE_DIRS NAMES MATHConfig.h PATHS "${PROJECT_SOURCE_DIR}/include")
-#set(MATH_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/include")
-set(MATH_INCLUDE_DIRS "/home/as/MATH/include")
-#下面这样也不行
-#set(MATH_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
-#find_library(MATH_LIBRARIES NAMES math_util function matrix_base PATHS "/home/as/MATH/lib")
-#find_library(MATH_LIBRARIES NAMES matrix_base PATHS /home/as/MATH/lib)
-find_library(MATH_LIBRARIES NAMES function math_util matrix_base PATHS "/home/as/MATH/lib")
+
+set(MATH_INCLUDE_DIRS "/usr/local/include/MATH")
+set(MATH_LIBRARIES "/usr/local/lib/MATH/libmath.so")
+
 
 set(MATH_FOUND TRUE)
 set(MATH_INCLUDE_DIR ${MATH_INCLUDE_DIRS})
