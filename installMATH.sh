@@ -12,7 +12,6 @@ else
     echo "ERROR"
 fi
 
-#rm -drf build
 rm -drf $INSTALL_DIR/include/MATH
 rm -drf $INSTALL_DIR/lib/MATH
 rm -drf $INSTALL_DIR/bin/MATH

@@ -1,6 +1,9 @@
-//
-// Created by yhl on 19-5-21.
-//
+/*
+ * @desc    测试image_io
+ * @author  安帅
+ * @date    2019-5-21
+ * @e-mail   1028792866@qq.com
+*/
 //这两个宏必须要 我也不知道为什么
 #define BOOST_AUTO_TEST_MAIN
 #define BOOST_TEST_DYN_LINK

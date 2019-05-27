@@ -115,14 +115,6 @@ add_subdirectory(examples)
 add_subdirectory(src)
 add_subdirectory(TestCase)
 
-
-install(FILES cmakemodule/MATHConfig.cmake
-        DESTINATION share/MATH)
-install(FILES cmakemodule/MATHConfigVersion.cmake
-        DESTINATION share/MATH)
-install(DIRECTORY include/MATH/
-        DESTINATION include/MATH)
-
 configure_file(
         "${PROJECT_SOURCE_DIR}/config/MATHConfig.cmake.in"
         "${PROJECT_SOURCE_DIR}/cmakemodule/MATHConfig.cmake" @ONLY
@@ -132,3 +124,10 @@ configure_file(
         "${PROJECT_SOURCE_DIR}/config/MATHConfigVersion.cmake.in"
         "${PROJECT_SOURCE_DIR}/cmakemodule/MATHConfigVersion.cmake" @ONLY
 )
+
+install(FILES cmakemodule/MATHConfig.cmake
+        DESTINATION share/MATH)
+install(FILES cmakemodule/MATHConfigVersion.cmake
+        DESTINATION share/MATH)
+install(DIRECTORY include/MATH/
+        DESTINATION include/MATH)

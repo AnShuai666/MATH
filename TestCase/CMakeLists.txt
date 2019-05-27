@@ -2,3 +2,4 @@ include_directories(../include)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 MATH_ADD_TEST(MATH_FUNCTION_STRING_TEST Util/string_test.cpp)
+MATH_ADD_TEST(MATH_MATRIX_VECTOR_TEST Matrix/vector_test.cpp)

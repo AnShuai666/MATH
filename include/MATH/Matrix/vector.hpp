@@ -210,14 +210,14 @@ public:
 public:
     /*
     *  @property   重载运算符*
-    *  @func       对向量进行解引用,以便访问成员变量V
+    *  @func       对向量进行解引用,返回地址中保存的值V
     *  @return     T*
     */
     T* operator* ();
 
     /*
     *  @property   重载运算符*
-    *  @func       对向量进行解引用,以便访问成员变量V
+    *  @func       对向量进行解引用,返回地址中保存的值V
     *  @return     T const*
     */
     T const* operator* () const;
@@ -626,7 +626,8 @@ template <typename T,int m>
 inline
 Vector<T,m>::Vector(Vector<T,m-1> const &vector1, T const &value)
 {
-    std::copy(vector1.V,vector1.V + m-1,V);
+    //此处必须用解引用 否则修改不了保护成员变量V
+    std::copy(*vector1,*vector1 + m-1,V);
     V[m-1] = value;
 }
 
