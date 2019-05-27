@@ -120,8 +120,8 @@ clip_whitespaces(std::string &str)
 {
     while (!str.empty() && (str.back() == ' ' || str.back() == '\t'))
         str.resize(str.size() - 1);
-    while (!str.empty() && (str.front() == ' ' || str.front() == '\t'))
-        str.erase(str.front());
+    while (!str.empty() && (*str.begin() == ' ' || *str.begin() == '\t'))
+        str.erase(str.begin());
 }
 
 std::string

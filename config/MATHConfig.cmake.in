@@ -1,10 +1,20 @@
 #不能用${PROJECT_SOURCE_DIR} 会变成调用这个库的工程路径
 
+unset(MATH_INCLUDE_DIRS)
+unset(MATH_LIBS)
+unset(MATH_LIBRARY)
+unset(MATH_LIBRARIES)
+
 set(MATH_INCLUDE_DIRS "/usr/local/include")
-find_library(MATH_LIBRARIES NAMES math "/usr/local/lib/MATH")
+find_library(MATH_LIBS
+    NAMES util function matrix
+    HINTS "/usr/local/lib/MATH" NO_DEFAULT_PATH)
 set(MATH_LIBRARY_DIRS "/usr/local/lib/MATH")
 
 set(MATH_FOUND TRUE)
 set(MATH_INCLUDE_DIR ${MATH_INCLUDE_DIRS})
-set(MATH_LIBS ${MATH_LIBRARIES})
-set(MATH_LIBRARY ${MATH_LIBRARIES})
+set(MATH_LIBRARY ${MATH_LIBS})
+set(MATH_LIBRARIES ${MATH_LIBS})
+
+set(MATH_LIBRARY_DIR ${MATH_LIBRARY_DIRS})
+set(MATH_LIBRARIES_DIR ${MATH_LIBRARY_DIRS})

@@ -4,7 +4,10 @@ echo -e "\033[40;32m\$\$\$\$\$\$\$\$\$\$\$配置并编译MATH库...\$\$\$\$\$\$\
 echo -e "\033[44;33m\$\$\$\$\$\$\$\$\$\$\$\$$\$\$--发财线--\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\$\033[0m\n"
 rm lib/*
 
+rm -rf build/*
+
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake clean
+cmake .. -DCMAKE_BUILD_TYPE=Release -DTESTS_ENABLED=ON
 make -j4

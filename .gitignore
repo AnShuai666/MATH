@@ -6,3 +6,4 @@ examples_bin/
 cmakemodule/
 a
 include/MATH/*Config.h
+TestCase/bin
