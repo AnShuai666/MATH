@@ -22,7 +22,7 @@
 #ifndef  PATH_MAX
 #define PATH_MAX 2048
 #endif
-
+MATH_NAMESPACE_BEGIN
 UTIL_NAMESPACE_BEGIN
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~文件系统相关函数实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -30,7 +30,7 @@ UTIL_NAMESPACE_BEGIN
 char home_path[PATH_MAX] = { 0 };
 
 bool
-file_system::is_directory_exist(char const *pathname)
+is_directory_exist(char const *pathname)
 {
     struct stat statebuf;
     if(::stat(pathname,&statebuf) < 0)
@@ -48,7 +48,7 @@ file_system::is_directory_exist(char const *pathname)
     return true;
 }
 bool
-file_system:: is_directory_empty(char const* pathname)
+ is_directory_empty(char const* pathname)
 {
     DIR *dir = opendir(pathname);
     struct dirent *ent=NULL;
@@ -67,7 +67,7 @@ file_system:: is_directory_empty(char const* pathname)
 
 }
 bool
-file_system::is_file_exists(char const *pathname)
+is_file_exists(char const *pathname)
 {
 #ifdef  _WIN32
     struct _stat statbuf;
@@ -100,7 +100,7 @@ file_system::is_file_exists(char const *pathname)
 
 
 char const*
-file_system::get_home_dir(void)
+get_home_dir(void)
 {
     if (*home_path != 0)
     {
@@ -121,19 +121,19 @@ file_system::get_home_dir(void)
 }
 
 char*
-file_system::get_cwd(char *buf, std::size_t size)
+get_cwd(char *buf, std::size_t size)
 {
     return ::getcwd(buf,size);
 }
 
 bool
-file_system::set_cwd(char const *pathname)
+set_cwd(char const *pathname)
 {
     return ::chdir(pathname) >= 0;
 }
 
 bool
-file_system::mkdir(char const *pathname)
+mkdir(char const *pathname)
 {
     if(is_directory_exist(pathname))
     {
@@ -144,7 +144,7 @@ file_system::mkdir(char const *pathname)
     return ::mkdir(pathname,S_IRWXU | S_IRGRP | S_IXGRP) >= 0;
 }
 bool
-file_system:: rmdir(char const* pathname)
+ rmdir(char const* pathname)
 {
     if(!is_directory_exist(pathname))
     {
@@ -160,7 +160,7 @@ file_system:: rmdir(char const* pathname)
 
 }
 bool
-file_system:: unlink(char const* pathname)
+ unlink(char const* pathname)
 {
     if(is_file_exists(pathname))
         return ::unlink(pathname);
@@ -171,7 +171,7 @@ file_system:: unlink(char const* pathname)
     }
 }
 bool
-file_system:: rename(char const* from, char const* to)
+ rename(char const* from, char const* to)
 {
     if(is_file_exists(from))
         return ::rename(from,to);
@@ -182,7 +182,7 @@ file_system:: rename(char const* from, char const* to)
     }
 }
 void
-file_system::copy_file(char const* src, char const* dst,int type)
+copy_file(char const* src, char const* dst,int type)
 {
     if(1==type)
     {
@@ -230,7 +230,7 @@ file_system::copy_file(char const* src, char const* dst,int type)
 }
 
 void
-file_system::read_file_to_string(std::string const &filename, std::string &data)
+read_file_to_string(std::string const &filename, std::string &data)
 {
     std::ifstream in(filename.c_str(),std::ios::binary);
     //in.open(filename);//,std::ios::binary);
@@ -252,7 +252,7 @@ file_system::read_file_to_string(std::string const &filename, std::string &data)
 }
 
 void
-file_system::write_string_to_file(std::string const &data, std::string const &filename)
+write_string_to_file(std::string const &data, std::string const &filename)
 {
     std::ofstream out(filename.c_str(),std::ios::binary);
     if (!out.good())
@@ -264,7 +264,7 @@ file_system::write_string_to_file(std::string const &data, std::string const &fi
 }
 
 std::string
-file_system::get_cwd_string(void)
+get_cwd_string(void)
 {
     std::size_t size = 1 << 8;
     while (true)
@@ -285,7 +285,7 @@ file_system::get_cwd_string(void)
 }
 
 std::string
-file_system::get_binary_path()
+get_binary_path()
 {
     char path[PATH_MAX];
     std::fill(path,path+PATH_MAX,'\0');
@@ -310,7 +310,7 @@ return std::string(path);
 }
 
 bool
-file_system::is_absolute_path(std::string const &path)
+is_absolute_path(std::string const &path)
 {
 #ifdef _WIN32
     //TODO:WINDOWS OS
@@ -319,7 +319,7 @@ file_system::is_absolute_path(std::string const &path)
 #endif
 }
 
-std::string file_system::sanitize_path(std::string const &path)
+std::string sanitize_path(std::string const &path)
 {
     if (path.empty())
         return "";
@@ -344,7 +344,7 @@ std::string file_system::sanitize_path(std::string const &path)
     return result;
 }
 
-std::string file_system::join_path(std::string const &path1, std::string const &path2)
+std::string join_path(std::string const &path1, std::string const &path2)
 {
     std::string p2 = sanitize_path(path2);
     if (is_absolute_path(p2))
@@ -362,13 +362,13 @@ std::string file_system::join_path(std::string const &path1, std::string const &
 }
 
 std::string
-file_system::get_absolute_path(std::string const &path)
+get_absolute_path(std::string const &path)
 {
     return join_path(get_cwd_string(),path);
 }
 
 std::string
-file_system::get_directory_name(std::string const &path)
+get_directory_name(std::string const &path)
 {
     if (path.empty())
     {
@@ -405,7 +405,7 @@ file_system::get_directory_name(std::string const &path)
 }
 
 std::string
-file_system::basename(std::string const &path)
+basename(std::string const &path)
 {
     //跳过末尾的斜杠/
     std::size_t length = path.size();
@@ -428,7 +428,7 @@ file_system::basename(std::string const &path)
 }
 
 std::string
-file_system::replace_extension(std::string const &file, std::string const &extension)
+replace_extension(std::string const &file, std::string const &extension)
 {
     std::size_t slash_position = file.find_last_of('/');
     if (slash_position == std::string::npos)
@@ -445,7 +445,7 @@ file_system::replace_extension(std::string const &file, std::string const &exten
 }
 
 std::string
-file_system::File::get_absolute_name(void) const
+File::get_absolute_name(void) const
 {
 #ifdef _WIN32
 #else
@@ -456,7 +456,7 @@ file_system::File::get_absolute_name(void) const
 }
 
 bool
-file_system::File::operator<(const file_system::File &rhs) const
+File::operator<(const File &rhs) const
 {
     if (this->is_directory && !rhs.is_directory)
     {
@@ -477,7 +477,7 @@ file_system::File::operator<(const file_system::File &rhs) const
 }
 
 void
-file_system::Directory::scan(std::string const &path)
+Directory::scan(std::string const &path)
 {
     this->clear();
 #if defined(_WIN32)
@@ -508,3 +508,4 @@ file_system::Directory::scan(std::string const &path)
 #endif
 }
 UTIL_NAMESPACE_END
+MATH_NAMESPACE_END

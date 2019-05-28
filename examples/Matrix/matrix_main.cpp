@@ -1,6 +1,6 @@
-#include "Matrix/matrix_svd.hpp"
-#include "Matrix/matrix.hpp"
-#include "Matrix/matrix_LU.hpp"
+#include "MATH/Matrix/matrix_svd.hpp"
+#include "MATH/Matrix/matrix.hpp"
+#include "MATH/Matrix/matrix_LU.hpp"
 #include<iostream>
 using namespace std;
 
@@ -15,7 +15,7 @@ int main() {
     for(int i=0;i<3;i++)
         cout<<X[i]<<endl;
 }
-#include "Matrix/matrix.hpp"
+#include "MATH/Matrix/matrix.hpp"
 //#include "Matrix/matrix_qr.hpp"
 int main2()
 {

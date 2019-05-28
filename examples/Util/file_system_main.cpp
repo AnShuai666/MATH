@@ -8,6 +8,7 @@
 #include <iostream>
 #include <Util/file_system.h>
 #include <fstream>
+using namespace math;
 int main()
 {
     std::string filename = "a";
@@ -29,38 +30,38 @@ int main()
 #endif
 
     char buf[100];
-    char* name=util::file_system::get_cwd(buf,100);
+    char* name=util::get_cwd(buf,100);
     std::cout<<buf<<std::endl;
-    std::string  cwd =util::file_system::get_cwd_string();
-    std::cout<<util::file_system::get_cwd_string()<<std::endl;
-    std::cout<<util::file_system::get_binary_path()<<std::endl;
-    std::cout<<util::file_system::is_absolute_path("/home/as/MATH/examples_bin")<<std::endl;
-    std::cout<<util::file_system::sanitize_path("//home/as/MATH/examples_bin")<<std::endl;
-    std::cout<<util::file_system::sanitize_path("//home//as/MATH/examples_bin")<<std::endl;
-    std::cout<<util::file_system::join_path(util::file_system::get_cwd_string() , "file_main")<<std::endl;
+    std::string  cwd =util::get_cwd_string();
+    std::cout<<util::get_cwd_string()<<std::endl;
+    std::cout<<util::get_binary_path()<<std::endl;
+    std::cout<<util::is_absolute_path("/home/as/MATH/examples_bin")<<std::endl;
+    std::cout<<util::sanitize_path("//home/as/MATH/examples_binwooojjsdij\\/")<<std::endl;
+    std::cout<<util::sanitize_path("//home//as/MATH/examples_bin")<<std::endl;
+    std::cout<<util::join_path(util::get_cwd_string() , "file_main")<<std::endl;
 
-    std::cout<<util::file_system::get_absolute_path("a")<<std::endl;
+    std::cout<<util::get_absolute_path("a")<<std::endl;
 
-    std::cout<<util::file_system::get_directory_name(cwd /*+ "/" + "a"*/)<<std::endl;
-    std::cout<<util::file_system::basename(cwd + "/" )<<std::endl;
-    std::cout<<util::file_system::replace_extension(cwd+"/"+"a","txt")<<std::endl;
+    std::cout<<util::get_directory_name(cwd /*+ "/" + "a"*/)<<std::endl;
+    std::cout<<util::basename(cwd + "/" )<<std::endl;
+    std::cout<<util::replace_extension(cwd+"/"+"a","txt")<<std::endl;
 
     std::string data;
-    util::file_system::read_file_to_string(filename,data);
+    util::read_file_to_string(filename,data);
     std::cout<<data<<std::endl;
 
-    util::file_system::write_string_to_file("abskk","a");
+    util::write_string_to_file("abskk","a");
 
     std::cout<<"文件结构体操作"<<std::endl;
-    struct util::file_system::File file(cwd,"a.txt", false);
+    struct util::File file(cwd,"a.txt", false);
     std::cout<<file.get_absolute_name()<<std::endl;
     std::cout<<"path: "<< file.path<<std::endl;
     std::cout<<"name: "<< file.name<<std::endl;
     std::cout<<"is_directory: "<< file.is_directory<<std::endl;
-    util::file_system::File file1(cwd,"a", false);
-    util::file_system::Directory directory(cwd);
+    util::File file1(cwd,"a", false);
+    util::Directory directory(cwd);
     directory.scan(cwd);
-    for (util::file_system::File& f:directory)
+    for (util::File& f:directory)
     {
         std::cout << f.name << "\t";
     }

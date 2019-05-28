@@ -10,6 +10,7 @@
 #include <limits>
 #include <iomanip>
 
+MATH_NAMESPACE_BEGIN
 UTIL_NAMESPACE_BEGIN
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~~~~参数解析类实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -287,3 +288,4 @@ Arguments::find_option(std::string const &long_option_name)
     return nullptr;
 }
 UTIL_NAMESPACE_END
+MATH_NAMESPACE_END

@@ -28,7 +28,7 @@
 
 #define FLANN_FIRST_MATCH
 
-#include "flann/flann.h"
+#include "MATH/flann/flann.h"
 
 
 struct FLANNParameters DEFAULT_FLANN_PARAMETERS = {

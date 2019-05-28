@@ -5,7 +5,9 @@
  * @func    参数解析
 */
 
+#include <algorithm>
 #include "Util/string.h"
+MATH_NAMESPACE_BEGIN
 UTIL_NAMESPACE_BEGIN
 /********************************************************************
  *~~~~~~~~~~~~~~~~~~~~~~~~常用字符串处理函数实现~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,7 +120,31 @@ clip_whitespaces(std::string &str)
 {
     while (!str.empty() && (str.back() == ' ' || str.back() == '\t'))
         str.resize(str.size() - 1);
-    while (!str.empty() && (str.front() == ' ' || str.front() == '\t'))
-        str.erase(str.front());
+    while (!str.empty() && (*str.begin() == ' ' || *str.begin() == '\t'))
+        str.erase(str.begin());
 }
+
+std::string
+uppercase_alpha_numeric_only(std::string const &str)
+{
+    std::string ret;
+
+    bool was_alpha_numeric = true;
+    for (int i = 0; i < str.size(); ++i)
+    {
+        if(std::isalnum(str[i]))
+        {
+            if (!was_alpha_numeric)
+                ret.append(1,' ');//在当前ret末尾添加‘ ’
+             ret.append(1,std::toupper(str[i]));
+             was_alpha_numeric = true;
+        }
+        else
+            was_alpha_numeric = false;
+    }
+    return ret;
+}
+
+
 UTIL_NAMESPACE_END
+MATH_NAMESPACE_END
