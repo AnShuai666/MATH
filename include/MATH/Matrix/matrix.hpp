@@ -1017,8 +1017,9 @@ MATRIX_NAMESPACE_BEGIN
         }
 
         Matrix<T,m,n> matrix(T(0));
-        for (int i = 0; i < m * n; ++i)
-            (matrix)[i] = T(1);
+        for (int i = 0; i < m ; ++i)
+            (matrix)[i][i] = T(1);
+        return matrix;
     }
     template <typename T,int m,int n>
     Matrix<float,m,n> Matrix<T,m,n>::inverse() {
