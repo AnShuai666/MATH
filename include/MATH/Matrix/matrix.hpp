@@ -13,7 +13,7 @@
 #include <memory>
 #include <algorithm>
 #include "MATH/Matrix/vector.hpp"
-#include "matrix_LU.hpp"
+#include "matrix_lu.hpp"
 #include <MATH/math_define.h>
 #include "vector.hpp"
 #include "../math_define.h"
@@ -1028,7 +1028,7 @@ MATRIX_NAMESPACE_BEGIN
 
        T* mat= this->M;
        float* _arr_inv=*_mat_inv;
-       LuSolveInverse<T>(mat,n,_arr_inv);
+       luSolveInverse<T>(mat,n,_arr_inv);
        return _mat_inv;
     }
 

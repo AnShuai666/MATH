@@ -1,13 +1,13 @@
 //
 // Created by yft on 18-12-4.
 //
-#include "MATH/Matrix/matrix_LU.hpp"
+#include "MATH/Matrix/matrix_lu.hpp"
 MATH_NAMESPACE_BEGIN
         MATRIX_NAMESPACE_BEGIN
 
 #define absf(x) (x)>0?(x):(-(x))
 //LUP分解
-bool LUPDescomposition(float* A, float* L, float* U, int* P,int DN)
+bool lupDescomposition(float* A, float* L, float* U, int* P,int DN)
 {
     int row = 0;
     for (int i = 0;i < DN; i++)
@@ -81,7 +81,7 @@ bool LUPDescomposition(float* A, float* L, float* U, int* P,int DN)
 }
 
 //LUP求解方程
-void LUPSolve(float* L, float* U, int* P, float* b,float* x,int DN)
+void lupSolve(float* L, float* U, int* P, float* b,float* x,int DN)
 {
     float *y=new float[DN]();
 
@@ -106,21 +106,21 @@ void LUPSolve(float* L, float* U, int* P, float* b,float* x,int DN)
     }
     delete[] y;
 }
-void LUPSolve(float* A,float* b,float* x,int DN)
+void lupSolve(float* A,float* b,float* x,int DN)
 {
     float* L=new float[DN*DN];
     float* U=new float[DN*DN];
     int* P=new int[DN];
 
-    LUPDescomposition(A,L,U,P,DN);
-    LUPSolve(L,U,P,b,x,DN);
+    lupDescomposition(A,L,U,P,DN);
+    lupSolve(L,U,P,b,x,DN);
 
     delete[] L;
     delete[] U;
     delete[] P;
 }
 //LU分解
-bool LUDescomposition(float* A, float* L, float* U,int n)
+bool luDescomposition(float* A, float* L, float* U,int n)
 {
 
     int i, r, k;
@@ -172,7 +172,7 @@ bool LUDescomposition(float* A, float* L, float* U,int n)
 }
 
 //LU求解方程
-void LuSolve(float* L, float* U, float* b,float* x,int DN)
+void luSolve(float* L, float* U, float* b,float* x,int DN)
 {
     float *y=new float[DN]();
 

@@ -81,43 +81,43 @@ public:
     typedef NNIndex<Distance> IndexType;
 
     Index(const IndexParams& params, Distance distance = Distance() )
-        : index_params_(params)
+        : _index_params(params)
     {
         flann_algorithm_t index_type = get_param<flann_algorithm_t>(params,"algorithm");
-        loaded_ = false;
+        _loaded = false;
 
         Features<ElementType> features;
         if (index_type == FLANN_INDEX_SAVED) {
-            nnIndex_ = load_saved_index(features, get_param<std::string>(params,"filename"), distance);
-            loaded_ = true;
+            _nnIndex = load_saved_index(features, get_param<std::string>(params,"filename"), distance);
+            _loaded = true;
         }
         else {
         	flann_algorithm_t index_type = get_param<flann_algorithm_t>(params, "algorithm");
-            nnIndex_ = create_index_by_type<Distance>(index_type, features, params, distance);
+            _nnIndex = create_index_by_type<Distance>(index_type, features, params, distance);
         }
     }
 
 
     Index(const Features<ElementType>& features, const IndexParams& params, Distance distance = Distance() )
-        : index_params_(params)
+        : _index_params(params)
     {
         flann_algorithm_t index_type = get_param<flann_algorithm_t>(params,"algorithm");
-        loaded_ = false;
+        _loaded = false;
 
         if (index_type == FLANN_INDEX_SAVED) {
-            nnIndex_ = load_saved_index(features, get_param<std::string>(params,"filename"), distance);
-            loaded_ = true;
+            _nnIndex = load_saved_index(features, get_param<std::string>(params,"filename"), distance);
+            _loaded = true;
         }
         else {
         	flann_algorithm_t index_type = get_param<flann_algorithm_t>(params, "algorithm");
-            nnIndex_ = create_index_by_type<Distance>(index_type, features, params, distance);
+            _nnIndex = create_index_by_type<Distance>(index_type, features, params, distance);
         }
     }
 
 
-    Index(const Index& other) : loaded_(other.loaded_), index_params_(other.index_params_)
+    Index(const Index& other) : _loaded(other._loaded), _index_params(other._index_params)
     {
-    	nnIndex_ = other.nnIndex_->clone();
+    	_nnIndex = other._nnIndex->clone();
     }
 
     Index& operator=(Index other)
@@ -128,7 +128,7 @@ public:
 
     virtual ~Index()
     {
-        delete nnIndex_;
+        delete _nnIndex;
     }
 
     /**
@@ -136,19 +136,19 @@ public:
      */
     void buildIndex()
     {
-        if (!loaded_) {
-            nnIndex_->buildIndex();
+        if (!_loaded) {
+            _nnIndex->buildIndex();
         }
     }
 
     void buildIndex(const Features<ElementType>& points)
     {
-    	nnIndex_->buildIndex(points);
+    	_nnIndex->buildIndex(points);
     }
 
     void addPoints(const Features<ElementType>& points, float rebuild_threshold = 2)
     {
-        nnIndex_->addPoints(points, rebuild_threshold);
+        _nnIndex->addPoints(points, rebuild_threshold);
     }
 
     /**
@@ -157,7 +157,7 @@ public:
      */
     void removePoint(size_t point_id)
     {
-    	nnIndex_->removePoint(point_id);
+    	_nnIndex->removePoint(point_id);
     }
 
     /**
@@ -167,7 +167,7 @@ public:
      */
     ElementType* getPoint(size_t point_id)
     {
-    	return nnIndex_->getPoint(point_id);
+    	return _nnIndex->getPoint(point_id);
     }
 
     /**
@@ -180,7 +180,7 @@ public:
         if (fout == NULL) {
             throw FLANNException("Cannot open file");
         }
-        nnIndex_->saveIndex(fout);
+        _nnIndex->saveIndex(fout);
         fclose(fout);
     }
 
@@ -189,7 +189,7 @@ public:
      */
     size_t veclen() const
     {
-        return nnIndex_->veclen();
+        return _nnIndex->veclen();
     }
 
     /**
@@ -197,7 +197,7 @@ public:
      */
     size_t size() const
     {
-        return nnIndex_->size();
+        return _nnIndex->size();
     }
 
     /**
@@ -205,7 +205,7 @@ public:
      */
     flann_algorithm_t getType() const
     {
-        return nnIndex_->getType();
+        return _nnIndex->getType();
     }
 
     /**
@@ -213,7 +213,7 @@ public:
      */
     int usedMemory() const
     {
-        return nnIndex_->usedMemory();
+        return _nnIndex->usedMemory();
     }
 
 
@@ -222,7 +222,7 @@ public:
      */
     IndexParams getParameters() const
     {
-        return nnIndex_->getParameters();
+        return _nnIndex->getParameters();
     }
 
     /**
@@ -239,7 +239,7 @@ public:
                                  size_t knn,
                            const SearchParams& params) const
     {
-    	return nnIndex_->knnSearch(queries, indices, dists, knn, params);
+    	return _nnIndex->knnSearch(queries, indices, dists, knn, params);
     }
 
     /**
@@ -257,7 +257,7 @@ public:
                                  size_t knn,
                            const SearchParams& params) const
     {
-    	return nnIndex_->knnSearch(queries, indices, dists, knn, params);
+    	return _nnIndex->knnSearch(queries, indices, dists, knn, params);
     }
 
     /**
@@ -274,7 +274,7 @@ public:
                                  size_t knn,
                            const SearchParams& params)
     {
-    	return nnIndex_->knnSearch(queries, indices, dists, knn, params);
+    	return _nnIndex->knnSearch(queries, indices, dists, knn, params);
     }
 
     /**
@@ -292,7 +292,7 @@ public:
                                  size_t knn,
                            const SearchParams& params) const
     {
-    	return nnIndex_->knnSearch(queries, indices, dists, knn, params);
+    	return _nnIndex->knnSearch(queries, indices, dists, knn, params);
     }
 
     /**
@@ -310,7 +310,7 @@ public:
                                     float radius,
                               const SearchParams& params) const
     {
-    	return nnIndex_->radiusSearch(queries, indices, dists, radius, params);
+    	return _nnIndex->radiusSearch(queries, indices, dists, radius, params);
     }
 
     /**
@@ -328,7 +328,7 @@ public:
                                     float radius,
                               const SearchParams& params) const
     {
-    	return nnIndex_->radiusSearch(queries, indices, dists, radius, params);
+    	return _nnIndex->radiusSearch(queries, indices, dists, radius, params);
     }
 
     /**
@@ -346,7 +346,7 @@ public:
                                     float radius,
                               const SearchParams& params) const
     {
-    	return nnIndex_->radiusSearch(queries, indices, dists, radius, params);
+    	return _nnIndex->radiusSearch(queries, indices, dists, radius, params);
     }
 
     /**
@@ -364,7 +364,7 @@ public:
                                     float radius,
                               const SearchParams& params) const
     {
-    	return nnIndex_->radiusSearch(queries, indices, dists, radius, params);
+    	return _nnIndex->radiusSearch(queries, indices, dists, radius, params);
     }
 
 private:
@@ -391,18 +391,18 @@ private:
 
     void swap( Index& other)
     {
-    	std::swap(nnIndex_, other.nnIndex_);
-    	std::swap(loaded_, other.loaded_);
-    	std::swap(index_params_, other.index_params_);
+    	std::swap(_nnIndex, other._nnIndex);
+    	std::swap(_loaded, other._loaded);
+    	std::swap(_index_params, other._index_params);
     }
 
 private:
     /** Pointer to actual index class */
-    IndexType* nnIndex_;
+    IndexType* _nnIndex;
     /** Indices if the index was loaded from a file */
-    bool loaded_;
+    bool _loaded;
     /** Parameters passed to the index */
-    IndexParams index_params_;
+    IndexParams _index_params;
 };
 
 

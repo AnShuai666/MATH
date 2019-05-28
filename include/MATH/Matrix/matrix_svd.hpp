@@ -19,7 +19,7 @@ MATRIX_NAMESPACE_BEGIN
 
 
 template <typename T>
-void svd_decomposition(T const* A,int rows,int coll,T* U,T* S,T* V,const double epsilon = 1e-12);
+void svdDecomposition(T const* A,int rows,int coll,T* U,T* S,T* V,const double epsilon = 1e-12);
 
 
 MATRIX_NAMESPACE_END
@@ -32,7 +32,7 @@ MATRIX_NAMESPACE_BEGIN
 
 static double eps=1e-12;      //允许的最大误差
 
-double get_norm(double *x, int n)   //求sqrt(x[1]*x[1] + x[2]*x[2] +......+ x[n]*x[n])，                                     //求向量x的模长|x|；
+double getNorm(double *x, int n)   //求sqrt(x[1]*x[1] + x[2]*x[2] +......+ x[n]*x[n])，                                     //求向量x的模长|x|；
 {
     double r=0;
     for(int i=0;i<n;i++)
@@ -43,7 +43,7 @@ double get_norm(double *x, int n)   //求sqrt(x[1]*x[1] + x[2]*x[2] +......+ x[n
 
 double normalize(double *x, int n)   //当求的的向量x的模小于eps最小值时，舍去；
 {                        //当x的模大于eps时，保留；并将x[i]/|x|，将向量x归一化为单位向量e；
-    double r=get_norm(x,n);
+    double r=getNorm(x,n);
     if(r<eps)
         return 0;
     for(int i=0;i<n;i++)
@@ -292,7 +292,7 @@ bool svd(double* A, int M,int N, double* U, double* S, double* Vt)
 */
 template <typename T>
 void
-svd_decomposition(T const *A, int rows, int cols, T *U, T *S, T *V, const double epsilon)
+svdDecomposition(T const *A, int rows, int cols, T *U, T *S, T *V, const double epsilon)
 {
     eps=(double)epsilon;
     int k=rows<cols?rows:cols;

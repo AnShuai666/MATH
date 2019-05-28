@@ -13,7 +13,7 @@ add_subdirectory(flann)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 link_directories(${PROJECT_SOURCE_DIR}/lib)
 
-add_library(math SHARED Matrix/matrix_LU.cpp)
+add_library(math SHARED Matrix/matrix_lu.cpp)
 target_link_libraries(math util function matrix flann)
 
 install(TARGETS math

@@ -1,6 +1,6 @@
 #include "MATH/Matrix/matrix_svd.hpp"
 #include "MATH/Matrix/matrix.hpp"
-#include "MATH/Matrix/matrix_LU.hpp"
+#include "MATH/Matrix/matrix_lu.hpp"
 #include<iostream>
 using namespace std;
 
@@ -8,12 +8,18 @@ const int n =3;
 //矩阵的ALU分解
 
 int main() {
-    float H[9]={-0.00044807,-0.000176254,3.33749e-05,-0.000176254,6.58222e-06,-1.80263e-05,3.33749e-05,-1.80263e-05,5.38546e-05};
-    float dD[3]={-0.000366091,1.19677e-05,1.87893e-05,};
-    float X[3]={};
-    LUPSolve(H,dD,X,n);
-    for(int i=0;i<3;i++)
+    float H[16]={-0.00044807,-0.000176254,3.33749,-0.000176254,6.58222,-1.80263,3.33749,-1.80263,5.38546,-0.00044807,-0.000176254,3.33749,-0.000176254,6.58222,-1.80263,3.33749};
+    float dD[4]={-0.000366091,1.19677,1.87893,1.87893};
+    float X[4]={};
+    Matrix<float ,4,4> matrix(H);
+    cout<<matrix.determiniant()<<endl;
+    cout<<matrix.inverse()<<endl;
+    lupSolve(H,dD,X,n);
+    for(int i=0;i<4;i++)
         cout<<X[i]<<endl;
+    Matrix<float,5,5> matrix1;
+    matrix1.set_identity();
+    cout<<matrix1<<endl;
 }
 #include "MATH/Matrix/matrix.hpp"
 //#include "Matrix/matrix_qr.hpp"
