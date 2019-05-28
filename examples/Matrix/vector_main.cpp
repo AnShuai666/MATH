@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "Matrix/vector.hpp"
+#include "MATH/Matrix/vector.hpp"
 
 using namespace std;
 

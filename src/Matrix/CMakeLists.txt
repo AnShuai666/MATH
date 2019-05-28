@@ -14,7 +14,7 @@ set(HEADERS
         ../../include/MATH/math_define.h
         )
 set(SOURCE_FILES
-        a.cpp
+        matrix_LU.cpp
         )
 
 add_library(matrix SHARED ${HEADERS} ${SOURCE_FILES})

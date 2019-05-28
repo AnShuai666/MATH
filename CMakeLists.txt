@@ -81,12 +81,13 @@ find_package(Boost REQUIRED COMPONENTS
         system
         unit_test_framework
         )
+
 if (Boost_FOUND)
     message(STATUS "  找到Boost")
 else()
     message(STATUS "  未找到Boost")
     message(STATUS "  请安装Boost")
-endif ()
+endif()
 
 ####################################################
 #######################SIMD#########################
