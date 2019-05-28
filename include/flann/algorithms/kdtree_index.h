@@ -37,7 +37,7 @@
 #include <cstring>
 #include <stdarg.h>
 
-#include "../general.h"
+#include "flann/general.h"
 #include "nn_index.h"
 #include "../util/dynamic_bitset.h"
 #include "../util/feature.h"

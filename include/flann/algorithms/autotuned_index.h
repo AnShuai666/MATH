@@ -30,7 +30,7 @@
 #ifndef FLANN_AUTOTUNED_INDEX_H_
 #define FLANN_AUTOTUNED_INDEX_H_
 
-#include "../general.h"
+#include "flann/general.h"
 #include "nn_index.h"
 #include "../nn/ground_truth.h"
 #include "../nn/index_testing.h"

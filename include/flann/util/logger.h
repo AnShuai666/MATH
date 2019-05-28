@@ -34,7 +34,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#include "../defines.h"
+#include "flann/defines.h"
 
 
 namespace flann

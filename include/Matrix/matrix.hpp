@@ -799,7 +799,6 @@ MATRIX_NAMESPACE_BEGIN
         }
         return out;
     }
-
     template <typename T, int m,int n>
     inline bool
     Matrix<T,m,n>::is_square() const

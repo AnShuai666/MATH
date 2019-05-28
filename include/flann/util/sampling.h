@@ -31,7 +31,7 @@
 #define FLANN_SAMPLING_H_
 
 #include "feature.h"
-#include "../util/random.h"
+#include "random.h"
 
 namespace flann
 {

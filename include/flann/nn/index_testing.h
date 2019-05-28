@@ -36,7 +36,7 @@
 #include <cmath>
 
 #include "../util/feature.h"
-#include "../algorithms/nn_index.h"
+#include "flann/algorithms/nn_index.h"
 #include "../util/result_set.h"
 #include "../util/logger.h"
 #include "../util/timer.h"

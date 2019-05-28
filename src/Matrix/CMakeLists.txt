@@ -13,12 +13,12 @@ set(HEADERS
 
         )
 set(SOURCE_FILES
-        a.cpp
+        matrix_LU.cpp
         )
 
-add_library(matrix_base SHARED ${HEADERS} ${SOURCE_FILES})
-target_link_libraries(matrix_base function)
-install(TARGETS matrix_base
+add_library(matrix_LU SHARED ${HEADERS} ${SOURCE_FILES})
+target_link_libraries(matrix_LU function)
+install(TARGETS matrix_LU
         LIBRARY DESTINATION lib/MATH/Matrix
         ARCHIVE DESTINATION lib/MATH/Matrix
         RUNTIME DESTINATION bin/MATH/Matrix

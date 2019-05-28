@@ -31,7 +31,7 @@
 #ifndef FLANN_GROUND_TRUTH_H_
 #define FLANN_GROUND_TRUTH_H_
 
-#include "../algorithms/dist.h"
+#include "flann/algorithms/dist.h"
 #include "../util/feature.h"
 
 

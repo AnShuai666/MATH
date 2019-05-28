@@ -33,7 +33,7 @@
 #include <vector>
 #include <stdio.h>
 
-#include "../general.h"
+#include "flann/general.h"
 #include "serialization.h"
 
 

@@ -33,7 +33,7 @@
 
 #include <vector>
 
-#include "../general.h"
+#include "flann/general.h"
 #include "../util/feature.h"
 #include "../util/params.h"
 #include "../util/result_set.h"

@@ -38,7 +38,7 @@
 #include <limits>
 #include <cmath>
 
-#include "../general.h"
+#include "flann/general.h"
 #include "nn_index.h"
 #include "dist.h"
 #include "center_chooser.h"

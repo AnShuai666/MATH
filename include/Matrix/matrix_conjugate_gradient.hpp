@@ -112,8 +112,8 @@ double ConjugateGradient(T** A,T* b,double *x,int n){
 
     for(int i=0;i<n;i++)
         delete[] _A[i];
-    delete _A;
-    delete _b;
+    delete[] _A;
+    delete[] _b;
     return _err;
 }
 
@@ -133,8 +133,8 @@ double ConjugateGradient(T* A,T* b,double *x,int n){
 
     for(int i=0;i<n;i++)
         delete[] _A[i];
-    delete _A;
-    delete _b;
+    delete[] _A;
+    delete[] _b;
     return _err;
 }
 MATRIX_NAMESPACE_END

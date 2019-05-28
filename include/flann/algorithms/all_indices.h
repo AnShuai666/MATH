@@ -30,7 +30,7 @@
 #ifndef FLANN_ALL_INDICES_H_
 #define FLANN_ALL_INDICES_H_
 
-#include "../general.h"
+#include "flann/general.h"
 
 #include "nn_index.h"
 #include "kdtree_index.h"

@@ -31,7 +31,7 @@
 #ifndef FLANN_DATASET_H_
 #define FLANN_DATASET_H_
 
-#include "../general.h"
+#include "flann/general.h"
 #include "serialization.h"
 #include <stdio.h>
 
