@@ -38,11 +38,11 @@
 #include <cstdio>
 
 #include "general.h"
-#include "MATH/flann/util/feature.h"
-#include "MATH/flann/util/params.h"
-#include "MATH/flann/util/saving.h"
+#include "MATH/Flann/util/feature.h"
+#include "MATH/Flann/util/params.h"
+#include "MATH/Flann/util/saving.h"
 
-#include "MATH/flann/algorithms/all_indices.h"
+#include "MATH/Flann/algorithms/all_indices.h"
 
 namespace flann
 {
@@ -51,7 +51,7 @@ namespace flann
  * Sets the log level used for all flann functions
  * @param level Verbosity level
  */
-inline void log_verbosity(int level)
+inline void logVerbosity(int level)
 {
     if (level >= 0) {
         Logger::setLevel(level);
@@ -88,7 +88,7 @@ public:
 
         Features<ElementType> features;
         if (index_type == FLANN_INDEX_SAVED) {
-            _nnIndex = load_saved_index(features, get_param<std::string>(params,"filename"), distance);
+            _nnIndex = loadSavedIndex(features, get_param<std::string>(params,"filename"), distance);
             _loaded = true;
         }
         else {
@@ -105,7 +105,7 @@ public:
         _loaded = false;
 
         if (index_type == FLANN_INDEX_SAVED) {
-            _nnIndex = load_saved_index(features, get_param<std::string>(params,"filename"), distance);
+            _nnIndex = loadSavedIndex(features, get_param<std::string>(params,"filename"), distance);
             _loaded = true;
         }
         else {
@@ -368,7 +368,7 @@ public:
     }
 
 private:
-    IndexType* load_saved_index(const Features<ElementType>& dataset, const std::string& filename, Distance distance)
+    IndexType* loadSavedIndex(const Features<ElementType>& dataset, const std::string& filename, Distance distance)
     {
         FILE* fin = fopen(filename.c_str(), "rb");
         if (fin == NULL) {

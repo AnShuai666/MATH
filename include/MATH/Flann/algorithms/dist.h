@@ -41,7 +41,7 @@ typedef unsigned __int64 uint64_t;
 #include <stdint.h>
 #endif
 
-#include "MATH/flann/defines.h"
+#include "MATH/Flann/defines.h"
 
 
 namespace flann

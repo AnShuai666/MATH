@@ -18,7 +18,7 @@ int main() {
     for(int i=0;i<4;i++)
         cout<<X[i]<<endl;
     Matrix<float,5,5> matrix1;
-    matrix1.set_identity();
+    matrix1.setIdentity();
     cout<<matrix1<<endl;
 }
 #include "MATH/Matrix/matrix.hpp"

@@ -5,7 +5,7 @@
  * @func    参数解析
 */
 
-#include "Util/ArgParser.h"
+#include "Util/arg_parser.h"
 #include "Util/string.h"
 #include <limits>
 #include <iomanip>
@@ -16,35 +16,35 @@ UTIL_NAMESPACE_BEGIN
  *~~~~~~~~~~~~~~~~~~~~~~~~参数解析类实现~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *******************************************************************/
 Arguments::Arguments(void)
-    :nonoption_min(0)
-    ,nonoption_max(std::numeric_limits<std::size_t>::max())
-    ,auto_exit(false)
-    ,help_text_indent(16)
-    ,description_text_width(75)
-    ,current_result(std::numeric_limits<std::size_t>::max())
+    :_nonoption_min(0)
+    ,_nonoption_max(std::numeric_limits<std::size_t>::max())
+    ,_auto_exit(false)
+    ,_help_text_indent(16)
+    ,_description_text_width(75)
+    ,_current_result(std::numeric_limits<std::size_t>::max())
 {
 }
 
 void
-Arguments::set_usage(const char *argv0, std::string const &usage)
+Arguments::setUsage(const char *argv0, std::string const &usage)
 {
     std::stringstream ss;
     ss << "Usage: " << argv0 <<" " << usage;
-    this->usage_str = ss.str();
+    this->_usage_str = ss.str();
 }
 
 void
-Arguments::add_option(char shortname, std::string const &longname, bool has_argument,
+Arguments::addOption(char shortname, std::string const &longname, bool has_argument,
                            const std::string &description)
 {
     if(shortname == '\0' && longname.empty())
         throw std::invalid_argument("长短参数都未给定");
 
     //检测参数选项是否存在
-    for (std::size_t i = 0; i < this->arg_options.size(); ++i)
+    for (std::size_t i = 0; i < this->_arg_options.size(); ++i)
     {
-        if ((shortname != '\0' && this->arg_options[i].short_option_name == shortname)
-            || (!longname.empty() && this->arg_options[i].long_option_name == longname))
+        if ((shortname != '\0' && this->_arg_options[i].short_option_name == shortname)
+            || (!longname.empty() && this->_arg_options[i].long_option_name == longname))
             throw std::runtime_error("参数选项已经存在！");
     }
 
@@ -53,7 +53,7 @@ Arguments::add_option(char shortname, std::string const &longname, bool has_argu
     argOption.long_option_name = longname;
     argOption.description = description;
     argOption.is_argument_needed = has_argument;
-    this->arg_options.push_back(argOption);
+    this->_arg_options.push_back(argOption);
 }
 
 void
@@ -62,16 +62,16 @@ throw(util::Exception)
 {
     try
     {
-        this->arg_results.clear();
-        this->command_name.clear();
-        this->current_result = std::numeric_limits<std::size_t>::max();
+        this->_arg_results.clear();
+        this->_command_name.clear();
+        this->_current_result = std::numeric_limits<std::size_t>::max();
 
         bool parse_option = true;
         for (std::size_t i = 0; i < args.size(); ++i)
         {
             if (i == 0)
             {
-                this->command_name = args[i];
+                this->_command_name = args[i];
                 continue;
             }
 
@@ -89,7 +89,7 @@ throw(util::Exception)
             }
             else if (parse_option && token.size() >= 3 && token[0] == '-' && token[1] == '-')
             {
-                this->parse_long_option(token);
+                this->parseLongOption(token);
             }
             else if (parse_option && token.size() >= 2 && token[0] == '-')
             {
@@ -100,7 +100,7 @@ throw(util::Exception)
                     util::clip_newlines(next_token);
                     util::clip_whitespaces(next_token);
                 }
-                bool used_next = this->parse_short_option(token,next_token);
+                bool used_next = this->parseShortOption(token,next_token);
                 if (used_next)
                     i += 1;
             }
@@ -109,28 +109,28 @@ throw(util::Exception)
                 ArgResult argResult;
                 argResult.arg_option = nullptr;
                 argResult.arg = token;
-                this->arg_results.push_back(argResult);
+                this->_arg_results.push_back(argResult);
             }
         }
 
         std::size_t num_no_option = 0;
-        for (std::size_t j = 0; j < this->arg_results.size(); ++j)
+        for (std::size_t j = 0; j < this->_arg_results.size(); ++j)
         {
-            if(this->arg_results[j].arg_option == nullptr)
+            if(this->_arg_results[j].arg_option == nullptr)
                 num_no_option += 1;
         }
 
-        if (num_no_option > this->nonoption_max)
+        if (num_no_option > this->_nonoption_max)
             throw util::Exception("无参数选项参数过多");
-        if (num_no_option < this->nonoption_min)
+        if (num_no_option < this->_nonoption_min)
             throw util::Exception("无参数选项参数过少");
     }
     catch(util::Exception const& e)
     {
-        if (!this->auto_exit)
+        if (!this->_auto_exit)
             throw;
         std::cerr << std::endl;
-        this->generate_help_text(std::cerr);
+        this->generateHelpText(std::cerr);
         std::cerr << std::endl << "错误：" << e.what() << std::endl;
         std::exit(1);
     }
@@ -149,23 +149,23 @@ throw(util::Exception)
 }
 
 void
-Arguments::generate_help_text(std::ostream &ostream) const
+Arguments::generateHelpText(std::ostream &ostream) const
 {
     std::string decsription = util::word_wrap(
-            this->description_str.c_str(),this->description_text_width);
+            this->_description_str.c_str(),this->_description_text_width);
 
     if (!decsription.empty())
         ostream << decsription << std::endl << std::endl;
 
-    if (!this->usage_str.empty())
-        ostream << this->usage_str << std::endl;
+    if (!this->_usage_str.empty())
+        ostream << this->_usage_str << std::endl;
 
-    if (!this->arg_options.empty() && (!this->usage_str.empty() || !decsription.empty()))
+    if (!this->_arg_options.empty() && (!this->_usage_str.empty() || !decsription.empty()))
         ostream << "可用的参数选项为：" << std::endl;
 
-    for (size_t i = 0; i < this->arg_options.size(); ++i)
+    for (size_t i = 0; i < this->_arg_options.size(); ++i)
     {
-        ArgOption const& argOption(this->arg_options[i]);
+        ArgOption const& argOption(this->_arg_options[i]);
         std::stringstream option_string;
 
         if (argOption.short_option_name != '\0')
@@ -186,7 +186,7 @@ Arguments::generate_help_text(std::ostream &ostream) const
         option_string << " ";
         ostream << " "
                 << std::setiosflags(std::ios::left)
-                << std::setw(this->help_text_indent)
+                << std::setw(this->_help_text_indent)
                 << option_string.str()
                 << argOption.description
                 << std::endl;
@@ -195,7 +195,7 @@ Arguments::generate_help_text(std::ostream &ostream) const
 }
 
 void
-Arguments::parse_long_option(std::string const &token)
+Arguments::parseLongOption(std::string const &token)
 {
     std::size_t position = token.find_first_of('=');
     std::string option = token.substr(2,position - 2);//”--“与"="的参数名 --help = "ss"
@@ -205,7 +205,7 @@ Arguments::parse_long_option(std::string const &token)
     if (option.empty())
         throw util::Exception("非法的参数名选项： ",token);
 
-    ArgOption const* argOption = this->find_option(option);
+    ArgOption const* argOption = this->findOption(option);
     if (argOption == nullptr)
         throw util::Exception("非法的参数名选项：",token);
 
@@ -215,11 +215,11 @@ Arguments::parse_long_option(std::string const &token)
     ArgResult argResult;
     argResult.arg = arg;
     argResult.arg_option = argOption;
-    this->arg_results.push_back(argResult);
+    this->_arg_results.push_back(argResult);
 }
 
 bool
-Arguments::parse_short_option(std::string const &token1, std::string const &token2)
+Arguments::parseShortOption(std::string const &token1, std::string const &token2)
 {
     if (token1.size() < 2)
         throw std::runtime_error("短参数选项字符过少");
@@ -227,7 +227,7 @@ Arguments::parse_short_option(std::string const &token1, std::string const &toke
     char option = token1[1];
     std::string arg;
     bool retval = false;
-    ArgOption const* argOption = this->find_option(option);
+    ArgOption const* argOption = this->findOption(option);
 
     if (argOption == nullptr)
         throw util::Exception("非法的参数选项：",token1);
@@ -238,7 +238,7 @@ Arguments::parse_short_option(std::string const &token1, std::string const &toke
         {
             std::string short_option = "-";
             short_option.append(1,token1[i]);
-            this->parse_short_option(short_option,"");
+            this->parseShortOption(short_option,"");
         }
         return false;
     }
@@ -261,29 +261,29 @@ Arguments::parse_short_option(std::string const &token1, std::string const &toke
     ArgResult argResult;
     argResult.arg = arg;
     argResult.arg_option = argOption;
-    this->arg_results.push_back(argResult);
+    this->_arg_results.push_back(argResult);
 
     return retval;
 }
 
 ArgOption const*
-Arguments::find_option(char short_option_name)//TODO:改写成引用形式 提高效率
+Arguments::findOption(char short_option_name)//TODO:改写成引用形式 提高效率
 {
-    for (std::size_t i = 0; i < this->arg_options.size(); ++i)
+    for (std::size_t i = 0; i < this->_arg_options.size(); ++i)
     {
-        if(this->arg_options[i].short_option_name == short_option_name)
-            return &this->arg_options[i];
+        if(this->_arg_options[i].short_option_name == short_option_name)
+            return &this->_arg_options[i];
     }
     return nullptr;
 }
 
 ArgOption const*
-Arguments::find_option(std::string const &long_option_name)
+Arguments::findOption(std::string const &long_option_name)
 {
-    for (std::size_t i = 0; i < this->arg_options.size(); ++i)
+    for (std::size_t i = 0; i < this->_arg_options.size(); ++i)
     {
-        if(this->arg_options[i].long_option_name == long_option_name)
-            return &this->arg_options[i];
+        if(this->_arg_options[i].long_option_name == long_option_name)
+            return &this->_arg_options[i];
     }
     return nullptr;
 }

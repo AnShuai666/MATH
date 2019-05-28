@@ -1,5 +1,5 @@
 
-#include <MATH/flann/flann.hpp>
+#include <MATH/Flann/flann.hpp>
 #include <stdio.h>
 #include <iostream>
 using namespace std;

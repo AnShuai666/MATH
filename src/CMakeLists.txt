@@ -8,7 +8,7 @@ add_subdirectory(Probability)
 
 add_subdirectory(Function)
 add_subdirectory(Util)
-add_subdirectory(flann)
+add_subdirectory(Flann)
 
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 link_directories(${PROJECT_SOURCE_DIR}/lib)

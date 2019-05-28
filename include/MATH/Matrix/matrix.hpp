@@ -22,405 +22,405 @@ using namespace math::matrix;
 MATH_NAMESPACE_BEGIN
 MATRIX_NAMESPACE_BEGIN
 /********************************************************************
- *~~~~~~~~~~~~~~~~~~~~~常用矩阵类型别名声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *******************************************************************/
-    template <typename T, int m ,int n> class Matrix;
+*~~~~~~~~~~~~~~~~~~~~~常用矩阵类型别名声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*******************************************************************/
+template <typename T, int m ,int n> class Matrix;
 
-    typedef Matrix<int,2,2> Matrix2i;
-    typedef Matrix<int,3,3> Matrix3i;
-    typedef Matrix<int,3,4> Matrix34i;
-    typedef Matrix<int,4,4> Matrix4i;
+typedef Matrix<int,2,2> Matrix2i;
+typedef Matrix<int,3,3> Matrix3i;
+typedef Matrix<int,3,4> Matrix34i;
+typedef Matrix<int,4,4> Matrix4i;
 
-    typedef Matrix<unsigned int,2,2> Matrix2ui;
-    typedef Matrix<unsigned int,3,3> Matrix3ui;
-    typedef Matrix<unsigned int,3,4> Matrix34ui;
-    typedef Matrix<unsigned int,4,4> Matrix4ui;
+typedef Matrix<unsigned int,2,2> Matrix2ui;
+typedef Matrix<unsigned int,3,3> Matrix3ui;
+typedef Matrix<unsigned int,3,4> Matrix34ui;
+typedef Matrix<unsigned int,4,4> Matrix4ui;
 
-    typedef Matrix<float ,2,2> Matrix2f;
-    typedef Matrix<float ,3,3> Matrix3f;
-    typedef Matrix<float ,3,4> Matrix34f;
-    typedef Matrix<float ,4,4> Matrix4f;
+typedef Matrix<float ,2,2> Matrix2f;
+typedef Matrix<float ,3,3> Matrix3f;
+typedef Matrix<float ,3,4> Matrix34f;
+typedef Matrix<float ,4,4> Matrix4f;
 
-    typedef Matrix<double ,2,2> Matrix2d;
-    typedef Matrix<double ,3,3> Matrix3d;
-    typedef Matrix<double ,3,4> Matrix34d;
-    typedef Matrix<double ,4,4> Matrix4d;
-
-/********************************************************************
- *~~~~~~~~~~~~~~~~~~~~~~~~~Matrix类的声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *******************************************************************/
-    template <typename T,int m, int n>
-    class Matrix
-    {
-    public:
-        typedef shared_ptr<Matrix<T,m,n>> Ptr;
-        //声明矩阵行列，static保证必须初始化时给定行列值
-        static int constexpr rows = m;
-        static int constexpr cols = n;
+typedef Matrix<double ,2,2> Matrix2d;
+typedef Matrix<double ,3,3> Matrix3d;
+typedef Matrix<double ,3,4> Matrix34d;
+typedef Matrix<double ,4,4> Matrix4d;
 
 /********************************************************************
- *~~~~~~~~~~~~~~~~~~~~~构造函数与析构函数~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *******************************************************************/
+*~~~~~~~~~~~~~~~~~~~~~~~~~Matrix类的声明~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*******************************************************************/
+template <typename T,int m, int n>
+class Matrix
+{
+public:
+    typedef shared_ptr<Matrix<T,m,n>> m_ptr;
+    //声明矩阵行列，static保证必须初始化时给定行列值
+    static int constexpr m_rows = m;
+    static int constexpr m_cols = n;
+
+/********************************************************************
+*~~~~~~~~~~~~~~~~~~~~~构造函数与析构函数~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*******************************************************************/
 
 
-        /*
-         *  @property   默认构造函数
-         *  @func       对矩阵的rows与cols进行初始化
-        */
-        Matrix();
+    /*
+     *  @property   默认构造函数
+     *  @func       对矩阵的rows与cols进行初始化
+    */
+    Matrix();
 
-        /*
-         *  @property   普通构造函数
-         *  @func       用存在的矩阵（m*n的数组）进行初始化
-         *  @exlpicit   防止隐式转换修改成员参数值
-         *  @param_in   arr
-        */
-        explicit Matrix(T const *arr);
+    /*
+     *  @property   普通构造函数
+     *  @func       用存在的矩阵（m*n的数组）进行初始化
+     *  @exlpicit   防止隐式转换修改成员参数值
+     *  @param_in   arr
+    */
+    explicit Matrix(T const *arr);
 
-        /*
-         *  @property   普通构造函数
-         *  @func       用value对矩阵（m*n的数组）进行初始化
-         *  @exlpicit   防止隐式转换修改成员参数值
-         *  @param_in   value
-        */
-        explicit Matrix(T const value);
+    /*
+     *  @property   普通构造函数
+     *  @func       用value对矩阵（m*n的数组）进行初始化
+     *  @exlpicit   防止隐式转换修改成员参数值
+     *  @param_in   value
+    */
+    explicit Matrix(T const value);
 
-        /*
-         *  @property   拷贝构造函数
-         *  @func       用同一类型的vector1matrix1对矩阵（m*n的数组）进行初始化
-         *  @param_in   matrix1
-        */
-        Matrix(Matrix<T,m,n> const& matrix1);
+    /*
+     *  @property   拷贝构造函数
+     *  @func       用同一类型的vector1matrix1对矩阵（m*n的数组）进行初始化
+     *  @param_in   matrix1
+    */
+    Matrix(Matrix<T,m,n> const& matrix1);
 
-        /*
-         *  @property   拷贝构造函数
-         *  @func       用任意类型的matrix1对矩阵（m*n的数组）进行初始化
-         *  @param_in   matrix1
-        */
-        template <typename T1>
-        Matrix(Matrix<T1,m,n> const &matrix1);
+    /*
+     *  @property   拷贝构造函数
+     *  @func       用任意类型的matrix1对矩阵（m*n的数组）进行初始化
+     *  @param_in   matrix1
+    */
+    template <typename T1>
+    Matrix(Matrix<T1,m,n> const &matrix1);
 
-        /*
-         *  @property   析构函数
-         *  @func       释放M内存
-        */
-       // ~Matrix();
+    /*
+     *  @property   析构函数
+     *  @func       释放M内存
+    */
+   // ~Matrix();
 
 
 
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~~~~Matrix迭代器~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ********************************************************************/
-    public:
-        /*
-        *  @property   迭代器
-        *  @func       代表矩阵第一个元素的指针
-        *  @return     T*
-        */
-        T* begin();
+public:
+    /*
+    *  @property   迭代器
+    *  @func       代表矩阵第一个元素的指针
+    *  @return     T*
+    */
+    T* begin();
 
-        /*
-        *  @property   迭代器
-        *  @func       代表矩阵第一个元素的指针
-        *  @const      防止修改返回指针
-        *  @const2     防止修改类变量
-        *  @return     T const*
-        */
-        T const* begin() const;
+    /*
+    *  @property   迭代器
+    *  @func       代表矩阵第一个元素的指针
+    *  @const      防止修改返回指针
+    *  @const2     防止修改类变量
+    *  @return     T const*
+    */
+    T const* begin() const;
 
-        /*
-        *  @property   迭代器
-        *  @func       代表矩阵最后一个元素的指针的下一个
-        *  @return     T*
-        */
-        T* end();
+    /*
+    *  @property   迭代器
+    *  @func       代表矩阵最后一个元素的指针的下一个
+    *  @return     T*
+    */
+    T* end();
 
-        /*
-        *  @property   迭代器
-        *  @func       代表矩阵最后一个元素的指针的下一个
-        *  @const1     防止修改返回指针
-        *  @const2     防止修改类变量
-        *  @return     T const*
-        */
-        T const* end() const;
+    /*
+    *  @property   迭代器
+    *  @func       代表矩阵最后一个元素的指针的下一个
+    *  @const1     防止修改返回指针
+    *  @const2     防止修改类变量
+    *  @return     T const*
+    */
+    T const* end() const;
 
 
 /********************************************************************
- *~~~~~~~~~~~~~~~~~~~~~~~~矩阵运算符重载~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *******************************************************************/
-    public:
+*~~~~~~~~~~~~~~~~~~~~~~~~矩阵运算符重载~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*******************************************************************/
+public:
 
-        /*
-         *  @property   矩阵解引用
-         *  @func       对矩阵构成的数组解引用
-         *  @return     T*
-        */
-        T *operator*();
+    /*
+     *  @property   矩阵解引用
+     *  @func       对矩阵构成的数组解引用
+     *  @return     T*
+    */
+    T *operator*();
 
-        /*
-         *  @property   矩阵解引用
-         *  @func       对常矩阵构成的数组解引用
-         *  @return     T*
-        */
-        T const* operator*() const;
+    /*
+     *  @property   矩阵解引用
+     *  @func       对常矩阵构成的数组解引用
+     *  @return     T*
+    */
+    T const* operator*() const;
 
-        /*
-         *  @property   矩阵元素访问
-         *  @func       对矩阵元素进行访问matrix（m,n）
-         *  @param_in   row     矩阵行索引
-         *  @param_in   col     矩阵列索引
-         *  @return     T&      避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        T& operator()(int row,int col);
+    /*
+     *  @property   矩阵元素访问
+     *  @func       对矩阵元素进行访问matrix（m,n）
+     *  @param_in   row     矩阵行索引
+     *  @param_in   col     矩阵列索引
+     *  @return     T&      避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    T& operator()(int row,int col);
 
-        /*
-         *  @property   常矩阵元素访问
-         *  @func       对常矩阵元素进行访问matrix（m,n）
-         *  @param_in   row         矩阵行索引
-         *  @param_in   col         矩阵列索引
-         *  @return     T const&    避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        T const& operator()(int row, int col) const;
+    /*
+     *  @property   常矩阵元素访问
+     *  @func       对常矩阵元素进行访问matrix（m,n）
+     *  @param_in   row         矩阵行索引
+     *  @param_in   col         矩阵列索引
+     *  @return     T const&    避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    T const& operator()(int row, int col) const;
 
-        /*
-         *  @property   矩阵元素线性访问
-         *  @func       对矩阵元素进行线性访问matrix（i）
-         *  @param_in   i       数组表示的矩阵中，数组的索引值
-         *  @return     T&      避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        T& operator[](unsigned int i);
+    /*
+     *  @property   矩阵元素线性访问
+     *  @func       对矩阵元素进行线性访问matrix（i）
+     *  @param_in   i       数组表示的矩阵中，数组的索引值
+     *  @return     T&      避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    T& operator[](unsigned int i);
 
-        /*
-        *  @property   常矩阵元素线性访问
-        *  @func       对常矩阵元素进行线性访问matrix（i）
-        *  @param_in   i            数组表示的矩阵中，数组的索引值
-        *  @return     T const&     避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        T const& operator[](unsigned int i) const;
+    /*
+    *  @property   常矩阵元素线性访问
+    *  @func       对常矩阵元素进行线性访问matrix（i）
+    *  @param_in   i            数组表示的矩阵中，数组的索引值
+    *  @return     T const&     避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    T const& operator[](unsigned int i) const;
 /*
-        *  @property   矩阵赋值
-        *  @func       矩阵赋值
-        *  @param_in   matrix1          原始矩阵
-        *  @return     Matrix<T,m,n>&   新矩阵
-        */
-        virtual Matrix<T,m,n>& operator= (Matrix<T,m,n> const& matrix1);
-        /*
-        *  @property   矩阵加法
-        *  @func       对两个矩阵对应元素进行相加
-        *  @param_in   matrix1          被加矩阵
-        *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        Matrix<T,m,n>& operator+= (Matrix<T,m,n> const& matrix1);
+    *  @property   矩阵赋值
+    *  @func       矩阵赋值
+    *  @param_in   matrix1          原始矩阵
+    *  @return     Matrix<T,m,n>&   新矩阵
+    */
+    virtual Matrix<T,m,n>& operator= (Matrix<T,m,n> const& matrix1);
+    /*
+    *  @property   矩阵加法
+    *  @func       对两个矩阵对应元素进行相加
+    *  @param_in   matrix1          被加矩阵
+    *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    Matrix<T,m,n>& operator+= (Matrix<T,m,n> const& matrix1);
 
-        /*
-        *  @property   矩阵加法
-        *  @func       对两个矩阵对应元素进行相加
-        *  @param_in   matrix1          被加矩阵
-        *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
-        *
-        *  const函数返回引用对导致函数外部对数值进行修改，const失效。
-        *  二元运算函数内部够造临时变量，对临时变量的引用可能导致数据丢失。
-        */
-        Matrix<T,m,n> operator+ (Matrix<T,m,n> const& matrix1) const;
+    /*
+    *  @property   矩阵加法
+    *  @func       对两个矩阵对应元素进行相加
+    *  @param_in   matrix1          被加矩阵
+    *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
+    *
+    *  const函数返回引用对导致函数外部对数值进行修改，const失效。
+    *  二元运算函数内部够造临时变量，对临时变量的引用可能导致数据丢失。
+    */
+    Matrix<T,m,n> operator+ (Matrix<T,m,n> const& matrix1) const;
 
-        /*
-        *  @property   矩阵加法
-        *  @func       对矩阵中每个元素加上相同数值
-        *  @param_in   value            被加矩阵
-        *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        Matrix<T,m,n>& operator+= (T const& value);
+    /*
+    *  @property   矩阵加法
+    *  @func       对矩阵中每个元素加上相同数值
+    *  @param_in   value            被加矩阵
+    *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    Matrix<T,m,n>& operator+= (T const& value);
 
-        /*
-        *  @property   矩阵加法
-        *  @func       对矩阵中每个元素加上相同数值
-        *  @param_in   value            被加矩阵
-        *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        Matrix<T,m,n> operator+ (T const& value) const;
+    /*
+    *  @property   矩阵加法
+    *  @func       对矩阵中每个元素加上相同数值
+    *  @param_in   value            被加矩阵
+    *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    Matrix<T,m,n> operator+ (T const& value) const;
 
-        /*
-        *  @property   矩阵减法
-        *  @func       对两个矩阵对应元素进行相减
-        *  @param_in   matrix1          被减矩阵
-        *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        Matrix<T,m,n>& operator-= (Matrix<T,m,n> const& matrix1);
+    /*
+    *  @property   矩阵减法
+    *  @func       对两个矩阵对应元素进行相减
+    *  @param_in   matrix1          被减矩阵
+    *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    Matrix<T,m,n>& operator-= (Matrix<T,m,n> const& matrix1);
 
-        /*
-        *  @property   矩阵减法
-        *  @func       对两个矩阵对应元素进行相减
-        *  @param_in   matrix1          被减矩阵
-        *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        Matrix<T,m,n> operator- (Matrix<T,m,n> const& matrix1) const;
+    /*
+    *  @property   矩阵减法
+    *  @func       对两个矩阵对应元素进行相减
+    *  @param_in   matrix1          被减矩阵
+    *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    Matrix<T,m,n> operator- (Matrix<T,m,n> const& matrix1) const;
 
-        /*
-        *  @property   矩阵减法
-        *  @func       对矩阵中每个元素减去相同数值
-        *  @param_in   value            被减矩阵
-        *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        Matrix<T,m,n>& operator-= (T const& value);
+    /*
+    *  @property   矩阵减法
+    *  @func       对矩阵中每个元素减去相同数值
+    *  @param_in   value            被减矩阵
+    *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    Matrix<T,m,n>& operator-= (T const& value);
 
-        /*
-        *  @property   矩阵减法
-        *  @func       对矩阵中每个元素减去相同数值
-        *  @param_in   value            被减矩阵
-        *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        Matrix<T,m,n> operator- (T const& value) const;
+    /*
+    *  @property   矩阵减法
+    *  @func       对矩阵中每个元素减去相同数值
+    *  @param_in   value            被减矩阵
+    *  @return     Matrix<T,m,n>&   避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    Matrix<T,m,n> operator- (T const& value) const;
 
-        /*
-        *  @property   矩阵乘法
-        *  @func       M(m*n)xM(n*l)= M(m*l)
-        *  @param_in   matrix1          被乘矩阵
-        *  @return     Matrix<T,m,l>    避免产生临时变量，返回引用与返回值共用一个地址
-        */
-        template <int l>
-        Matrix<T,m,l> operator* (const Matrix<T,n,l>& matrix1) const;
+    /*
+    *  @property   矩阵乘法
+    *  @func       M(m*n)xM(n*l)= M(m*l)
+    *  @param_in   matrix1          被乘矩阵
+    *  @return     Matrix<T,m,l>    避免产生临时变量，返回引用与返回值共用一个地址
+    */
+    template <int l>
+    Matrix<T,m,l> operator* (const Matrix<T,n,l>& matrix1) const;
 
-        /*
-        *  @property   矩阵乘法
-        *  @func       M(m*n)xV(n*1)= V(m*1)
-        *  @param_in   vector1          被乘向量
-        *  @return     Matrix<T,m,l>&
-        */
-        Vector<T,m> operator* (Vector<T,n> const & vector1) const;
+    /*
+    *  @property   矩阵乘法
+    *  @func       M(m*n)xV(n*1)= V(m*1)
+    *  @param_in   vector1          被乘向量
+    *  @return     Matrix<T,m,l>&
+    */
+    Vector<T,m> operator* (Vector<T,n> const & vector1) const;
 
-        /*
-        *  @property   矩阵乘法
-        *  @func       M(m*n)*a             原矩阵被改变
-        *  @param_in   T                    被乘数
-        *  @return     Matrix<T,m,n>&
-        */
-        Matrix<T,m,n>& operator*= (T const& num);
+    /*
+    *  @property   矩阵乘法
+    *  @func       M(m*n)*a             原矩阵被改变
+    *  @param_in   T                    被乘数
+    *  @return     Matrix<T,m,n>&
+    */
+    Matrix<T,m,n>& operator*= (T const& num);
 
-        /*
-        *  @property   矩阵乘法               原矩阵不被改变
-        *  @func       M(m*n)*a
-        *  @param_in   T                    被乘数
-        *  @return     Matrix<T,m,n>
-        */
-        Matrix<T,m,n> operator* (T const& num) const;
+    /*
+    *  @property   矩阵乘法               原矩阵不被改变
+    *  @func       M(m*n)*a
+    *  @param_in   T                    被乘数
+    *  @return     Matrix<T,m,n>
+    */
+    Matrix<T,m,n> operator* (T const& num) const;
 
-        /*
-        *  @property   矩阵除法
-        *  @func       M(m*n)/a             原矩阵被改变
-        *  @param_in   T                    被乘数
-        *  @return     Matrix<T,m,n>&
-        */
-        Matrix<T,m,n>& operator/= (T const& num);
+    /*
+    *  @property   矩阵除法
+    *  @func       M(m*n)/a             原矩阵被改变
+    *  @param_in   T                    被乘数
+    *  @return     Matrix<T,m,n>&
+    */
+    Matrix<T,m,n>& operator/= (T const& num);
 
-        /*
-        *  @property   矩阵乘法               原矩阵不被改变
-        *  @func       M(m*n)xa
-        *  @param_in   T                    被除数
-        *  @return     Matrix<T,m,n>
-        */
-        Matrix<T,m,n> operator/ (T const& num) const;
+    /*
+    *  @property   矩阵乘法               原矩阵不被改变
+    *  @func       M(m*n)xa
+    *  @param_in   T                    被除数
+    *  @return     Matrix<T,m,n>
+    */
+    Matrix<T,m,n> operator/ (T const& num) const;
 
 
-        /*
-        *  @property   重载运算符<<  必须重新定义模板
-        *  @func       输出运算符
-        *  @param_in   Matrix<T1,m1,n1>&
-        *  @param_out  out
-        *  @return     ostream &
-        */
-        template <typename T1,int m1,int n1>
-        friend ostream & operator<< (ostream& out,const Matrix<T1,m1,n1>& matrix1);
+    /*
+    *  @property   重载运算符<<  必须重新定义模板
+    *  @func       输出运算符
+    *  @param_in   Matrix<T1,m1,n1>&
+    *  @param_out  out
+    *  @return     ostream &
+    */
+    template <typename T1,int m1,int n1>
+    friend ostream & operator<< (ostream& out,const Matrix<T1,m1,n1>& matrix1);
 
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~Matrix管理函数~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ********************************************************************/
-    public:
-        /*
-        *  @property   方阵判断
-        *  @func       判断是否为方阵， 是 返回True
-        *  @return     bool
-        */
-        bool is_square() const;
+public:
+    /*
+    *  @property   方阵判断
+    *  @func       判断是否为方阵， 是 返回True
+    *  @return     bool
+    */
+    bool isSquare() const;
 
-        /*
-        *  @property   求最小值
-        *  @func       求矩阵最小值
-        *  @return     T
-        */
-        T minimum() const;
+    /*
+    *  @property   求最小值
+    *  @func       求矩阵最小值
+    *  @return     T
+    */
+    T minimum() const;
 
-        /*
-        *  @property   求最大值
-        *  @func       求矩阵最大值
-        *  @return     T
-        */
-        T maximum() const;
+    /*
+    *  @property   求最大值
+    *  @func       求矩阵最大值
+    *  @return     T
+    */
+    T maximum() const;
 
-        /*
-        *  @property   求矩阵行
-        *  @func       获取矩阵第index行
-        *  @return     Vector<T,n>
-        */
-        Vector<T,n> row(int index) const;
+    /*
+    *  @property   求矩阵行
+    *  @func       获取矩阵第index行
+    *  @return     Vector<T,n>
+    */
+    Vector<T,n> row(int index) const;
 
-        /*
-        *  @property   求矩阵列
-        *  @func       获取矩阵第index列
-        *  @return     Vector<T,m>
-        */
-        Vector<T,m> col(int index) const;
+    /*
+    *  @property   求矩阵列
+    *  @func       获取矩阵第index列
+    *  @return     Vector<T,m>
+    */
+    Vector<T,m> col(int index) const;
 
-        /*
-        *  @property   水平矩阵拼接
-        *  @func       将原矩阵（左）与新矩阵（右）进行拼接
-        *  @param_in   matrix1
-        *  @return     Matrix<T,m,n + l>
-        */
-        template <int l>
-        Matrix<T,m,n + l> hstack(Matrix<T,m,l> const& matrix1) const;
+    /*
+    *  @property   水平矩阵拼接
+    *  @func       将原矩阵（左）与新矩阵（右）进行拼接
+    *  @param_in   matrix1
+    *  @return     Matrix<T,m,n + l>
+    */
+    template <int l>
+    Matrix<T,m,n + l> hStack(Matrix<T,m,l> const& matrix1) const;
 
-        /*
-        *  @property   纵向矩阵拼接
-        *  @func       将原矩阵（上）与新矩阵（下）进行拼接
-        *  @param_in   matrix1
-        *  @return     Matrix<T,m,n + l>
-        */
-        template <int l>
-        Matrix<T,m + l,n> vstack(Matrix<T,l,n> const& matrix1) const;
+    /*
+    *  @property   纵向矩阵拼接
+    *  @func       将原矩阵（上）与新矩阵（下）进行拼接
+    *  @param_in   matrix1
+    *  @return     Matrix<T,m,n + l>
+    */
+    template <int l>
+    Matrix<T,m + l,n> vStack(Matrix<T,l,n> const& matrix1) const;
 
-        /*
-        *  @property   水平矩阵拼接
-        *  @func       将原矩阵（左）与新向量（右）进行拼接
-        *  @param_in   vector1
-        *  @return     Matrix<T,m,n + 1>
-        */
-        Matrix<T,m,n + 1> hstack(Vector<T,m> const& vector1) const;
+    /*
+    *  @property   水平矩阵拼接
+    *  @func       将原矩阵（左）与新向量（右）进行拼接
+    *  @param_in   vector1
+    *  @return     Matrix<T,m,n + 1>
+    */
+    Matrix<T,m,n + 1> hStack(Vector<T,m> const& vector1) const;
 
-        /*
-        *  @property   水平矩阵拼接
-        *  @func       将原矩阵（上）与新向量（下）进行拼接
-        *  @param_in   vector1
-        *  @return     Matrix<T,m + 1,n>
-        */
-        Matrix<T,m + 1,n> vstack(Vector<T,n> const& vector1) const;
+    /*
+    *  @property   水平矩阵拼接
+    *  @func       将原矩阵（上）与新向量（下）进行拼接
+    *  @param_in   vector1
+    *  @return     Matrix<T,m + 1,n>
+    */
+    Matrix<T,m + 1,n> vStack(Vector<T,n> const& vector1) const;
 
-        /*
-        *  @property   矩阵行删除
-        *  @func       将矩阵第index行删除
-        *  @param_in   index
-        *  @return     Matrix<T,m - 1,n>
-        */
-        Matrix<T,m - 1,n> delete_row(int index) const;
+    /*
+    *  @property   矩阵行删除
+    *  @func       将矩阵第index行删除
+    *  @param_in   index
+    *  @return     Matrix<T,m - 1,n>
+    */
+    Matrix<T,m - 1,n> deleteRow(int index) const;
 
-        /*
-        *  @property   矩阵列删除
-        *  @func       将矩阵第index列删除
-        *  @param_in   index1
-        *  @return     Matrix<T,m,n - 1>
-        */
-        Matrix<T,m,n - 1> delete_col(int index) const;
+    /*
+    *  @property   矩阵列删除
+    *  @func       将矩阵第index列删除
+    *  @param_in   index1
+    *  @return     Matrix<T,m,n - 1>
+    */
+    Matrix<T,m,n - 1> deleteCol(int index) const;
 
-        Matrix<T,m,n>& fill(T const& value);
+    Matrix<T,m,n>& fill(T const& value);
 
 
 /********************************************************************
@@ -439,7 +439,7 @@ MATRIX_NAMESPACE_BEGIN
     *  @func       将矩阵每个元素求相反数,原向量不改变
     *  @return     Matrix<T,m,n>
     */
-    Matrix<T,m,n> negate_const() const;
+    Matrix<T,m,n> negateConst() const;
 
     /*
     *  @property   求矩阵转置
@@ -453,7 +453,7 @@ MATRIX_NAMESPACE_BEGIN
     *  @func       将矩阵每个元素进行转置,原向量不改变
     *  @return     Matrix<T,m,n>
     */
-    Matrix<T,m,n> transpose_const() const;
+    Matrix<T,m,n> transposeConst() const;
 
 
 /********************************************************************
@@ -461,11 +461,11 @@ MATRIX_NAMESPACE_BEGIN
 ********************************************************************/
     public:
 
-        bool is_similar(Matrix<T,m,n> const& matrix1, T const& eps) const;
+        bool isSimilar(Matrix<T,m,n> const& matrix1, T const& eps) const;
 
 
     protected:
-        T M[m * n];
+        T m_data[m * n];
 
 
     public:
@@ -473,7 +473,7 @@ MATRIX_NAMESPACE_BEGIN
 
 
         //先判断为方阵
-        void set_identity();
+        void setIdentity();
 
 
         //TODO(8): 伴随矩阵
@@ -520,14 +520,14 @@ MATRIX_NAMESPACE_BEGIN
     inline
     matrix::Matrix<T,m,n>::Matrix(T const *arr)
     {
-        std::copy(arr,arr + m * n,M);
+        std::copy(arr,arr + m * n,m_data);
     }
 
     template <typename T, int m, int n>
     inline
     matrix::Matrix<T,m,n>::Matrix(T const value)
     {
-        std::fill(M,M + m*n, value);
+        std::fill(m_data,m_data + m*n, value);
     }
 
 
@@ -535,8 +535,8 @@ MATRIX_NAMESPACE_BEGIN
     inline
     Matrix<T,m,n>::Matrix(Matrix<T,m,n> const& matrix1)
     {
-        //std::copy(*matrix1, *matrix1 + m * n, M);
-        std::copy(matrix1.M, matrix1.M + m * n, M);
+        //std::copy(*matrix1, *matrix1 + m * n, m_data);
+        std::copy(matrix1.m_data, matrix1.m_data + m * n, m_data);
     }
 
 
@@ -548,14 +548,14 @@ MATRIX_NAMESPACE_BEGIN
     template <typename T1>
     Matrix<T,m,n>::Matrix(Matrix<T1,m,n> const &matrix1)
     {
-        std::copy(*matrix1, *matrix1 + m * n, M);
+        std::copy(*matrix1, *matrix1 + m * n, m_data);
     }
 
     /*
     template <typename T, int m, int n>
     Matrix<T,m,n>::~Matrix()
     {
-        delete []M;
+        delete []m_data;
     }
     */
 
@@ -564,81 +564,81 @@ MATRIX_NAMESPACE_BEGIN
     inline T*
     Matrix<T,m,n>::begin (void)
     {
-        return M;
+        return m_data;
     }
 
     template <typename T,int m,int n>
     inline T const*
     Matrix<T,m,n>::begin (void) const
     {
-        return M;
+        return m_data;
     }
 
     template <typename T,int m,int n>
     inline T*
     Matrix<T,m,n>::end (void)
     {
-        return M + m * n;
+        return m_data + m * n;
     }
 
     template <typename T,int m,int n>
     inline T const*
     Matrix<T,m,n>::end (void) const
     {
-        return M + m * n;
+        return m_data + m * n;
     }
 
-    //TODO::*Matrix_obj可读性差，构造指针时(*(*Matrix_ptr))才能返回 M
+    //TODO::*Matrix_obj可读性差，构造指针时(*(*Matrix_ptr))才能返回 m_data
     // 建议用Matrix_obj.data()代替。@anshuai
     template <typename T, int m, int n>
     inline T*
     Matrix<T,m,n>::operator*()
     {
-        return M;
+        return m_data;
     }
 
-    //TODO::*Matrix_obj可读性差，构造指针时(*(*Matrix_ptr))才能返回 M
+    //TODO::*Matrix_obj可读性差，构造指针时(*(*Matrix_ptr))才能返回 m_data
     // 建议用Matrix_obj.data()代替。@anshuai
     template <typename T,int m,int n>
     inline T const*
     Matrix<T,m,n>::operator*() const
     {
-        return M;
+        return m_data;
     }
 
     template <typename T,int m,int n>
     inline T&
     Matrix<T,m,n>::operator()(int row,int col)
     {
-        if(row>=this->rows||col>=this->cols)
+        if(row>=this->m_rows||col>=this->m_cols)
             throw std::invalid_argument("Invalid index");
-        return M[row * n + col];
+        return m_data[row * n + col];
     }
     template <typename T,int m,int n>
     inline T const&
     Matrix<T,m,n>::operator()(int row, int col) const
     {
-        if(row>=this->rows||col>=this->cols)
+        if(row>=this->m_rows||col>=this->m_cols)
             throw std::invalid_argument("Invalid index");
-        return M[row * n + col];
+        return m_data[row * n + col];
     }
 
     template <typename T,int m,int n>
     inline T&
     Matrix<T,m,n>::operator[](unsigned int i)
     {
-        if(i>=this->rows*this->cols)
+        if(i>=this->m_rows*this->m_cols)
             throw std::invalid_argument("Invalid index");
-        return M[i];
+        return m_data[i];
     }
 
     template <typename T,int m,int n>
     inline T const&
     Matrix<T,m,n>::operator[](unsigned int i) const
     {
-        if(i>=this->rows*this->cols)
+        if(i>=this->m_rows*this->m_cols)
             throw std::invalid_argument("Invalid index");
-        return M[i];
+        return m_data[i];
     }
 
     template <typename T,int m, int n>
@@ -646,7 +646,7 @@ MATRIX_NAMESPACE_BEGIN
     Matrix<T,m,n>::operator= (Matrix<T,m,n> const& matrix1)
     {
         if(this!=&matrix1)
-            std::copy(matrix1.M, matrix1.M + m * n, M);
+            std::copy(matrix1.m_data, matrix1.m_data + m * n, m_data);
         return *this;
     }
     //TODO::+=,-=,*等矩阵操作都可能导致数据溢出@anshuai
@@ -654,7 +654,7 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator+= (Matrix<T,m,n> const& matrix1)
     {
-        std::transform(M,M + m *n, matrix1.M, M, std::plus<T>());
+        std::transform(m_data,m_data + m *n, matrix1.m_data, m_data, std::plus<T>());
         return *this;
     }
 
@@ -671,7 +671,7 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator+= (T const& value)
     {
-            for(auto& a : M)
+            for(auto& a : m_data)
             {
                 a+=value;
             }
@@ -692,7 +692,7 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator-= (Matrix<T,m,n> const& matrix1)
     {
-        std::transform(M,M + m *n, *matrix1, M, std::minus<T>());
+        std::transform(m_data,m_data + m *n, *matrix1, m_data, std::minus<T>());
         return *this;
     }
 
@@ -709,7 +709,7 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator-= (T const& value)
     {
-        for(auto& a : M)
+        for(auto& a : m_data)
         {
             a-=value;
         }
@@ -742,9 +742,9 @@ MATRIX_NAMESPACE_BEGIN
                 double sum=0;
                 for (int k = 0; k < n; ++k)
                 {
-                    sum+=M[i*cols+k]*matrix1.M[k*matrix1.cols+j];
+                    sum+=m_data[i*m_cols+k]*matrix1.m_data[k*matrix1.m_cols+j];
                 }
-                matrix2.M[i*matrix2.cols+j] = sum;
+                matrix2.m_data[i*matrix2.m_cols+j] = sum;
             }
         }
         return matrix2;
@@ -757,7 +757,7 @@ MATRIX_NAMESPACE_BEGIN
         Vector<T,m> tmp(1);
         for (int i = 0; i < m; ++i)
         {
-            tmp[i] = std::inner_product(M + i * n,M + i * n + n,*vector1,T(0));
+            tmp[i] = std::inner_product(m_data + i * n,m_data + i * n + n,*vector1,T(0));
         }
         return tmp;
     }
@@ -766,7 +766,7 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator*= (T const& num)
     {
-        for(auto& a : this->M)
+        for(auto& a : this->m_data)
             a *= num;
         return *this;
     }
@@ -784,7 +784,7 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::operator/= (T const& num)
     {
-        for(auto& a : this->M)
+        for(auto& a : this->m_data)
             a /= num;
         return *this;
     }
@@ -815,7 +815,7 @@ MATRIX_NAMESPACE_BEGIN
     }
     template <typename T, int m,int n>
     inline bool
-    Matrix<T,m,n>::is_square() const
+    Matrix<T,m,n>::isSquare() const
     {
         return m == n;
     }
@@ -824,14 +824,14 @@ MATRIX_NAMESPACE_BEGIN
     inline T
     Matrix<T,m,n>::minimum() const
     {
-        return *std::min_element(M,M + m * n);
+        return *std::min_element(m_data,m_data + m * n);
     }
 
     template <typename T, int m,int n>
     inline T
     Matrix<T,m,n>::maximum() const
     {
-        return *std::max_element(M,M + m * n);
+        return *std::max_element(m_data,m_data + m * n);
     }
 
     template <typename T, int m,int n>
@@ -840,7 +840,7 @@ MATRIX_NAMESPACE_BEGIN
     {
         if(index>=m)
             throw("row_index out of range\n");
-        return Vector<T,n>(M + n * index);
+        return Vector<T,n>(m_data + n * index);
     }
 
     template <typename T, int m,int n>
@@ -853,7 +853,7 @@ MATRIX_NAMESPACE_BEGIN
         Vector<T,m> tmp(val);//tmp(0)对Vector(T const *arr),Vector(T const &value)存在歧义
         for (int i = 0; i < m ; i ++)
         {
-            tmp(i) = M[i*n+index];
+            tmp(i) = m_data[i*n+index];
         }
         return tmp;
     }
@@ -861,12 +861,12 @@ MATRIX_NAMESPACE_BEGIN
     template <typename T,int m,int n>
     template <int l>
     inline Matrix<T,m,n + l>
-    Matrix<T,m,n>::hstack(Matrix<T,m,l> const& matrix1) const
+    Matrix<T,m,n>::hStack(Matrix<T,m,l> const& matrix1) const
     {
         Matrix<T,m,n + l> matrix2;
         for (int i = 0; i < m; ++i)
         {
-            std::copy(M + i * n ,M + (i + 1) * n, *matrix2 + i * (n + l));
+            std::copy(m_data + i * n ,m_data + (i + 1) * n, *matrix2 + i * (n + l));
             std::copy(*matrix1 + i * l,*matrix1 + (i + 1)* l, *matrix2 + i * (n + l) + n);
         }
         return matrix2;
@@ -875,22 +875,22 @@ MATRIX_NAMESPACE_BEGIN
     template <typename T,int m,int n>
     template <int l>
     inline Matrix<T,m + l,n>
-    Matrix<T,m,n>::vstack(Matrix<T,l,n> const& matrix1) const
+    Matrix<T,m,n>::vStack(Matrix<T,l,n> const& matrix1) const
     {
         Matrix<T,m + l,n> matrix2;
-        std::copy(M,M + m *n,*matrix2);
+        std::copy(m_data,m_data + m *n,*matrix2);
         std::copy(*matrix1,*matrix1 + l * n,*matrix2 + m * n);
         return matrix2;
     }
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n + 1>
-    Matrix<T,m,n>::hstack(Vector<T,m> const& vector1) const
+    Matrix<T,m,n>::hStack(Vector<T,m> const& vector1) const
     {
         Matrix<T,m,n + 1> matrix2;
         for (int i = 0; i < m; ++i)
         {
-            std::copy(M + i * n,M + (i + 1) * n,*matrix2 + i*(n + 1));
+            std::copy(m_data + i * n,m_data + (i + 1) * n,*matrix2 + i*(n + 1));
             matrix2(i,n) = vector1[i];
         }
         return matrix2;
@@ -898,17 +898,17 @@ MATRIX_NAMESPACE_BEGIN
 
     template <typename T,int m,int n>
     inline Matrix<T,m + 1,n>
-    Matrix<T,m,n>::vstack(Vector<T,n> const& vector1) const
+    Matrix<T,m,n>::vStack(Vector<T,n> const& vector1) const
     {
         Matrix<T,m + 1,n> matrix2;
-        std::copy(M,M + m *n,*matrix2);
+        std::copy(m_data,m_data + m *n,*matrix2);
         std::copy(*vector1,*vector1 + n,*matrix2 + m* n);
         return matrix2;
     }
 
     template <typename T,int m,int n>
     inline Matrix<T,m - 1,n>
-    Matrix<T,m,n>::delete_row(int index) const
+    Matrix<T,m,n>::deleteRow(int index) const
     {
         if(index>=m)
             throw("row_index out of range\n");
@@ -919,11 +919,11 @@ MATRIX_NAMESPACE_BEGIN
         {
             if (i < index)
             {
-                std::copy(M + i * n,M + (i + 1) * n,*matrix1 + i * n);
+                std::copy(m_data + i * n,m_data + (i + 1) * n,*matrix1 + i * n);
             }
             if(i > index)
             {
-                std::copy(M + i * n,M + (i + 1) * n,*matrix1 + (i - 1) * n);
+                std::copy(m_data + i * n,m_data + (i + 1) * n,*matrix1 + (i - 1) * n);
             }
         }
         return matrix1;
@@ -931,7 +931,7 @@ MATRIX_NAMESPACE_BEGIN
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n - 1>
-    Matrix<T,m,n>::delete_col(int index) const
+    Matrix<T,m,n>::deleteCol(int index) const
     {
         if(index>=n)
             throw("col_index out of range\n");
@@ -943,7 +943,7 @@ MATRIX_NAMESPACE_BEGIN
         {
             if(i % n != index)
             {
-                *iter = M[i];
+                *iter = m_data[i];
                 iter ++;
             }
 
@@ -955,7 +955,7 @@ MATRIX_NAMESPACE_BEGIN
     Matrix<T,m,n>&
     Matrix<T,m,n>::fill(const T &value)
     {
-        std::fill(M,M + m * n,value);
+        std::fill(m_data,m_data + m * n,value);
         return *this;
     }
 
@@ -963,7 +963,7 @@ MATRIX_NAMESPACE_BEGIN
     inline Matrix<T,m,n>&
     Matrix<T,m,n>::negate()
     {
-        for(auto& a : M)
+        for(auto& a : m_data)
         {
             a = 0 - a;
         }
@@ -972,7 +972,7 @@ MATRIX_NAMESPACE_BEGIN
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n>
-    Matrix<T,m,n>::negate_const() const
+    Matrix<T,m,n>::negateConst() const
     {
         Matrix<T,m,n> tmp(*this);
         tmp.negate();
@@ -995,7 +995,7 @@ MATRIX_NAMESPACE_BEGIN
 
     template <typename T,int m,int n>
     inline Matrix<T,m,n>
-    Matrix<T,m,n>::transpose_const() const
+    Matrix<T,m,n>::transposeConst() const
     {
         Matrix<T,m,n> tmp(*this);
         tmp.transpose();
@@ -1004,53 +1004,53 @@ MATRIX_NAMESPACE_BEGIN
 
     template <typename T,int m,int n>
     inline bool
-    Matrix<T,m,n>::is_similar(Matrix<T,m,n> const& matrix1, T const& eps) const
+    Matrix<T,m,n>::isSimilar(Matrix<T,m,n> const& matrix1, T const& eps) const
     {
 
     }
     template <typename T,int m,int n>
-    void Matrix<T,m,n>::set_identity()
+    void Matrix<T,m,n>::setIdentity()
     {
-        if (!this->is_square())
+        if (!this->isSquare())
         {
             throw runtime_error("该矩阵不为方阵！");
         }
         for (int i = 0; i < m*n ; ++i)
-            this->M[i] = T(0);
+            this->m_data[i] = T(0);
         for (int i = 0; i < m ; ++i)
             (*this)(i,i) = T(1);
     }
     template <typename T,int m,int n>
     Matrix<float,m,n> Matrix<T,m,n>::inverse() {
-        Matrix<float,m,n> _mat_inv((T)0);
+        Matrix<float,m,n> mat_inv((T)0);
         if(m!=n)
-            return _mat_inv;
+            return mat_inv;
 
-       T* mat= this->M;
-       float* _arr_inv=*_mat_inv;
-       luSolveInverse<T>(mat,n,_arr_inv);
-       return _mat_inv;
+       T* mat= this->m_data;
+       float* arr_inv=*mat_inv;
+       luSolveInverse<T>(mat,n,arr_inv);
+       return mat_inv;
     }
 
     template <typename T,int m,int n>
     double Matrix<T,m,n>::determiniant(){
         if(m!=n)
             return 0;
-        double _result = 1;
+        double result = 1;
         double eps=1e-5;
-        float *_A=new float[n*n];
+        float *A=new float[n*n];
         for(int i=0;i<n*n;i++)
-            _A[i]=this->M[i];
+            A[i]=this->m_data[i];
 
         if( n == 2 ) {
-            _result = _A[0]*_A[3]-_A[1]*_A[2];
+            result = A[0]*A[3]-A[1]*A[2];
         }
         else if( n == 3 )
-            _result = _A[0*3+0]*(_A[1*3+1]*_A[2*3+2] - _A[1*3+2]*_A[2*3+1]) -
-                    _A[0*3+1]*(_A[1*3+0]*_A[2*3+2] - _A[1*3+2]*_A[2*3+0]) +
-                    _A[0*3+2]*(_A[1*3+0]*_A[2*3+1] - _A[1*3+1]*_A[2*3+0]);
+            result = A[0*3+0]*(A[1*3+1]*A[2*3+2] - A[1*3+2]*A[2*3+1]) -
+                    A[0*3+1]*(A[1*3+0]*A[2*3+2] - A[1*3+2]*A[2*3+0]) +
+                    A[0*3+2]*(A[1*3+0]*A[2*3+1] - A[1*3+1]*A[2*3+0]);
         else if( n == 1 )
-            _result = _A[0];
+            result = A[0];
         else {
             int i, j, k;
             size_t _astep = m;
@@ -1058,34 +1058,34 @@ MATRIX_NAMESPACE_BEGIN
                 k = i;
 
                 for (j = i + 1; j < m; j++)
-                    if (std::abs(_A[j * _astep + i]) > std::abs(_A[k * _astep + i]))
+                    if (std::abs(A[j * _astep + i]) > std::abs(A[k * _astep + i]))
                         k = j;
 
-                if (std::abs(_A[k * _astep + i]) < eps) {
-                    _result = 0;
+                if (std::abs(A[k * _astep + i]) < eps) {
+                    result = 0;
                     break;
                 }
                 if (k != i) {
                     for (j = i; j < m; j++)
-                        std::swap(_A[i * _astep + j], _A[k * _astep + j]);
-                    _result = -_result;
+                        std::swap(A[i * _astep + j], A[k * _astep + j]);
+                    result = -result;
                 }
 
-                float d = -1 / _A[i * _astep + i];
+                float d = -1 / A[i * _astep + i];
                 for (j = i + 1; j < m; j++) {
-                    float alpha = _A[j * _astep + i] * d;
+                    float alpha = A[j * _astep + i] * d;
 
                     for (k = i + 1; k < m; k++)
-                        _A[j * _astep + k] += alpha * _A[i * _astep + k];
+                        A[j * _astep + k] += alpha * A[i * _astep + k];
 
                 }
             }
             for(int i=0;i<n;i++)
-                _result*=_A[i*n+i];
+                result*=A[i*n+i];
         }
 
-        delete[] _A;
-        return _result;
+        delete[] A;
+        return result;
     }
     template <typename T,int m,int n>
     Matrix<T,m,n> Matrix<T,m,n>::adjoint(){
@@ -1114,54 +1114,54 @@ public:
     VecMat<T,m>& operator=(const VecMat<T,m>& vec);
     VecMat<T,m>& operator=(const Matrix<T,m ,1>& mat);
 public:
-    int length;
+    int m_length;
 
 };
 template <typename T,int m>
 VecMat<T,m>::VecMat():Matrix<T,m,1>()
 {
-    length=m;
+    m_length=m;
 }
 template <typename T,int m>
 VecMat<T,m>::VecMat(T const*arr):Matrix<T,m,1>(arr) {
-    length=m;
+    m_length=m;
 }
 template <typename T,int m>
 VecMat<T,m>::VecMat(T value):Matrix<T,m,1>(value)
 {
-    length=m;
+    m_length=m;
 }
 
 template <typename T,int m>
 VecMat<T,m>::VecMat(Matrix<T,m,1>& mat):Matrix<T,m,1>(mat)
 {
-    length = m;
+    m_length = m;
 }
 template <typename T,int m>
 VecMat<T,m>::VecMat(VecMat<T,m>& vec):Matrix<T,m,1>(vec)
 {
-    length = m;
+    m_length = m;
 }
 template <typename T,int m>
 VecMat<T,m>& VecMat<T,m>::operator=(const VecMat<T,m>& vec)
 {
     if(this!=&vec)
-        std::copy(*vec, *vec + m * 1, Matrix<T,m,1>::M);
+        std::copy(*vec, *vec + m * 1, Matrix<T,m,1>::m_data);
     return *this;
 }
 template <typename T,int m>
 VecMat<T,m>& VecMat<T,m>::operator=(const Matrix<T,m ,1>& mat)
 {
-    std::copy(*mat, *mat + m * 1, Matrix<T,m,1>::M);
+    std::copy(*mat, *mat + m * 1, Matrix<T,m,1>::m_data);
     return *this;
 }
 template <typename T,int m,int n>
 void PrintMatrix(Matrix<T,m,n>& mat)
 {
-    int rows=m>10?10:m;
-    int cols=n>10?10:n;
-    for (int y = 0; y < rows; ++y) {
-        for (int x = 0; x < cols; ++x) {
+    int m_rows=m>10?10:m;
+    int m_cols=n>10?10:n;
+    for (int y = 0; y < m_rows; ++y) {
+        for (int x = 0; x < m_cols; ++x) {
             printf( "%.5f  ", mat(y,x));
         }
         printf("\n");

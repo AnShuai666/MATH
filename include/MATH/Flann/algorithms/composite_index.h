@@ -31,7 +31,7 @@
 #ifndef FLANN_COMPOSITE_INDEX_H_
 #define FLANN_COMPOSITE_INDEX_H_
 
-#include "MATH/flann/general.h"
+#include "MATH/Flann/general.h"
 #include "nn_index.h"
 #include "kdtree_index.h"
 #include "kmeans_index.h"

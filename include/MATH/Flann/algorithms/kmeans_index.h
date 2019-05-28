@@ -38,17 +38,17 @@
 #include <limits>
 #include <cmath>
 
-#include "MATH/flann/general.h"
+#include "MATH/Flann/general.h"
 #include "nn_index.h"
 #include "dist.h"
 #include "center_chooser.h"
-#include "MATH/flann/util/feature.h"
-#include "MATH/flann/util/result_set.h"
-#include "MATH/flann/util/heap.h"
-#include "MATH/flann/util/allocator.h"
-#include "MATH/flann/util/random.h"
-#include "MATH/flann/util/saving.h"
-#include "MATH/flann/util/logger.h"
+#include "MATH/Flann/util/feature.h"
+#include "MATH/Flann/util/result_set.h"
+#include "MATH/Flann/util/heap.h"
+#include "MATH/Flann/util/allocator.h"
+#include "MATH/Flann/util/random.h"
+#include "MATH/Flann/util/saving.h"
+#include "MATH/Flann/util/logger.h"
 
 
 

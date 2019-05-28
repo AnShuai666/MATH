@@ -33,12 +33,12 @@
 
 #include <vector>
 
-#include "MATH/flann/general.h"
-#include "MATH/flann/util/feature.h"
-#include "MATH/flann/util/params.h"
-#include "MATH/flann/util/result_set.h"
-#include "MATH/flann/util/dynamic_bitset.h"
-#include "MATH/flann/util/saving.h"
+#include "MATH/Flann/general.h"
+#include "MATH/Flann/util/feature.h"
+#include "MATH/Flann/util/params.h"
+#include "MATH/Flann/util/result_set.h"
+#include "MATH/Flann/util/dynamic_bitset.h"
+#include "MATH/Flann/util/saving.h"
 
 namespace flann
 {

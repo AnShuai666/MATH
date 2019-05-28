@@ -30,17 +30,17 @@
 #ifndef FLANN_AUTOTUNED_INDEX_H_
 #define FLANN_AUTOTUNED_INDEX_H_
 
-#include "MATH/flann/general.h"
+#include "MATH/Flann/general.h"
 #include "nn_index.h"
-#include "MATH/flann/nn/ground_truth.h"
-#include "MATH/flann/nn/index_testing.h"
-#include "MATH/flann/util/sampling.h"
+#include "MATH/Flann/nn/ground_truth.h"
+#include "MATH/Flann/nn/index_testing.h"
+#include "MATH/Flann/util/sampling.h"
 #include "kdtree_index.h"
 #include "kdtree_single_index.h"
 #include "kmeans_index.h"
 #include "composite_index.h"
 #include "linear_index.h"
-#include "MATH/flann/util/logger.h"
+#include "MATH/Flann/util/logger.h"
 
 
 namespace flann

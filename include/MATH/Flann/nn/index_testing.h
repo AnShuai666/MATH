@@ -35,11 +35,11 @@
 #include <cassert>
 #include <cmath>
 
-#include "MATH/flann/util/feature.h"
-#include "MATH/flann/algorithms/nn_index.h"
-#include "MATH/flann/util/result_set.h"
-#include "MATH/flann/util/logger.h"
-#include "MATH/flann/util/timer.h"
+#include "MATH/Flann/util/feature.h"
+#include "MATH/Flann/algorithms/nn_index.h"
+#include "MATH/Flann/util/result_set.h"
+#include "MATH/Flann/util/logger.h"
+#include "MATH/Flann/util/timer.h"
 
 
 namespace flann

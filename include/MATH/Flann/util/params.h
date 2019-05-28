@@ -31,7 +31,7 @@
 #define FLANN_PARAMS_H_
 
 #include "any.h"
-#include "MATH/flann/general.h"
+#include "MATH/Flann/general.h"
 #include <iostream>
 #include <map>
 
