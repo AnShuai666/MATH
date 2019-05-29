@@ -1,7 +1,7 @@
 #ifndef MATH_MATRIX_LU_HPP
 #define MATH_MATRIX_LU_HPP
 
-#include <MATH/math_define.h>
+#include "../math_define.h"
 #include <cstdlib>
 #include "define.h"
 MATH_NAMESPACE_BEGIN

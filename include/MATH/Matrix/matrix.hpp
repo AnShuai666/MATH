@@ -12,9 +12,8 @@
 #include <iostream>
 #include <memory>
 #include <algorithm>
-#include "MATH/Matrix/vector.hpp"
+#include "vector.hpp"
 #include "matrix_lu.hpp"
-#include <MATH/math_define.h>
 #include "vector.hpp"
 #include "../math_define.h"
 using namespace std;
