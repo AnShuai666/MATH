@@ -1,7 +1,6 @@
 include_directories(../../include)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-set(C_SOURCES flann.cpp)
 set(CPP_SOURCES flann_cpp.cpp)
 
 add_library(flann SHARED ${CPP_SOURCES})
