@@ -1,6 +1,6 @@
 #include "MATH/Matrix/matrix_svd.hpp"
 #include "MATH/Matrix/matrix.hpp"
-#include "MATH/Matrix/matrix_LU.hpp"
+#include "MATH/Matrix/matrix_lu.hpp"
 #include<iostream>
 using namespace std;
 

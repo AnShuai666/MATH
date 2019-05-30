@@ -1,7 +1,7 @@
 //
 // Created by yft on 18-12-4.
 //
-#include "MATH/Matrix/matrix_LU.hpp"
+#include "MATH/Matrix/matrix_lu.hpp"
 MATH_NAMESPACE_BEGIN
         MATRIX_NAMESPACE_BEGIN
 
