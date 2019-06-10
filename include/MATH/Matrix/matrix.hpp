@@ -14,6 +14,8 @@
 #include <algorithm>
 #include "vector.hpp"
 #include "matrix_lu.hpp"
+#include "MATH/Matrix/vector.hpp"
+#include <MATH/math_define.h>
 #include "vector.hpp"
 #include "../math_define.h"
 using namespace std;

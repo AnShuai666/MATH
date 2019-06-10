@@ -151,6 +151,7 @@ bool luDescomposition(const float* A, float* L, float* U,int n)
             for (k = 0; k < r; k++)
             {
                 sum1 += L[r*n+k] * U[k*n+i];
+                //cout << "" << r << "" << sum1 << endl;
             }
             U[r*n+i] = A[r*n+i] - sum1;
         }
