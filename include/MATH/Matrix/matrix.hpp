@@ -1027,7 +1027,7 @@ public:
 
        T* mat= this->m_data;
        float* arr_inv=*mat_inv;
-       luSolveInverse<T>(mat,n,arr_inv);
+       lupSolveInverse<T>(mat,n,arr_inv);
        return mat_inv;
     }
 

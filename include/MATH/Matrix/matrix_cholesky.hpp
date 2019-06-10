@@ -61,7 +61,6 @@ choleskyDecomposition (T const* A, int const cols, T* L)
             L[j*cols+k] = 0;
     }
 }
-
 /*
 template<typename T>    
 void 

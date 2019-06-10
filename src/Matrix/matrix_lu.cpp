@@ -1,14 +1,18 @@
 //
 // Created by yft on 18-12-4.
 //
+#include <cstring>
+#include <iostream>
 #include "MATH/Matrix/matrix_lu.hpp"
 MATH_NAMESPACE_BEGIN
         MATRIX_NAMESPACE_BEGIN
 
-#define absf(x) (x)>0?(x):(-(x))
+inline float absf(float x) {float abs_x=x<0?(-x):x; return abs_x;}
 //LUP分解
-bool lupDescomposition(float* A, float* L, float* U, int* P,int DN)
+bool lupDescomposition(const float* in_A, float* L, float* U, int* P,int DN)
 {
+    float *A=new float[DN*DN];
+    memcpy(A,in_A,sizeof(float)*DN*DN);
     int row = 0;
     for (int i = 0;i < DN; i++)
     {
@@ -81,7 +85,7 @@ bool lupDescomposition(float* A, float* L, float* U, int* P,int DN)
 }
 
 //LUP求解方程
-void lupSolve(float* L, float* U, int* P, float* b,float* x,int DN)
+void lupSolve(const float* L, float* U, int* P, float* b,float* x,int DN)
 {
     float *y=new float[DN]();
 
@@ -106,21 +110,23 @@ void lupSolve(float* L, float* U, int* P, float* b,float* x,int DN)
     }
     delete[] y;
 }
-void lupSolve(float* A,float* b,float* x,int DN)
+void lupSolve(const float* A,float* b,float* x,int DN)
 {
     float* L=new float[DN*DN];
     float* U=new float[DN*DN];
     int* P=new int[DN];
-
-    lupDescomposition(A,L,U,P,DN);
+    float *a=new float[DN*DN];
+    memcpy(a,A,sizeof(float)*DN*DN);
+    lupDescomposition(a,L,U,P,DN);
     lupSolve(L,U,P,b,x,DN);
 
+    delete[] a;
     delete[] L;
     delete[] U;
     delete[] P;
 }
 //LU分解
-bool luDescomposition(float* A, float* L, float* U,int n)
+bool luDescomposition(const float* A, float* L, float* U,int n)
 {
 
     int i, r, k;
@@ -145,7 +151,6 @@ bool luDescomposition(float* A, float* L, float* U,int n)
             for (k = 0; k < r; k++)
             {
                 sum1 += L[r*n+k] * U[k*n+i];
-                //cout << "" << r << "" << sum1 << endl;
             }
             U[r*n+i] = A[r*n+i] - sum1;
         }
@@ -172,7 +177,7 @@ bool luDescomposition(float* A, float* L, float* U,int n)
 }
 
 //LU求解方程
-void luSolve(float* L, float* U, float* b,float* x,int DN)
+void luSolve(const float* L, float* U, float* b,float* x,int DN)
 {
     float *y=new float[DN]();
 
@@ -198,5 +203,18 @@ void luSolve(float* L, float* U, float* b,float* x,int DN)
     delete[] y;
 }
 
+void luSolve(const float* A, float* b,float* x,int DN)
+{
+    float* L=new float[DN*DN];
+    float* U=new float[DN*DN];
+    float *a=new float[DN*DN];
+    memcpy(a,A,sizeof(float)*DN*DN);
+    luDescomposition(a,L,U,DN);
+    luSolve(L,U,b,x,DN);
+
+    delete[] a;
+    delete[] L;
+    delete[] U;
+}
 MATRIX_NAMESPACE_END
         MATH_NAMESPACE_END

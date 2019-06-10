@@ -96,7 +96,7 @@ double conjugateGradientSlover(const double** in_A,const double* in_b,double *in
     delete[] residue;
     return res_val;
 }
-
+//A是实对称正定矩阵
 template <typename T>
 double conjugateGradient(T** in_A,T* in_b,double *in_x,int n){
     double** A=new double*[n];
@@ -117,7 +117,7 @@ double conjugateGradient(T** in_A,T* in_b,double *in_x,int n){
     return err;
 }
 
-
+//A是实对称正定矩阵
 template <typename T>
 double conjugateGradient(T* in_A,T* in_b,double *in_x,int n){
     double** A=new double*[n];
@@ -128,6 +128,13 @@ double conjugateGradient(T* in_A,T* in_b,double *in_x,int n){
         A[i]=new double[n];
         for(int j=0;j<n;j++)
             A[i][j]=(double)in_A[i*n+j];
+    }
+    double eps=1e-7;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+            if(A[i][j]-A[j][i]>eps)
+                throw ("in_A 必须是对称矩阵");
     }
     double err=conjugateGradientSlover((const double**)A,b,in_x,n);
 

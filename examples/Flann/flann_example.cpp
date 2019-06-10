@@ -41,9 +41,7 @@ int main(int argc, char** argv)
     query=Features<float>(que,m,n);
     Features<int> indices(new int[query.rows*nn], query.rows, nn);
     Features<float> dists(new float[query.rows*nn], query.rows, nn);
-
-
-
+    
     // do a knn search, using 128 checks
     clock_t start,end,total;
     start=clock();
