@@ -35,10 +35,10 @@ MATRIX_NAMESPACE_BEGIN
 */
 #if 0
 template <typename T>
-void qr_decomposition(T const* A,int rows,int col,T* Q,T* R,T const& epsilon = T(1e-12));
+void qrDecomposition(T const* A,int rows,int col,T* Q,T* R,T const& epsilon = T(1e-12));
 #endif
 template <typename T,int m,int n>
-void qr_decomposition(Matrix<T,m,n> *A,Matrix<T,m,m>* Q,Matrix<T,m,n>* R,T const& epsilon = T(1e-12));
+void qrDecomposition(Matrix<T,m,n> *A,Matrix<T,m,m>* Q,Matrix<T,m,n>* R,T const& epsilon = T(1e-12));
 MATRIX_NAMESPACE_END
 MATH_NAMESPACE_END
 
@@ -51,18 +51,18 @@ MATRIX_NAMESPACE_BEGIN
 #if 0
 template <typename T>
 void
-math::matrix::qr_decomposition(T const* A, int rows, int cols,T* Q,T* R,T const& epsilon )
+math::matrix::qrDecomposition(T const* A, int rows, int cols,T* Q,T* R,T const& epsilon )
 {
 
     Matrix<T,rows,cols> matrix_A(A),matrix_R;
     Matrix<T,rows,rows> matrix_Q;
-    qr_decomposition(matrix_A,Q,R,epsilon);
+    qrDecomposition(matrix_A,Q,R,epsilon);
 
 }
 #endif
 template <typename T,int m,int n>
 void
-math::matrix::qr_decomposition(Matrix<T,m,n> *A,Matrix<T,m,m>* Q,Matrix<T,m,n>* R,T const& epsilon )
+math::matrix::qrDecomposition(Matrix<T,m,n> *A,Matrix<T,m,m>* Q,Matrix<T,m,n>* R,T const& epsilon )
 {
    //施密特方法
     for (int i = 0; i < n; ++i)

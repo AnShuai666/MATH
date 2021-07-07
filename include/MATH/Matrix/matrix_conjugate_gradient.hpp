@@ -15,7 +15,7 @@ MATH_NAMESPACE_BEGIN
 MATRIX_NAMESPACE_BEGIN
 
 static int CG_N=0;
-double ClcResidue(double* residue,const double** A,const double* b,double* x)//r=b-Ax返回r模长平方
+double clcResidue(double* residue,const double** A,const double* b,double* x)//r=b-Ax返回r模长平方
 {
     double r=0;
     for(int i=0;i<CG_N;i++) {
@@ -27,7 +27,7 @@ double ClcResidue(double* residue,const double** A,const double* b,double* x)//r
     }
     return r;
 }
-double ClcResidue2(double* residue,const double** A,const double* d,double alpha)//r(k+1)=r(k)-alpha*A*d返回r模长平方
+double clcResidue2(double* residue,const double** A,const double* d,double alpha)//r(k+1)=r(k)-alpha*A*d返回r模长平方
 {
     double r=0;
     for(int i=0;i<CG_N;i++) {
@@ -38,7 +38,7 @@ double ClcResidue2(double* residue,const double** A,const double* d,double alpha
     }
     return r;
 }
-double ClcAlpha(double rtr,double* d,const double** A)//alpha=(r*r)/(d*A*d)
+double clcAlpha(double rtr,double* d,const double** A)//alpha=(r*r)/(d*A*d)
 {
     double dtAd=0;
     for(int i=0;i<CG_N;i++)
@@ -53,89 +53,96 @@ double ClcAlpha(double rtr,double* d,const double** A)//alpha=(r*r)/(d*A*d)
     }
     return rtr/dtAd;
 }
-void ClcNextX(double* x,double* d,double alpha)//x(k+1)=x(k)+alpha*d(k)
+void clcNextX(double* x,double* d,double alpha)//x(k+1)=x(k)+alpha*d(k)
 {
     for(int i=0;i<CG_N;i++)
         x[i]=x[i]+alpha*d[i];
 }
-void ClcNextDirection(double* d,double* r,double beta)//d(k+1)=r(k+1)+beta*d(x)
+void clcNextDirection(double* d,double* r,double beta)//d(k+1)=r(k+1)+beta*d(x)
 {
     for(int i=0;i<CG_N;i++)
         d[i]=r[i]+beta*d[i];
 }
-double ConjugateGradientSlover(const double** A,const double* b,double *x,int n)//计算Ax=b,返回计算误差
+double conjugateGradientSlover(const double** in_A,const double* in_b,double *in_x,int n)//计算Ax=b,返回计算误差
 {
     CG_N=n;
     double eps=1e-4;
     int max_ite=n*5;
-    double *_x=new double[n];
+    double *x=new double[n];
     for(int i=0;i<n;i++)
-        _x[i]=1;
-    double *_residue=new double[n];
-    double _res_val=ClcResidue(_residue,A,b,_x);
-    double _res_val_previous=_res_val;
-    double _alpha=0;
-    double *_direction=new double[n];
+        x[i]=1;
+    double *residue=new double[n];
+    double res_val=clcResidue(residue,in_A,in_b,x);
+    double res_val_previous=res_val;
+    double alpha=0;
+    double *direction=new double[n];
     for(int i=0;i<n;i++)
-        _direction[i]=_residue[i];
+        direction[i]=residue[i];
     int k=0;
-    while (_res_val>eps&&k<max_ite){
-        _alpha=ClcAlpha(_res_val_previous,_direction,A);
-        ClcNextX(_x,_direction,_alpha);
-        _res_val=ClcResidue(_residue,A,b,_x);
-        double _beta=_res_val/_res_val_previous;
-        ClcNextDirection(_direction,_residue,_beta);
-        _res_val_previous=_res_val;
+    while (res_val>eps&&k<max_ite){
+        alpha=clcAlpha(res_val_previous,direction,in_A);
+        clcNextX(x,direction,alpha);
+        res_val=clcResidue(residue,in_A,in_b,x);
+        double beta=res_val/res_val_previous;
+        clcNextDirection(direction,residue,beta);
+        res_val_previous=res_val;
         k++;
         //printf("k=%d , residue=%f\n",k,_res_val);
     }
     for(int i=0;i<n;i++)
-        x[i]=_x[i];
-    delete[] _direction;
-    delete[] _x;
-    delete[] _residue;
-    return _res_val;
+        in_x[i]=x[i];
+    delete[] direction;
+    delete[] x;
+    delete[] residue;
+    return res_val;
 }
-
+//A是实对称正定矩阵
 template <typename T>
-double ConjugateGradient(T** A,T* b,double *x,int n){
-    double** _A=new double*[n];
-    double* _b=new double[n];
+double conjugateGradient(T** in_A,T* in_b,double *in_x,int n){
+    double** A=new double*[n];
+    double* b=new double[n];
     for(int i=0;i<n;i++)
     {
-        _b[i]=b[i];
-        _A[i]=new double[n];
+        b[i]=in_b[i];
+        A[i]=new double[n];
         for(int j=0;j<n;j++)
-            _A[i][j]=(double)A[i][j];
+            A[i][j]=(double)in_A[i][j];
     }
-    double _err=ConjugateGradientSlover((const double**)_A,_b,x,n);
+    double err=conjugateGradientSlover((const double**)A,b,in_x,n);
 
     for(int i=0;i<n;i++)
-        delete[] _A[i];
-    delete[] _A;
-    delete[] _b;
-    return _err;
+        delete[] A[i];
+    delete[] A;
+    delete[] b;
+    return err;
 }
 
-
+//A是实对称正定矩阵
 template <typename T>
-double ConjugateGradient(T* A,T* b,double *x,int n){
-    double** _A=new double*[n];
-    double* _b=new double[n];
+double conjugateGradient(T* in_A,T* in_b,double *in_x,int n){
+    double** A=new double*[n];
+    double* b=new double[n];
     for(int i=0;i<n;i++)
     {
-        _b[i]=b[i];
-        _A[i]=new double[n];
+        b[i]=in_b[i];
+        A[i]=new double[n];
         for(int j=0;j<n;j++)
-            _A[i][j]=(double)A[i*n+j];
+            A[i][j]=(double)in_A[i*n+j];
     }
-    double _err=ConjugateGradientSlover((const double**)_A,_b,x,n);
+    double eps=1e-7;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+            if(A[i][j]-A[j][i]>eps)
+                throw ("in_A 必须是对称矩阵");
+    }
+    double err=conjugateGradientSlover((const double**)A,b,in_x,n);
 
     for(int i=0;i<n;i++)
-        delete[] _A[i];
-    delete[] _A;
-    delete[] _b;
-    return _err;
+        delete[] A[i];
+    delete[] A;
+    delete[] b;
+    return err;
 }
 MATRIX_NAMESPACE_END
 MATH_NAMESPACE_END

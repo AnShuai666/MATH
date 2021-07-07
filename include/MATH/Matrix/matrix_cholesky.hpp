@@ -8,7 +8,7 @@
 #ifndef MATH_CHOLESKY_HPP
 #define MATH_CHOLESKY_HPP
 
-#include "math_define.h"
+#include "MATH/math_define.h"
 #include <cmath>
 #include "define.h"
 MATH_NAMESPACE_BEGIN
@@ -23,7 +23,7 @@ MATRIX_NAMESPACE_BEGIN
 */
 template <typename T>
 void
-cholesky_decomposition(T const* A,int const cols,T* L);
+choleskyDecomposition(T const* A,int const cols,T* L);
 
 
 
@@ -38,7 +38,7 @@ MATRIX_NAMESPACE_BEGIN
 //TODO: FOR 邹云龙实现并写一个该文件的一个api文档，去查一下api如何写
 template <typename T>
 void
-cholesky_decomposition (T const* A, int const cols, T* L)
+choleskyDecomposition (T const* A, int const cols, T* L)
 {
     for(int k = 0; k < cols; k++)
     {
@@ -61,7 +61,6 @@ cholesky_decomposition (T const* A, int const cols, T* L)
             L[j*cols+k] = 0;
     }
 }
-
 /*
 template<typename T>    
 void 

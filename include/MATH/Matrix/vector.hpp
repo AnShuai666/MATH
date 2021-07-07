@@ -80,7 +80,7 @@ class Vector
 {
 public:
     //声明向量维度，static保证必须初始化时给定行列值
-    static int constexpr dim = m;
+    static int constexpr m_dim = m;
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~构造函数与析构函数~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 *******************************************************************/
@@ -437,7 +437,7 @@ public:
     *  @const      防止修改类变量
     *  @return     T
     */
-    T abs_sum() const;
+    T absSum() const;
 
     /*
     *  @property   求积
@@ -466,7 +466,7 @@ public:
     *  @const      防止修改类变量
     *  @return     T
     */
-    T norm_square() const;
+    T normSquare() const;
 
     /*
     *  @property   向量归一化
@@ -480,21 +480,21 @@ public:
     *  @func       求向量的归一化,即模长为1的向量,原向量不改变
     *  @return     Vector<T,m>&
     */
-    Vector<T,m> normalize_const() const;
+    Vector<T,m> normalizeConst() const;
 
     /*
     *  @property   求向量绝对值
     *  @func       将向量每个元素求绝对值,原向量被改变
     *  @return     Vector<T,m>&
     */
-    Vector<T,m>& abs_value();
+    Vector<T,m>& absValue();
 
     /*
     *  @property   求向量绝对值
     *  @func       将向量每个元素求绝对值,原向量不改变
     *  @return     Vector<T,m>
     */
-    Vector<T,m> abs_value_const() const;
+    Vector<T,m> absValueConst() const;
 
     /*
     *  @property   求向量相反值
@@ -508,35 +508,35 @@ public:
     *  @func       将向量每个元素求相反数,原向量不改变
     *  @return     Vector<T,m>
     */
-    Vector<T,m> negate_const() const;
+    Vector<T,m> negateConst() const;
 
     /*
     *  @property   升序排序
     *  @func       将向量进行升序排序,原向量被改变
     *  @return     Vector<T,m>&
     */
-    Vector<T,m>& sort_ascending();
+    Vector<T,m>& sortAscending();
 
     /*
     *  @property   升序排序
     *  @func       将向量进行升序排序,原向量不改变
     *  @return     Vector<T,m>
     */
-    Vector<T,m> sort_ascending_const() const;
+    Vector<T,m> sortAscendingConst() const;
 
     /*
     *  @property   降序排序
     *  @func       将向量进行降序排序,原向量被改变
     *  @return     Vector<T,m>&
     */
-    Vector<T,m>& sort_desascending();
+    Vector<T,m>& sortDesascending();
 
     /*
     *  @property   降序排序
     *  @func       将向量进行降序排序,原向量不改变
     *  @return     Vector<T,m>
     */
-    Vector<T,m> sort_desascending_const() const;
+    Vector<T,m> sortDesascendingConst() const;
 
 /********************************************************************
 *~~~~~~~~~~~~~~~~~~~~~~Vector二元运算~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -563,10 +563,10 @@ public:
 *~~~~~~~~~~~~~~~~~~~~~~Vector相似度计算~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ********************************************************************/
 public:
-    int length;
+    int m_length;
 
 protected:
-    T V[m];
+    T m_data[m];
 
 };
 
@@ -579,7 +579,7 @@ template <typename T,int m>
 inline
 Vector<T,m>::Vector()
 {
-    length=m;
+    m_length=m;
 }
 
 
@@ -588,16 +588,16 @@ template <typename T,int m>
 inline
 Vector<T,m>::Vector(T const *arr)
 {
-    std::copy(arr,arr + m,V);
-    length=m;
+    std::copy(arr,arr + m,m_data);
+    m_length=m;
 }
 
 template <typename T,int m>
 inline
 Vector<T,m>::Vector(T const &value)
 {
-    std::fill(V,V + m, value);
-    length=m;
+    std::fill(m_data,m_data + m, value);
+    m_length=m;
 }
 
 template <typename T,int m>
@@ -606,9 +606,9 @@ Vector<T,m>::Vector(T const &value1,T const &value2)
 {
     if(m<2)
         throw("vector too small\n");
-    V[0] = value1;
-    V[1] = value2;
-    length=m;
+    m_data[0] = value1;
+    m_data[1] = value2;
+    m_length=m;
 }
 
 template <typename T,int m>
@@ -617,10 +617,10 @@ Vector<T,m>::Vector(T const &value1,T const &value2,T const &value3)
 {
     if(m<3)
         throw("vector too small\n");
-    V[0] = value1;
-    V[1] = value2;
-    V[2] = value3;
-    length=m;
+    m_data[0] = value1;
+    m_data[1] = value2;
+    m_data[2] = value3;
+    m_length=m;
 }
 
 template <typename T,int m>
@@ -629,11 +629,11 @@ Vector<T,m>::Vector(T const &value1,T const &value2,T const &value3,T const &val
 {
     if(m<4)
         throw("vector too small\n");
-    V[0] = value1;
-    V[1] = value2;
-    V[2] = value3;
-    V[3] = value4;
-    length=m;
+    m_data[0] = value1;
+    m_data[1] = value2;
+    m_data[2] = value3;
+    m_data[3] = value4;
+    m_length=m;
 }
 
 template <typename T,int m>
@@ -641,15 +641,15 @@ inline
 Vector<T,m>::Vector(Vector<T,m-1> const &vector1, T const &value)
 {
     //此处必须用解引用 否则修改不了保护成员变量V
-    std::copy(*vector1,*vector1 + m-1,V);
-    V[m-1] = value;
+    std::copy(*vector1,*vector1 + m-1,m_data);
+    m_data[m-1] = value;
 }
 
 template <typename T,int m>
 inline
 Vector<T,m>::Vector(Vector<T,m> const& vector1)
 {
-    std::copy(*vector1,*vector1 + m,V);
+    std::copy(*vector1,*vector1 + m,m_data);
 }
 
 //TODO::函数风险太大，建议删除@AnShuai
@@ -661,7 +661,7 @@ template <typename T1>
 inline
 Vector<T,m>::Vector(Vector<T1,m> const &vector1)
 {
-    std::copy(*vector1,*vector1 + m, V);
+    std::copy(*vector1,*vector1 + m, m_data);
 }
 
 /*
@@ -669,7 +669,7 @@ template <typename T,int m>
 inline
 Vector<T,m>::~Vector()
 {
-    delete []V;
+    delete []m_data;
 }
  */
 
@@ -677,42 +677,42 @@ template <typename T, int m>
 inline T*
 Vector<T,m>::begin()
 {
-    return V;
+    return m_data;
 }
 
 template <typename T, int m>
 inline T const *
 Vector<T,m>::begin() const
 {
-    return V;
+    return m_data;
 }
 
 template <typename T, int m>
 inline T*
 Vector<T,m>::end()
 {
-    return V+m;
+    return m_data+m;
 }
 
 template <typename T, int m>
 inline T const *
 Vector<T,m>::end() const
 {
-    return  V+m;
+    return  m_data+m;
 }
 
 template <typename T,int m>
 inline T*
 Vector<T,m>::operator* ()
 {
-    return V;
+    return m_data;
 }
 
 template <typename T,int m>
 inline     T const*
 Vector<T,m>::operator* () const
 {
-    return V;
+    return m_data;
 }
 
 template <typename T,int m>
@@ -721,7 +721,7 @@ Vector<T,m>::operator[] (int index)
 {
     if(index>=m)
         throw std::invalid_argument("Invalid index");
-    return V[index];
+    return m_data[index];
 }
 
 template <typename T,int m>
@@ -730,7 +730,7 @@ Vector<T,m>::operator[] (int index) const
 {
     if(index>=m)
         throw std::invalid_argument("Invalid index");
-    return V[index];
+    return m_data[index];
 }
 
 template <typename T,int m>
@@ -739,7 +739,7 @@ Vector<T,m>::operator() (int index)
 {
     if(index>=m)
         throw std::invalid_argument("Invalid index");
-    return V[index];
+    return m_data[index];
 }
 
 template <typename T,int m>
@@ -748,14 +748,14 @@ Vector<T,m>::operator() (int index) const
 {
     if(index>=m)
         throw std::invalid_argument("Invalid index");
-    return V[index];
+    return m_data[index];
 }
 
 template <typename T,int m>
 inline  Vector<T,m>&
 Vector<T,m>::operator+= (Vector<T,m> const& vector1)
 {
-    std::transform(V,V + m, vector1.V,V,std::plus<T>());
+    std::transform(m_data,m_data + m, vector1.m_data,m_data,std::plus<T>());
     return *this;
 }
 
@@ -772,7 +772,7 @@ template <typename T,int m>
 inline  Vector<T,m>&
 Vector<T,m>::operator+= (T const& value)
 {
-    for (auto& v : V)
+    for (auto& v : m_data)
         v += value;
     return *this;
 }
@@ -790,7 +790,7 @@ template <typename T,int m>
 inline  Vector<T,m>&
 Vector<T,m>::operator-= (Vector<T,m> const& vector1)
 {
-    std::transform(V,V + m, vector1.V,V,std::plus<T>());
+    std::transform(m_data,m_data + m, vector1.m_data,m_data,std::plus<T>());
     return *this;
 }
 
@@ -807,7 +807,7 @@ template <typename T,int m>
 inline   Vector<T,m>&
 Vector<T,m>::operator-= (T const& value)
 {
-    for (auto& v : V)
+    for (auto& v : m_data)
         v -= value;
     return *this;
 }
@@ -825,7 +825,7 @@ template <typename T, int m>
 inline Vector<T,m>&
 Vector<T,m>::operator*= (T const value)
 {
-    for(auto& v : V)
+    for(auto& v : m_data)
     {
         v *= value;
     }
@@ -845,7 +845,7 @@ template <typename T, int m>
 inline Vector<T,m>&
 Vector<T,m>::operator/= (T const value)
 {
-    for (auto& v : V)
+    for (auto& v : m_data)
     {
         v /= value;
     }
@@ -865,14 +865,14 @@ template <typename T,int m>
 inline bool
 Vector<T,m>::operator== (Vector<T,m> const& vector1) const
 {
-    return std::equal(V,V+m,*vector1);
+    return std::equal(m_data,m_data+m,*vector1);
 }
 
 template <typename T,int m >
 inline bool
 Vector<T,m>::operator!= (Vector<T,m> const& vector1) const
 {
-    return  !std::equal(V,V+m,*vector1);
+    return  !std::equal(m_data,m_data+m,*vector1);
 }
 
 
@@ -880,7 +880,7 @@ template <typename T,int m>
 inline Vector<T,m>&
 Vector<T,m>::operator= (Vector<T,m> const& vector1)
 {
-    std::copy(*vector1,*vector1 + m,V);
+    std::copy(*vector1,*vector1 + m,m_data);
     return *this;
 }
 //TODO::函数风险太大，建议删除@AnShuai
@@ -891,7 +891,7 @@ template <typename T1>
 inline Vector<T,m>&
 Vector<T,m>::operator= (Vector<T1,m> const& vector1)
 {
-    std::copy(*vector1,*vector1 + m,V);
+    std::copy(*vector1,*vector1 + m,m_data);
     return *this;
 }
 
@@ -911,7 +911,7 @@ inline Vector<T,m>&
 Vector<T,m>::copy(T const* arr, int num)
 {
     num=num<m?num:m;
-    std::copy(arr,arr+num,this->V);
+    std::copy(arr,arr+num,this->m_data);
     return *this;
 }
 
@@ -919,7 +919,7 @@ template <typename T,int m>
 inline T
 Vector<T,m>::minimum() const
 {
-    return *std::min_element(V,V+m);
+    return *std::min_element(m_data,m_data+m);
 }
 
 
@@ -927,7 +927,7 @@ template <typename T,int m>
 inline T
 Vector<T,m>::maximum() const
 {
-    return *std::max_element(V,V+m);
+    return *std::max_element(m_data,m_data+m);
 }
 
 
@@ -937,7 +937,7 @@ inline T
 Vector<T,m>::sum() const
 {
     T sum = 0;
-    for (auto& v : V)
+    for (auto& v : m_data)
         sum += v;
     return sum;
 }
@@ -945,10 +945,10 @@ Vector<T,m>::sum() const
 
 template <typename T,int m>
 inline T
-Vector<T,m>::abs_sum() const
+Vector<T,m>::absSum() const
 {
     T sum = 0;
-    for (auto &v : V)
+    for (auto &v : m_data)
     {
         if(v<0)
             v = 0 - v;
@@ -963,7 +963,7 @@ inline T
 Vector<T,m>::product() const
 {
     T product = (T)1;
-    for(auto& v:V)
+    for(auto& v:m_data)
         product *= v;
     return product;
 }
@@ -972,15 +972,15 @@ template <typename T, int m>
 inline T
 Vector<T,m>::norm() const
 {
-    return std::sqrt(norm_square());
+    return std::sqrt(normSquare());
 }
 
 template <typename T, int m>
 inline T
-Vector<T,m>::norm_square() const
+Vector<T,m>::normSquare() const
 {
     T sum_square = 0;
-    for (auto &v : V)
+    for (auto &v : m_data)
     {
         sum_square += v * v;
     }
@@ -991,7 +991,7 @@ template <typename T,int m>
 inline Vector<T,m>&
 Vector<T,m>::normalize()
 {
-    for (auto& v:V)
+    for (auto& v:m_data)
     {
         v /= norm();
     }
@@ -999,7 +999,7 @@ Vector<T,m>::normalize()
 }
 template <typename T,int m>
 inline Vector<T,m>
-Vector<T,m>::normalize_const() const
+Vector<T,m>::normalizeConst() const
 {
     Vector<T,m> tmp(*this);
     tmp.normalize();
@@ -1008,9 +1008,9 @@ Vector<T,m>::normalize_const() const
 
 template <typename T,int m>
 inline Vector<T,m>&
-Vector<T,m>::abs_value()
+Vector<T,m>::absValue()
 {
-    for (auto& v : V)
+    for (auto& v : m_data)
     {
         if (v < 0)
         {
@@ -1022,10 +1022,10 @@ Vector<T,m>::abs_value()
 
 template <typename T, int m>
 inline Vector<T,m>
-Vector<T,m>::abs_value_const() const
+Vector<T,m>::absValueConst() const
 {
     Vector<T,m> tmp(*this);
-    tmp.abs_value();
+    tmp.absValue();
     return tmp;
 }
 
@@ -1033,7 +1033,7 @@ template <typename T,int m>
 inline Vector<T,m>&
 Vector<T,m>::negate()
 {
-    for (auto & v : V)
+    for (auto & v : m_data)
     {
         v = -v;
     }
@@ -1042,7 +1042,7 @@ Vector<T,m>::negate()
 
 template <typename T,int m>
 inline Vector<T,m>
-Vector<T,m>::negate_const() const
+Vector<T,m>::negateConst() const
 {
     Vector<T,m> tmp(*this);
     tmp.negate();
@@ -1051,35 +1051,35 @@ Vector<T,m>::negate_const() const
 
 template <typename T, int m>
 inline Vector<T,m>&
-Vector<T,m>::sort_ascending()
+Vector<T,m>::sortAscending()
 {
-    std::sort(V,V+m,std::less<T>());
+    std::sort(m_data,m_data+m,std::less<T>());
     return *this;
 }
 
 template <typename T, int m>
 inline Vector<T,m>
-Vector<T,m>::sort_ascending_const() const
+Vector<T,m>::sortAscendingConst() const
 {
     Vector<T,m> tmp(*this);
-    tmp.sort_ascending();
+    tmp.sortAscending();
     return tmp;
 }
 
 template <typename T, int m>
 inline Vector<T,m>&
-Vector<T,m>::sort_desascending()
+Vector<T,m>::sortDesascending()
 {
-    std::sort(V,V+m,std::greater<T>());
+    std::sort(m_data,m_data+m,std::greater<T>());
     return *this;
 }
 
 template <typename T, int m>
 inline Vector<T,m>
-Vector<T,m>::sort_desascending_const() const
+Vector<T,m>::sortDesascendingConst() const
 {
     Vector<T,m> tmp(*this);
-    tmp.sort_desascending();
+    tmp.sortDesascending();
     return tmp;
 }
 
@@ -1087,7 +1087,7 @@ template <typename T, int m>
 inline T
 Vector<T,m>::dot(Vector<T,m>const& vector1) const
 {
-    return std::inner_product(V,V+m,*vector1,T(0));
+    return std::inner_product(m_data,m_data+m,*vector1,T(0));
 }
 
 template <typename T, int m>

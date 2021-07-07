@@ -48,7 +48,7 @@ gaussian2(T const& x, T const& sigma2);
 */
 template <typename T>
 T
-gaussian_xx(T const& xx, T const& sigma);
+gaussianXX(T const& xx, T const& sigma);
 
 /*
 *  @property   高斯函数
@@ -60,7 +60,7 @@ gaussian_xx(T const& xx, T const& sigma);
 */
 template <typename T>
 T
-gaussian2_xx(T const& xx, T const& sigma2);
+gaussian2XX(T const& xx, T const& sigma2);
 
 /*
 *  @property   限定范围
@@ -105,14 +105,14 @@ gaussian2(T const& x, T const& sigma2)
 
 template <typename T>
 inline T
-gaussian_xx(const T &xx, const T &sigma)
+gaussianXX(const T &xx, const T &sigma)
 {
     return std::exp(-(xx) / (T(2) * sigma * sigma));
 }
 
 template <typename T>
 inline T
-gaussian2_xx(const T &xx, const T &sigma2)
+gaussian2XX(const T &xx, const T &sigma2)
 {
     return std::exp(-(xx) / (T(2) * sigma2));
 }

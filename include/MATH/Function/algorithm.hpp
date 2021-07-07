@@ -12,7 +12,7 @@ MATH_NAMESPACE_BEGIN
 FUNCTION_NAMESPACE_BEGIN
 //清除vector中对应delete_list为true的元素
 template <typename T>
-void vector_clean(std::vector<bool> const& delete_list, std::vector<T>* vector);
+void vectorClean(std::vector<bool> const& delete_list, std::vector<T>* vector);
 
 
 
@@ -20,7 +20,7 @@ void vector_clean(std::vector<bool> const& delete_list, std::vector<T>* vector);
 //实现
 template <typename T>
 void
-vector_clean(std::vector<bool> const &delete_list, vector<T> *vector)
+vectorClean(std::vector<bool> const &delete_list, vector<T> *vector)
 {
     typename std::vector<T>::iterator vr = vector->begin();
     typename std::vector<T>::iterator vw = vector->begin();

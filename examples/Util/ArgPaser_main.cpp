@@ -6,7 +6,7 @@
 */
 
 #include <iostream>
-#include "Util/ArgParser.h"
+#include "Util/arg_parser.h"
 using namespace math;
 int main(int argc,char** argv)
 {
@@ -15,11 +15,11 @@ int main(int argc,char** argv)
     //struct ArgResult
     util::ArgResult argResult;
     argResult.arg = argv[1];
-    std::cout<<argResult.get_arg<int>()<<std::endl;
+    std::cout<<argResult.getArg<int>()<<std::endl;
 
     //class Arguments
     util::Arguments arguments;
-    arguments.set_usage("usage");
+    arguments.setUsage("usage");
 
 
     return 0;

@@ -7,7 +7,7 @@ set(HEADERS
         ../../include/MATH/Util/file_system.h
         ../../include/MATH/Util/logging.h
         ../../include/MATH/Util/aligned_allocator.hpp
-        ../../include/MATH/Util/ArgParser.h
+        ../../include/MATH/Util/arg_parser.h
         ../../include/MATH/Util/string.h
         ../../include/MATH/Util/exception.h
         ../../include/MATH/Util/timer.h
@@ -15,7 +15,7 @@ set(HEADERS
 set(SOURCE_FILES
         ${PROJECT_SOURCE_DIR}/src/Util/system.cpp
         ${PROJECT_SOURCE_DIR}/src/Util/file_system.cpp
-        ${PROJECT_SOURCE_DIR}/src/Util/ArgParser.cpp
+        ${PROJECT_SOURCE_DIR}/src/Util/arg_parser.cpp
         ${PROJECT_SOURCE_DIR}/src/Util/string.cpp
         )
 
